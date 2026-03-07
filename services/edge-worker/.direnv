@@ -1,0 +1,5 @@
+export EDGE_REPO_PATH=/Users/ani/workspaces/github.com/Stanford-TML/EDGE
+export EDGE_INFER_SCRIPT=/Users/ani/workspaces/github.com/blizzyboii/hackai26/services/edge-worker/scripts/edge_adapter.py
+export EDGE_CHECKPOINT_PATH=/Users/ani/workspaces/github.com/Stanford-TML/EDGE/checkpoint.pt
+export EDGE_PYTHON_BIN=/absolute/path/to/edge-env-python  # optional but recommended
+export EDGE_REQUIRE_GPU=1              # set 0 only for non-NVIDIA/dev testing

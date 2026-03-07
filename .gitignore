@@ -1,0 +1,14 @@
+node_modules/
+.next/
+dist/
+build/
+.DS_Store
+.env
+.env.local
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+services/api/data/
+services/edge-worker/.venv/
+
