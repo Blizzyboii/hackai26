@@ -38,7 +38,6 @@ export function PeopleHoverCard({
   onMouseEnter,
   onMouseLeave,
 }: PeopleHoverCardProps) {
-  const previewPeople = people.slice(0, 5);
   const left = Math.min(point.x + 16, Math.max(viewport.width - 324, 8));
   const top = Math.min(point.y + 16, Math.max(viewport.height - 340, 8));
 
@@ -53,9 +52,9 @@ export function PeopleHoverCard({
       <p className="mt-1 text-xs text-slate-300">{subtitle}</p>
       {countLabel ? <p className="mt-1 text-xs font-semibold text-slate-200">{countLabel}</p> : null}
 
-      {previewPeople.length > 0 ? (
+      {people.length > 0 ? (
         <div className="mt-3 max-h-48 space-y-2 overflow-y-auto pr-1">
-          {previewPeople.map((person) => (
+          {people.map((person) => (
             <div key={person.id} className="flex items-center gap-2 rounded-lg bg-slate-900/70 p-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img

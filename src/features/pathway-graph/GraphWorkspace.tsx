@@ -94,6 +94,12 @@ function edgeDetailPayload(edge: GraphEdgeData, nodeById: Map<string, GraphNodeD
     people = uniquePeople([...(nodeById.get(edge.source)?.people ?? []), ...(nodeById.get(edge.target)?.people ?? [])]);
   }
 
+  if (people.length === 0 && edge.edgeKind === "club_to_company") {
+    const sourcePeople = nodeById.get(edge.source)?.people ?? [];
+    const targetCompany = (nodeById.get(edge.target)?.label ?? "").toLowerCase();
+    people = sourcePeople.filter((person) => person.company.toLowerCase() === targetCompany);
+  }
+
   return {
     title: `${sourceLabel} → ${targetLabel}`,
     subtitle: edge.relationLabel ?? edge.edgeKind,
