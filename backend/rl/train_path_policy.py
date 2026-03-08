@@ -4,7 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
-from backend.rl.path_policy import DEFAULT_TRAINING_CONFIG, train_linear_policy
+from path_policy import DEFAULT_TRAINING_CONFIG, train_linear_policy
 
 
 def parse_args() -> argparse.Namespace:

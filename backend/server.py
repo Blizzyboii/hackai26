@@ -16,8 +16,8 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
 try:
-    from backend.graph_builder import build_graph_dataset
-    from backend.rl.path_policy import DEFAULT_POLICY_MODE, default_artifact_paths, recommend_paths_payload
+    from graph_builder import build_graph_dataset
+    from path_policy import DEFAULT_POLICY_MODE, default_artifact_paths, recommend_paths_payload
 except ModuleNotFoundError:
     from graph_builder import build_graph_dataset
     from rl.path_policy import DEFAULT_POLICY_MODE, default_artifact_paths, recommend_paths_payload

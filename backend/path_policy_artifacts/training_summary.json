@@ -1,6 +1,11 @@
 {
-  "status": "untrained",
-  "message": "Run backend/rl/export_graph_snapshot.py and backend/rl/train_path_policy.py to produce policy.pt.",
-  "checkpoint_path": "backend/path_policy_artifacts/policy.pt"
+  "status": "trained",
+  "episodes": 50000,
+  "successful_episodes": 6714,
+  "success_rate": 0.93428,
+  "average_reward": 0.8225720700000001,
+  "total_steps": 59456,
+  "checkpoint_path": "hackai26/backend/path_policy_artifacts/policy.pt",
+  "feature_manifest_path": "hackai26/backend/path_policy_artifacts/feature_manifest.json",
+  "seed": 7
 }
-

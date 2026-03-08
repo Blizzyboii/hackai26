@@ -1,0 +1,4136 @@
+{
+  "rootNodeId": "root",
+  "nodes": [
+    {
+      "id": "root",
+      "type": "root",
+      "label": "You",
+      "tags": [
+        "student",
+        "start"
+      ],
+      "categoryTag": "student",
+      "logo": "YOU",
+      "size": "lg",
+      "people": [],
+      "meta": {
+        "campus": "UTD"
+      }
+    },
+    {
+      "id": "club-american-red-cross-club-at-the-university-of-texas-at-dallas-654d35ebbfe4308bcdfc3fec",
+      "type": "club",
+      "label": "American Red Cross Club at The University of Texas at Dallas",
+      "tags": [
+        "service"
+      ],
+      "categoryTag": "service",
+      "memberCount": 0,
+      "logo": "ARCC",
+      "size": "lg",
+      "people": [],
+      "meta": {
+        "description": "Red Cross UTD is dedicated to promoting awareness of the humanitarian goals of the American Red Cross by participating as a student chapter in the DFW Metroplex. We aim to contribute to the prevention and alleviation of suffering in the face of disaster while upholding the American Red Cross Code of Conduct and the seven Fundamental Principles of the International Federation of Red Cross and Red Crescent Societies."
+      }
+    },
+    {
+      "id": "club-artificial-intelligence-in-medicine-654d35ecbfe4308bcdfc3ff8",
+      "type": "club",
+      "label": "Artificial Intelligence in Medicine",
+      "tags": [
+        "academic interests",
+        "educational",
+        "healthcare/medical",
+        "tech & computing",
+        "engineering",
+        "ai",
+        "pre-health",
+        "pre-med"
+      ],
+      "categoryTag": "academic interests",
+      "memberCount": 0,
+      "logo": "AIIM",
+      "size": "lg",
+      "people": [],
+      "meta": {
+        "description": "We are a group of students excited to bridge the gap between medicine and technology, creating a vibrant platform for students passionate about both fields to come together. Additionally, not only do we want to create a platform from which medical and technology based students can leap off of, but also one where students from a diverse array of academic backgrounds can learn and develop an interest in the fields. Our mission is to foster innovation, interdisciplinary collaboration, and the exchange of knowledge among students interested in the intersection of medicine and technology. In other words: to bring students from these two very different but intersecting fields together in their quest for knowledge. We plan to facilitate this through a variety of events, from guest speakers in the field to relevant workshops, hackathons, and much much more."
+      }
+    },
+    {
+      "id": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "type": "club",
+      "label": "Artificial Intelligence Society",
+      "tags": [
+        "academic interests",
+        "educational",
+        "hobbies & special interests",
+        "tech & computing",
+        "engineering"
+      ],
+      "categoryTag": "academic interests",
+      "memberCount": 12,
+      "logo": "AIS",
+      "size": "lg",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "Artificial Intelligence Society at UTD",
+          "role": "Director of Innovation Lab"
+        },
+        {
+          "id": "person-ajay-alluri",
+          "name": "Ajay Alluri",
+          "avatarUrl": "https://i.pravatar.cc/80?img=17",
+          "company": "Unknown",
+          "role": "Director of Finance"
+        },
+        {
+          "id": "person-anveetha-suresh",
+          "name": "Anveetha Suresh",
+          "avatarUrl": "https://i.pravatar.cc/80?img=36",
+          "company": "Agaram Tamil Student Association",
+          "role": "President"
+        },
+        {
+          "id": "person-hamiz-iqbal",
+          "name": "Hamiz Iqbal",
+          "avatarUrl": "https://i.pravatar.cc/80?img=65",
+          "company": "Unknown",
+          "role": "Director of AIM"
+        },
+        {
+          "id": "person-herbert-melgar",
+          "name": "Herbert Melgar",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Artificial Intelligence Society at UTD",
+          "role": "Secretary"
+        },
+        {
+          "id": "person-mihir-tirumalasetti",
+          "name": "Mihir Tirumalasetti",
+          "avatarUrl": "https://i.pravatar.cc/80?img=17",
+          "company": "Unknown",
+          "role": "Director of Operations"
+        },
+        {
+          "id": "person-mytri-nair",
+          "name": "Mytri Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=37",
+          "company": "American Red Cross",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-sarvesh-gopalakrishnan",
+          "name": "Sarvesh Gopalakrishnan",
+          "avatarUrl": "https://i.pravatar.cc/80?img=18",
+          "company": "Big Data Bowl",
+          "role": "Vice-Director of AIM"
+        },
+        {
+          "id": "person-sreevasan-sivasubramanian",
+          "name": "Sreevasan Sivasubramanian",
+          "avatarUrl": "https://i.pravatar.cc/80?img=64",
+          "company": "Unknown",
+          "role": "Director of Technology"
+        },
+        {
+          "id": "person-sristi-srinivasan",
+          "name": "Sristi Srinivasan",
+          "avatarUrl": "https://i.pravatar.cc/80?img=46",
+          "company": "Unknown",
+          "role": "Director of Marketing"
+        },
+        {
+          "id": "person-vasudev-nair",
+          "name": "Vasudev Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Black Box",
+          "role": "Director of AI Academy"
+        },
+        {
+          "id": "person-zaina-ali",
+          "name": "Zaina Ali",
+          "avatarUrl": "https://i.pravatar.cc/80?img=29",
+          "company": "Unknown",
+          "role": "Director of Industry"
+        }
+      ],
+      "meta": {
+        "description": "The Artificial Intelligence Society is one of the largest computer science organizations at the University of Texas at Dallas. We are a team of passionate individuals, devoted to bridging the gap between people's awareness and the world of AI. Our mission is to promote artificial intelligence education at UT Dallas and in the surrounding communities. We have placed educational outreach as one of our main priorities, to inspire others to learn more about AI past the resources our organization provides. Regardless of age, major, or experience, we believe that a simple appreciation of artificial intelligence will become necessary as this technology advances. If you stick with us, we promise to replace your fear with passion, and complexity with simplicity. You can join us at one of our several events throughout the semester, including AI Chats: where we bring together professors, professionals, and peers into a conversational panel, ML Monday: where we host informative lectures regarding the world of AI. For more information please visit our website Follow our Instagram for Updates"
+      }
+    },
+    {
+      "id": "club-ascm-ut-dallas-student-forum-654d35edbfe4308bcdfc3fff",
+      "type": "club",
+      "label": "ASCM UT Dallas Student Forum",
+      "tags": [
+        "academic interests",
+        "educational",
+        "hobbies & special interests"
+      ],
+      "categoryTag": "academic interests",
+      "memberCount": 0,
+      "logo": "AUDS",
+      "size": "lg",
+      "people": [],
+      "meta": {
+        "description": "ASCM UT Dallas Student Forum mission is to enhance our member's experience outside of the classroom on their journey to becoming excellent supply chain professionals. We plan on doing this by providing our members valuable insights through networking opportunities, knowledge on current supply chain trends, providing knowledge regarding ASCM certifications, and professional development opportunities from events hosted by ASCM UT Dallas Student Forum."
+      }
+    },
+    {
+      "id": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "type": "club",
+      "label": "Association for Computing Machinery",
+      "tags": [
+        "academic interests",
+        "educational",
+        "service",
+        "hobbies & special interests",
+        "university department",
+        "recreation",
+        "competitions"
+      ],
+      "categoryTag": "academic interests",
+      "memberCount": 3,
+      "logo": "AFCM",
+      "size": "lg",
+      "people": [
+        {
+          "id": "person-elijah-walker",
+          "name": "Elijah Walker",
+          "avatarUrl": "https://i.pravatar.cc/80?img=10",
+          "company": "ACM UTD",
+          "role": "President"
+        },
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "ACM UTD",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-mercedes-xiong",
+          "name": "Mercedes Xiong",
+          "avatarUrl": "https://i.pravatar.cc/80?img=1",
+          "company": "ACM UTD",
+          "role": "Vice President"
+        }
+      ],
+      "meta": {
+        "description": "We're a team of students with one goal: building a greater, more collaborative computing community at The University of Texas at Dallas. We offer several semester-long programs to help UTD students hone their computer science skills including Projects, Research, Mentor Program, and Technical Interview Prep (TIP). We also have teams that work with our sponsors, team-bonding events, create our marketing, and run HackUTD, the largest hackathon in Texas and the central time zone."
+      }
+    },
+    {
+      "id": "club-association-for-information-systems-654d35eebfe4308bcdfc4006",
+      "type": "club",
+      "label": "Association for Information Systems",
+      "tags": [
+        "academic interests",
+        "educational"
+      ],
+      "categoryTag": "academic interests",
+      "memberCount": 0,
+      "logo": "AFIS",
+      "size": "lg",
+      "people": [],
+      "meta": {
+        "description": "The Association for Information Systems (AIS) is a student organization focused on advancing knowledge and excellence in information systems. As part of a global professional community, AIS supports learning, professional development, and collaboration while exploring how information systems serve organizations and society. Members gain opportunities to grow their skills, connect with peers, and engage with real-world technology."
+      }
+    },
+    {
+      "id": "club-autoimmune-awareness-organization-xegqdpnhteaf2l8v4igz",
+      "type": "club",
+      "label": "Autoimmune Awareness Organization",
+      "tags": [
+        "educational",
+        "health & lifestyle",
+        "awareness"
+      ],
+      "categoryTag": "educational",
+      "memberCount": 0,
+      "logo": "AAO",
+      "size": "lg",
+      "people": [],
+      "meta": {
+        "description": "Our mission is to bring awareness of autoimmune disorders and their varieties to the UT Dallas community! We do this by conducting literary research and by sharing our findings at our fun, but informational meetings. Keep an eye out for our social media posts where we provide bite-sized breakdowns of our research and highlight key figures in the autoimmune research and advocacy. We also contact individuals with certain autoimmune conditions to talk about their experiences as guest speakers or interviewees to receive insight on their journeys."
+      }
+    },
+    {
+      "id": "club-aws-organization-at-utd-654d35efbfe4308bcdfc4012",
+      "type": "club",
+      "label": "AWS Organization at UTD",
+      "tags": [
+        "educational"
+      ],
+      "categoryTag": "educational",
+      "memberCount": 0,
+      "logo": "AOAU",
+      "size": "lg",
+      "people": [],
+      "meta": {
+        "description": "AWS Organization is a student organization for IT and engineering students at The University of Texas at Dallas. The organization aims to raise awareness of the AWS cloud computing technology and engage in an in-depth discussion of a wide range of topics."
+      }
+    },
+    {
+      "id": "club-collegiate-chapter-of-the-association-of-fundraising-professionals-at-ut-dallas-afp-utd-654d35f7bfe4308bcdfc4050",
+      "type": "club",
+      "label": "Collegiate Chapter of the Association of Fundraising Professionals at UT Dallas (AFP UTD)",
+      "tags": [
+        "educational"
+      ],
+      "categoryTag": "educational",
+      "memberCount": 5,
+      "logo": "CCOT",
+      "size": "lg",
+      "people": [
+        {
+          "id": "person-ananya-mahodaya",
+          "name": "Ananya Mahodaya",
+          "avatarUrl": "https://i.pravatar.cc/80?img=62",
+          "company": "Unknown",
+          "role": "President"
+        },
+        {
+          "id": "person-barak-geary",
+          "name": "Barak Geary",
+          "avatarUrl": "https://i.pravatar.cc/80?img=1",
+          "company": "Unknown",
+          "role": "Secretary"
+        },
+        {
+          "id": "person-chrystal-oneal",
+          "name": "Chrystal Oneal",
+          "avatarUrl": "https://i.pravatar.cc/80?img=3",
+          "company": "Unknown",
+          "role": "Treasurer"
+        },
+        {
+          "id": "person-kya-ingram",
+          "name": "Kya Ingram",
+          "avatarUrl": "https://i.pravatar.cc/80?img=67",
+          "company": "Unknown",
+          "role": "Media Chair"
+        },
+        {
+          "id": "person-veronica-okafor",
+          "name": "Veronica Okafor",
+          "avatarUrl": "https://i.pravatar.cc/80?img=60",
+          "company": "Unknown",
+          "role": "Vice President"
+        }
+      ],
+      "meta": {
+        "description": "Collegiate Chapter of the Association of Fundraising Professionals at UT Dallas (AFP UTD) is the first student-led organization at UT Dallas for students and young professionals who are interested in fundraising. The UTD AFP Collegiate Chapter is also part of something much bigger - a worldwide professional organization that not only is a part of a global network of fundraising professionals across the globe, but also a catalyst for an amazing career. The Chapter is supported by a faculty advisor (Dr. Elizabeth Searing), a local AFP chapter Professional Advisor (Dr. Holly Miori), and a UTD PNM student/Collegiate Chapter President (Thanh Hoang). AFP UTD collegiate chapter will: - Connect students and young professionals sharing passion in nonprofit management and fundraising - Provide learning opportunities such as webinar, fundraising conference, internship and other training opportunities - Prepare students for future career through mentoring, leadership opportunity, and wide network"
+      }
+    },
+    {
+      "id": "club-dems-at-utd-654d3600bfe4308bcdfc4087",
+      "type": "club",
+      "label": "Dems at UTD",
+      "tags": [
+        "political"
+      ],
+      "categoryTag": "political",
+      "memberCount": 0,
+      "logo": "DAU",
+      "size": "lg",
+      "people": [],
+      "meta": {
+        "description": "Our mission is to empower students with knowledge and insights into progressive politics, fostering an environment that encourages learning and critical thinking. Additionally, we aim to utilize our club as a platform for enhancing voter education, promoting informed and engaged citizenship."
+      }
+    },
+    {
+      "id": "club-faces-of-african-muslims-ygshp0kppd2fkuwwu8ta",
+      "type": "club",
+      "label": "Faces of African Muslims",
+      "tags": [
+        "cultural",
+        "religious",
+        "social",
+        "educational",
+        "service",
+        "student media",
+        "volunteerism",
+        "student leadership",
+        "identity-based"
+      ],
+      "categoryTag": "cultural",
+      "memberCount": 0,
+      "logo": "FOAM",
+      "size": "lg",
+      "people": [],
+      "meta": {
+        "description": "Our mission as \"Faces of African Muslims\" is to create a safe space and platform for Muslims of African descent. We aim to promote awareness and enable the spiritual growth of members with the end goal of cultivating unity within the Muslim community at UTD. We hope to achieve this by hosting many events throughout the year that are educational, engaging, and events that help build bonds for our members. Students and faculty of UTD are all invited no matter what ethnicity or religion you are, come and be part of the FAM!!!"
+      }
+    },
+    {
+      "id": "club-friends-of-msf-at-ut-dallas-654d3606bfe4308bcdfc40ac",
+      "type": "club",
+      "label": "Friends of MSF at UT Dallas",
+      "tags": [
+        "service",
+        "healthcare/medical",
+        "social"
+      ],
+      "categoryTag": "service",
+      "memberCount": 5,
+      "logo": "FOMA",
+      "size": "lg",
+      "people": [
+        {
+          "id": "person-boyu-huang",
+          "name": "Boyu Huang",
+          "avatarUrl": "https://i.pravatar.cc/80?img=20",
+          "company": "Unknown",
+          "role": "Social Secretary"
+        },
+        {
+          "id": "person-junior-hernandez",
+          "name": "Junior Hernandez",
+          "avatarUrl": "https://i.pravatar.cc/80?img=40",
+          "company": "Unknown",
+          "role": "Treasurer"
+        },
+        {
+          "id": "person-sarah-asadollahi",
+          "name": "Sarah Asadollahi",
+          "avatarUrl": "https://i.pravatar.cc/80?img=44",
+          "company": "Unknown",
+          "role": "President"
+        },
+        {
+          "id": "person-stephen-pereira",
+          "name": "Stephen Pereira",
+          "avatarUrl": "https://i.pravatar.cc/80?img=44",
+          "company": "Unknown",
+          "role": "Vice-President"
+        },
+        {
+          "id": "person-uzair-saeed",
+          "name": "Uzair Saeed",
+          "avatarUrl": "https://i.pravatar.cc/80?img=27",
+          "company": "Unknown",
+          "role": "Events Secretary"
+        }
+      ],
+      "meta": {
+        "description": "Description: The Friends of M\u00e9decins Sans Fronti\u00e8res (MSF) is a student-led organization dedicated to advocacy, education, and fundraising. Our chapter works to raise awareness over global medical and humanitarian efforts by engaging the UTD campus in meaningful discussion and initiative. \u200bOur mission is to prove that even the smallest act of compassion can make a huge difference when we all come together. Purpose: Our goal is not limited to supporting MSF in the present but to build a strong foundation that will allow this organization to thrive for years to come. The current officers are primarily students majoring in the medical field, but we welcome individuals from all disciplines who are passionate about global health and humanitarian work. We believe in fostering an open and welcoming environment, and are always ready to answer questions, offer support, or engage in meaningful discussions."
+      }
+    },
+    {
+      "id": "club-global-medical-and-dental-brigades-654d360abfe4308bcdfc40c1",
+      "type": "club",
+      "label": "Global Medical and Dental Brigades",
+      "tags": [
+        "service",
+        "healthcare/medical",
+        "international",
+        "social",
+        "shadowing"
+      ],
+      "categoryTag": "service",
+      "memberCount": 2,
+      "logo": "GMAD",
+      "size": "lg",
+      "people": [
+        {
+          "id": "person-chloe-mammen",
+          "name": "Chloe Mammen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=15",
+          "company": "Unknown",
+          "role": "President"
+        },
+        {
+          "id": "person-stephanie-joseph",
+          "name": "Stephanie Joseph",
+          "avatarUrl": "https://i.pravatar.cc/80?img=44",
+          "company": "Unknown",
+          "role": "President"
+        }
+      ],
+      "meta": {
+        "description": "Our mission is to empower volunteers and under-resourced communities to resolve global health and economic disparities and inspire all involved to collaboratively work towards an equal world. Global Brigades at the University of Texas at Dallas is a secular, international student-operated volunteer organization whose mission is to provide sustainable development to underserved communities throughout the world. It will offer 1 Brigade Program: Medical/Dental. Along with affiliate groups at other distinguished universities, our University of Texas at Dallas team recruits student volunteers and professionals, gathers supplies, and then travels overseas to set up free medical and dental clinics and run educational programs to improve public health and sanitation, in a variety of underserved global communities. Students will visit several community projects that aim to also better the quality of life in these impoverished areas."
+      }
+    },
+    {
+      "id": "club-investments-and-securities-club-at-utd-654d3616bfe4308bcdfc40f4",
+      "type": "club",
+      "label": "Investments and Securities Club at UTD",
+      "tags": [
+        "academic interests",
+        "educational",
+        "service"
+      ],
+      "categoryTag": "academic interests",
+      "memberCount": 0,
+      "logo": "IASC",
+      "size": "lg",
+      "people": [],
+      "meta": {
+        "description": "Investing is a crucial tool that not only serves as a great educational experience but as a major method of financial mobility, an opportunity often overlooked for students in college. IMC aims to provide UT Dallas with a community for students interested in learning about investing to come together, increasing our local community's financial literacy."
+      }
+    },
+    {
+      "id": "club-islamic-relief-at-utd-654d3617bfe4308bcdfc40f9",
+      "type": "club",
+      "label": "Islamic Relief at UTD",
+      "tags": [
+        "service",
+        "religious"
+      ],
+      "categoryTag": "service",
+      "memberCount": 0,
+      "logo": "IRAU",
+      "size": "lg",
+      "people": [],
+      "meta": {
+        "description": "Mission: \"Building community through service\" Purpose: To be a beacon of service for the UTD student population. Organization Description: Islamic Relief at UTD (IRUTD for short) is a service-based organization with the aim of providing relief and aid to both our neighboring communities and our family abroad. We work to empower individuals in our community and give them a voice, regardless of gender, race, ethnicity, or religion. Although we draw our inspiration to do service from what Allah has said in the Quran and the teachings of the Prophet Muhammad (peace be upon him), membership is open to anybody committed to putting service to others over themselves."
+      }
+    },
+    {
+      "id": "club-marathi-mitra-mandal-n-3skaiin7-chy1cufwq",
+      "type": "club",
+      "label": "Marathi Mitra Mandal",
+      "tags": [
+        "social",
+        "cultural",
+        "art and music",
+        "religious",
+        "diversity",
+        "identity-based",
+        "community",
+        "international",
+        "graduate students",
+        "undergrad",
+        "festivals",
+        "indian",
+        "networking"
+      ],
+      "categoryTag": "social",
+      "memberCount": 0,
+      "logo": "MMM",
+      "size": "lg",
+      "people": [],
+      "meta": {
+        "description": "Marathi Mitra Mandal (MMM) is a student organization dedicated to celebrating and promoting Marathi culture, language, and traditions while building a strong and welcoming community on campus. Our mission is to create a home away from home for students who share an interest in Maharashtra\u2019s rich heritage \u2014 from festivals, food, and music to history, art, and community values. We host cultural events such as Gudi Padwa, Diwali, Dasara, and Maharashtra Day, along with social gatherings, game nights, collaborative campus events, and networking opportunities. MMM is open to everyone! Marathi-speaking students, those with Maharashtrian roots, and anyone curious about learning more about our culture. Whether you come for the food, the dhol tasha, or the friendships, you\u2019ll find a supportive and vibrant community here."
+      }
+    },
+    {
+      "id": "club-medicine-education-and-development-for-low-income-families-everywhere-medlife-654d361dbfe4308bcdfc4132",
+      "type": "club",
+      "label": "Medicine Education and Development for Low Income Families Everywhere (MEDLIFE)",
+      "tags": [
+        "service"
+      ],
+      "categoryTag": "service",
+      "memberCount": 0,
+      "logo": "MEAD",
+      "size": "lg",
+      "people": [],
+      "meta": {
+        "description": "MEDLIFE is a 501(c)(3) non-profit organization that partners with low-income communities in Latin America and Africa to improve their access to medicine, education, and community development projects. Our ultimate goal is to one day reach a world free from the constraints of poverty by empowering students and volunteers to become advocates for change by becoming leaders in our chapter and supporting the Moving Mountains giving program. MEDLIFE national hires and trains local staff to provide high quality 24/7/365 patient care, community development projects, and educational workshops to empower communities in need. These initiatives would not be possible without forming chapters at universities and high schools across the globe. MEDLIFE Chapters are the pillars of the movement. Our chapter would represent and promote MEDLIFE at UT Dallas and in our local communities. We would make an immeasurable impact - raising money for MEDLIFE, volunteering in Service Learning Trips, engaging in local community service initiatives, and more. We will work hand in hand with low-income communities and student groups to bring healthcare, education, and safe homes to the sites where we work, abroad or locally. The year-round effort will translate into hundreds of thousands of healthier families, better-informed individuals, and safer communities across Latin America, Africa and here in the DFW area. Overall, we aim to involve students, develop leadership skills, have the opportunity to make a difference, and build important connections that last a lifetime."
+      }
+    },
+    {
+      "id": "club-nontraditional-student-organization-at-utd-qvo5xogv3enioaymtov8",
+      "type": "club",
+      "label": "Nontraditional Student Organization at UTD",
+      "tags": [
+        "hobbies & special interests",
+        "recreation",
+        "identity-based",
+        "social"
+      ],
+      "categoryTag": "hobbies & special interests",
+      "memberCount": 6,
+      "logo": "NSOA",
+      "size": "lg",
+      "people": [
+        {
+          "id": "person-britny-carrino",
+          "name": "Britny Carrino",
+          "avatarUrl": "https://i.pravatar.cc/80?img=49",
+          "company": "Unknown",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-desiree-martinez",
+          "name": "Desiree Martinez",
+          "avatarUrl": "https://i.pravatar.cc/80?img=30",
+          "company": "Unknown",
+          "role": "Special Projects Officer"
+        },
+        {
+          "id": "person-dr-gregg-dieckmann",
+          "name": "Dr. Gregg Dieckmann",
+          "avatarUrl": "https://i.pravatar.cc/80?img=62",
+          "company": "Unknown",
+          "role": "Faculty Advisor"
+        },
+        {
+          "id": "person-jim-shaw",
+          "name": "Jim Shaw",
+          "avatarUrl": "https://i.pravatar.cc/80?img=53",
+          "company": "Unknown",
+          "role": "Secretary"
+        },
+        {
+          "id": "person-lacy-templeton",
+          "name": "Lacy Templeton",
+          "avatarUrl": "https://i.pravatar.cc/80?img=14",
+          "company": "Unknown",
+          "role": "President"
+        },
+        {
+          "id": "person-paige-born",
+          "name": "Paige Born",
+          "avatarUrl": "https://i.pravatar.cc/80?img=3",
+          "company": "Unknown",
+          "role": "Treasurer"
+        }
+      ],
+      "meta": {
+        "description": "Our organization exists to support, connect, and empower nontraditional students at UTD by fostering community, sharing resources, and providing a space for members to find commonality in their unique experiences. We aim to support personal, academic, and professional growth for all members."
+      }
+    },
+    {
+      "id": "club-partners-in-health-engage-at-the-university-of-texas-at-dallas-654d3622bfe4308bcdfc415c",
+      "type": "club",
+      "label": "Partners In Health Engage at the University of Texas at Dallas",
+      "tags": [
+        "academic interests",
+        "political",
+        "service",
+        "hobbies & special interests"
+      ],
+      "categoryTag": "academic interests",
+      "memberCount": 0,
+      "logo": "PIHE",
+      "size": "lg",
+      "people": [],
+      "meta": {
+        "description": "Partners In Health Engage at UTD is part of a network of teams around the U.S. joining forces to advance the movement for universal health care. We believe that all individuals, no matter where they live, have a fundamental economic, social, and cultural right to a universal standard of health. By working in collaboration with Partners In Health, a global health and social justice nonprofit that provides care in some of the world's most impoverished places, we aim to bring attention to the global disparity in health care access and to push for global change. We call our Congressional representatives, educate our peers, share resources, and raise funds, all in support of the right to health movement. We believe that together, we can build a more just and equitable world in which everyone has access to the care they need. Join us and help build the movement."
+      }
+    },
+    {
+      "id": "club-process-automation-and-reengineering-club-654d3626bfe4308bcdfc417e",
+      "type": "club",
+      "label": "Process Automation and Reengineering Club",
+      "tags": [
+        "academic interests",
+        "educational"
+      ],
+      "categoryTag": "academic interests",
+      "memberCount": 0,
+      "logo": "PAAR",
+      "size": "lg",
+      "people": [],
+      "meta": {
+        "description": "The Process Automation and Reengineering Club (PARC) aspires to elicit the interest of individuals in understanding Business Processes, Digital Transformation methodologies, Low Code, and related automation frameworks. We aim to equip the members with the best possible low code tools to identify the gaps in any process, mitigate the effects, and automate any Business Process in an Enterprise."
+      }
+    },
+    {
+      "id": "club-queer-and-trans-people-of-color-at-ut-dallas-654d3627bfe4308bcdfc4186",
+      "type": "club",
+      "label": "Queer and Trans People of Color at UT Dallas",
+      "tags": [
+        "cultural",
+        "social"
+      ],
+      "categoryTag": "cultural",
+      "memberCount": 0,
+      "logo": "QATP",
+      "size": "lg",
+      "people": [],
+      "meta": {
+        "description": "Mission: To Promote the Herstory, Academic Success, Health, Civic Engagement, and Empowerment of all queer and trans people of color Purpose/Description: To provide a safe social environment to express the varying intersectional identities that come with being a queer and/or trans person of color. We strive to promote the History, Academic Success, Health, Civic Engagement, and Empowerment of all Queer and Trans People Of Color as well as to create a space for chosen families to foster specfically for queer and/or trans students of color who may not be fully embraced in all of their identities."
+      }
+    },
+    {
+      "id": "club-roundnet-at-ut-dallas-rn-utd-654d3629bfe4308bcdfc4196",
+      "type": "club",
+      "label": "Roundnet at UT Dallas (RN@UTD)",
+      "tags": [
+        "social",
+        "hobbies & special interests",
+        "recreation",
+        "sports",
+        "competitions"
+      ],
+      "categoryTag": "social",
+      "memberCount": 5,
+      "logo": "RAUD",
+      "size": "lg",
+      "people": [
+        {
+          "id": "person-marten-weldon",
+          "name": "Marten Weldon",
+          "avatarUrl": "https://i.pravatar.cc/80?img=54",
+          "company": "Unknown",
+          "role": "President"
+        },
+        {
+          "id": "person-matthew-bidwell",
+          "name": "Matthew Bidwell",
+          "avatarUrl": "https://i.pravatar.cc/80?img=64",
+          "company": "Unknown",
+          "role": "Treasurer"
+        },
+        {
+          "id": "person-owen-unger",
+          "name": "Owen Unger",
+          "avatarUrl": "https://i.pravatar.cc/80?img=60",
+          "company": "Unknown",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-renner-veazey",
+          "name": "Renner Veazey",
+          "avatarUrl": "https://i.pravatar.cc/80?img=55",
+          "company": "Unknown",
+          "role": "Social Media Manager"
+        },
+        {
+          "id": "person-saloni-maniar",
+          "name": "Saloni Maniar",
+          "avatarUrl": "https://i.pravatar.cc/80?img=69",
+          "company": "Unknown",
+          "role": "Events Coordinator"
+        }
+      ],
+      "meta": {
+        "description": "Roundnet at UT Dallas is a club that seeks to get more students active on campus and interested in this sport (often called spikeball). Our aim is to encompass casual and competitive play so that everyone is welcome, challenged, and able to reach their social and skill level goals."
+      }
+    },
+    {
+      "id": "club-sampe-at-utd-society-for-the-advancement-of-material-and-process-engineering-at-utd-sgo0lkitymtajdrm8una",
+      "type": "club",
+      "label": "SAMPE at UTD (Society for the Advancement of Material and Process Engineering at UTD)",
+      "tags": [
+        "academic interests",
+        "educational",
+        "professional development",
+        "science",
+        "engineering",
+        "sustainability & environmental",
+        "composites"
+      ],
+      "categoryTag": "academic interests",
+      "memberCount": 5,
+      "logo": "SAUS",
+      "size": "lg",
+      "people": [
+        {
+          "id": "person-anush-kambala",
+          "name": "Anush Kambala",
+          "avatarUrl": "https://i.pravatar.cc/80?img=69",
+          "company": "Unknown",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-derek-amiotte-fuhr",
+          "name": "Derek Amiotte Fuhr",
+          "avatarUrl": "https://i.pravatar.cc/80?img=34",
+          "company": "Unknown",
+          "role": "President"
+        },
+        {
+          "id": "person-quan-vu-tran",
+          "name": "Quan Vu Tran",
+          "avatarUrl": "https://i.pravatar.cc/80?img=1",
+          "company": "Unknown",
+          "role": "Secretary"
+        },
+        {
+          "id": "person-shereef-ashraf-kamel",
+          "name": "Shereef Ashraf Kamel",
+          "avatarUrl": "https://i.pravatar.cc/80?img=64",
+          "company": "Unknown",
+          "role": "Technical Director"
+        },
+        {
+          "id": "person-sri-anirudh-arvipalli",
+          "name": "Sri Anirudh Arvipalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=32",
+          "company": "Unknown",
+          "role": "Treasurer"
+        }
+      ],
+      "meta": {
+        "description": "We are a group of engineering students who are interested in advanced materials and processing technology. Our purpose is to utilize SAMPE\u2019s resources to connect like-minded students with industry professionals and experts, and to bridge the gap between composite design and its applications in manufacturing. This organization falls under the educational/engineering category."
+      }
+    },
+    {
+      "id": "club-student-tutors-reviving-identity-through-volunteerism-and-education-654d3633bfe4308bcdfc41cd",
+      "type": "club",
+      "label": "Student Tutors Reviving Identity through Volunteerism and Education",
+      "tags": [
+        "academic interests",
+        "educational",
+        "service"
+      ],
+      "categoryTag": "academic interests",
+      "memberCount": 0,
+      "logo": "STRI",
+      "size": "lg",
+      "people": [],
+      "meta": {
+        "description": "STRIVE was founded in 2019 to help underprivileged students in the DFW metroplex have the chance to live up to their true potential. Our initiative first started as a means for Refugee and ESL students to work with select mentors. Our work focused on helping the students overcome language barriers, learn that diversity is indeed accepted, and to think beyond primary education. This initiative was a success as we had a lot of students interested in higher education after various discussions. Unfortunately, many of them struggled to gain acceptance due to the compounding effects of the language barrier. Without a solid grasp of English, performance in various other subjects takes a significant hit. Based on this dilemma, we decided that it was essential to develop a tutoring program for these students to connect them with tutor-mentors from similar backgrounds who would guide the students and allow them to overcome this barrier. We see a bright future for these students, and we want to tap into their potential by providing them with one-on-one subject strategy training and educational advice. Our motto is that every student should have the right to succeed regardless of their background. Language should not be an obstacle to success. We currently work with Lake Highlands High School in the Richardson Independent School District (RISD). Currently looking to expand, we look forward to continuing our mission to eliminate educational disparities."
+      }
+    },
+    {
+      "id": "club-students-promoting-acts-of-random-kindness-spark-654d3635bfe4308bcdfc41d4",
+      "type": "club",
+      "label": "Students Promoting Acts of Random Kindness (SPARK)",
+      "tags": [
+        "recreation",
+        "hobbies & special interests",
+        "service",
+        "social"
+      ],
+      "categoryTag": "recreation",
+      "memberCount": 0,
+      "logo": "SPAO",
+      "size": "lg",
+      "people": [],
+      "meta": {
+        "description": "Students Promoting Acts of Random Kindness, or SPARK, aims to bring kindness to UTDallas both on and off-campus through volunteering events. We want to connect students to both their peers and their community by combining service with social events to make meaningful changes and memories. SPARK requires no membership dues and no minimum attendance rules. We only require good vibes and a positive spirit!"
+      }
+    },
+    {
+      "id": "club-the-biomedical-professionals-society-at-utd-77j4kejgwjjj7vkfwzgu",
+      "type": "club",
+      "label": "The Biomedical Professionals Society at UTD",
+      "tags": [
+        "academic interests",
+        "educational",
+        "hobbies & special interests",
+        "professional development",
+        "volunteerism",
+        "healthcare/medical",
+        "science",
+        "tech & computing",
+        "non-profit",
+        "engineering",
+        "health & lifestyle",
+        "entrepreneurship",
+        "pre-med",
+        "pre-health",
+        "graduate students",
+        "chemistry",
+        "community"
+      ],
+      "categoryTag": "academic interests",
+      "memberCount": 0,
+      "logo": "TBPS",
+      "size": "lg",
+      "people": [],
+      "meta": {
+        "description": "The Biomedical Professionals Society at UTD addresses a critical gap in undergraduate biomedical education by creating an organization specifically focused on the intersection of basic research and clinical application. BPS provides comprehensive support for students pursuing diverse paths in biomedical sciences, from academic research to biotechnology entrepreneurship. This organization falls under the educational and professional development categories and serves to bridge industry-academia connections through research-oriented professional development and comprehensive career pathway support (PhD, MD/PhD, industry, entrepreneurship)."
+      }
+    },
+    {
+      "id": "club-the-ilm-network-btzr9s2cl2vb-u50gjbf",
+      "type": "club",
+      "label": "The Ilm Network",
+      "tags": [
+        "academic interests",
+        "social",
+        "educational",
+        "hobbies & special interests",
+        "religious",
+        "student leadership",
+        "professional development",
+        "tech & computing",
+        "science",
+        "competitions",
+        "engineering",
+        "identity-based",
+        "entrepreneurship",
+        "business"
+      ],
+      "categoryTag": "academic interests",
+      "memberCount": 0,
+      "logo": "TIN",
+      "size": "lg",
+      "people": [],
+      "meta": {
+        "description": "ILM is the premier tech, innovation, and entrepreneurial network rooted in faith at UT Dallas. Our mission is to create a space where innovation meets values \u2014 connecting students across disciplines to learn, build, and lead together. Through startup projects, networking opportunities, and the founders pipeline, ILM equips members with the skills and community support to thrive in their careers while making a lasting impact. Whether you\u2019re a programmer, entrepreneur, or creative, ILM is designed to help you grow and bring your ideas to life."
+      }
+    },
+    {
+      "id": "club-the-institute-of-electrical-and-electronics-engineers-at-the-university-of-texas-at-dallas-654d3639bfe4308bcdfc41ed",
+      "type": "club",
+      "label": "The Institute of Electrical and Electronics Engineers at the University of Texas at Dallas",
+      "tags": [
+        "educational",
+        "academic interests",
+        "professional development",
+        "science",
+        "tech & computing",
+        "student leadership",
+        "engineering",
+        "robotics",
+        "competition",
+        "community"
+      ],
+      "categoryTag": "educational",
+      "memberCount": 14,
+      "logo": "TIOE",
+      "size": "lg",
+      "people": [
+        {
+          "id": "person-alya-mansoor",
+          "name": "Alya Mansoor",
+          "avatarUrl": "https://i.pravatar.cc/80?img=8",
+          "company": "Unknown",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-bhavya-chandran",
+          "name": "Bhavya Chandran",
+          "avatarUrl": "https://i.pravatar.cc/80?img=4",
+          "company": "Unknown",
+          "role": "Director of Engineering"
+        },
+        {
+          "id": "person-bhavya-kamath",
+          "name": "Bhavya Kamath",
+          "avatarUrl": "https://i.pravatar.cc/80?img=68",
+          "company": "Unknown",
+          "role": "Marketing Coordinator"
+        },
+        {
+          "id": "person-cathy-salda-a",
+          "name": "Cathy Salda\u00f1a",
+          "avatarUrl": "https://i.pravatar.cc/80?img=30",
+          "company": "Unknown",
+          "role": "Secretary"
+        },
+        {
+          "id": "person-charlie-wang",
+          "name": "Charlie Wang",
+          "avatarUrl": "https://i.pravatar.cc/80?img=49",
+          "company": "Unknown",
+          "role": "Outreach Coordinator"
+        },
+        {
+          "id": "person-dyanada-gavande",
+          "name": "Dyanada Gavande",
+          "avatarUrl": "https://i.pravatar.cc/80?img=41",
+          "company": "Unknown",
+          "role": "Director of Tutoring"
+        },
+        {
+          "id": "person-nana-kakeue",
+          "name": "Nana Kakeue",
+          "avatarUrl": "https://i.pravatar.cc/80?img=59",
+          "company": "Unknown",
+          "role": "Operations Coordinator"
+        },
+        {
+          "id": "person-rushil-sivaiah",
+          "name": "Rushil Sivaiah",
+          "avatarUrl": "https://i.pravatar.cc/80?img=65",
+          "company": "Unknown",
+          "role": "President"
+        },
+        {
+          "id": "person-sarah-azeem",
+          "name": "Sarah Azeem",
+          "avatarUrl": "https://i.pravatar.cc/80?img=61",
+          "company": "Unknown",
+          "role": "Treasurer"
+        },
+        {
+          "id": "person-sidrah-rashad",
+          "name": "Sidrah Rashad",
+          "avatarUrl": "https://i.pravatar.cc/80?img=51",
+          "company": "Unknown",
+          "role": "Director of Outreach"
+        },
+        {
+          "id": "person-toluwalase-adeyemi",
+          "name": "Toluwalase Adeyemi",
+          "avatarUrl": "https://i.pravatar.cc/80?img=30",
+          "company": "Unknown",
+          "role": "Treasurer"
+        },
+        {
+          "id": "person-ugonna-anyalemechi",
+          "name": "Ugonna Anyalemechi",
+          "avatarUrl": "https://i.pravatar.cc/80?img=13",
+          "company": "Unknown",
+          "role": "Director of Initiatives"
+        },
+        {
+          "id": "person-varsha-shashishekar",
+          "name": "Varsha Shashishekar",
+          "avatarUrl": "https://i.pravatar.cc/80?img=3",
+          "company": "Unknown",
+          "role": "Initiatives Coordinator"
+        },
+        {
+          "id": "person-vishal-manjunath",
+          "name": "Vishal Manjunath",
+          "avatarUrl": "https://i.pravatar.cc/80?img=7",
+          "company": "Unknown",
+          "role": "Director of Marketing"
+        }
+      ],
+      "meta": {
+        "description": "## \u26a1 WHAT IS IEEE UTD? \u26a1 The Institute of Electrical and Electronics Engineers at the University of Texas at Dallas (IEEE UTD) is **the official student chapter of IEEE, the world\u2019s largest professional organization dedicated to advancing technology for the benefit of humanity**. --- ## \ud83e\udd14 WHAT DOES IEEE UTD DO? \ud83e\udd14 Our student chapter is a community of engineers, computer scientists, innovators, and problem-solvers who come together to learn, collaborate, and grow through hands-on projects, technical workshops, networking events, and professional development opportunities. As an active student organization, **IEEE UTD offers:** - **Workshops** on circuits, coding, robotics, and more - **Project teams** and technical collaborations (beginner-friendly *and* advanced) to gain hands-on experience and boost resumes - **Tutoring and exam reviews** personalized each semester to the courses students are currently enrolled in at UTD - **Networking** events with peers, industry professionals, and alumni - **Professional development** opportunities and soft skill seminars (interview prep, resume building, teamwork) - **Social and outreach programs** to connect with the engineering community - **Industry tours** with leading companies for exclusive insights into the field - A supportive **community** to build connections and grow together **AND MUCH MORE! \ud83d\udc99** Membership is open to **all UTD students**! No specific major, national IEEE membership, or experience required. --- ## \ud83d\udca1 WHY JOIN IEEE UTD? \ud83d\udca1 IEEE UTD gives you real opportunities to apply what you learn in class through hands-on projects, technical workshops, and competitions, all while building skills that matter beyond the classroom. You\u2019ll grow your resume, expand your network, and find a community that supports your academic and professional journey. Whether you\u2019re just getting started or already experienced, IEEE UTD meets you where you are. **Welcome to IEEE UTD! Let\u2019s engineer the future, together! \u26a1**"
+      }
+    },
+    {
+      "id": "club-the-national-society-of-leadership-and-success-nsls-654d3639bfe4308bcdfc41f2",
+      "type": "club",
+      "label": "The National Society of Leadership and Success (NSLS)",
+      "tags": [
+        "academic interests"
+      ],
+      "categoryTag": "academic interests",
+      "memberCount": 0,
+      "logo": "TNSO",
+      "size": "lg",
+      "people": [],
+      "meta": {
+        "description": "The mission of the NSLS is \"building leaders who make a better world\". The NSLS is a student-led honor society with over 800 campuses involved across the US. The board will walk members through the \"Foundations of Leadership\" program where they learn to set goals and build leadership skills."
+      }
+    },
+    {
+      "id": "club-youth-with-a-mission-zylraxcw5jm9lbkn13vm",
+      "type": "club",
+      "label": "Youth With A Mission",
+      "tags": [
+        "social",
+        "religious",
+        "academic interests",
+        "hobbies & special interests",
+        "cultural"
+      ],
+      "categoryTag": "social",
+      "memberCount": 0,
+      "logo": "YWAM",
+      "size": "lg",
+      "people": [],
+      "meta": {
+        "description": "Youth With A Mission (YWAM) is a student organization at The University of Texas at Dallas dedicated to supporting international students as they navigate life in the United States. Our mission is to share Christ\u2019s love by creating a welcoming, family-like community where students can grow spiritually, socially, and academically. YWAM provides mentorship, friendship, and practical support to help international students overcome cultural, academic, and personal challenges while building a strong sense of belonging. Through fellowship, prayer, service, teaching, and social activities, we aim to walk alongside students with compassion and care, offering encouragement and guidance every step of the way. Membership is open to all UT Dallas students, faculty, and staff, regardless of background. We value love, faith, inclusivity, and service, and we strive to be a home away from home for those far from their own families."
+      }
+    },
+    {
+      "id": "sub-acm-projects",
+      "type": "subprogram",
+      "label": "ACM Projects",
+      "tags": [
+        "technology",
+        "build",
+        "educational"
+      ],
+      "categoryTag": "technology",
+      "parentClubId": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "logo": "PRJ",
+      "size": "sm",
+      "people": [
+        {
+          "id": "person-elijah-walker",
+          "name": "Elijah Walker",
+          "avatarUrl": "https://i.pravatar.cc/80?img=10",
+          "company": "ACM UTD",
+          "role": "President"
+        },
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "ACM UTD",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-mercedes-xiong",
+          "name": "Mercedes Xiong",
+          "avatarUrl": "https://i.pravatar.cc/80?img=1",
+          "company": "ACM UTD",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "sub-acm-research",
+      "type": "subprogram",
+      "label": "ACM Research",
+      "tags": [
+        "technology",
+        "academic interest",
+        "educational"
+      ],
+      "categoryTag": "technology",
+      "parentClubId": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "logo": "R&D",
+      "size": "sm",
+      "people": [
+        {
+          "id": "person-elijah-walker",
+          "name": "Elijah Walker",
+          "avatarUrl": "https://i.pravatar.cc/80?img=10",
+          "company": "ACM UTD",
+          "role": "President"
+        },
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "ACM UTD",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-mercedes-xiong",
+          "name": "Mercedes Xiong",
+          "avatarUrl": "https://i.pravatar.cc/80?img=1",
+          "company": "ACM UTD",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "sub-ais-mentorship",
+      "type": "subprogram",
+      "label": "AIS Mentorship",
+      "tags": [
+        "professional development",
+        "business",
+        "educational"
+      ],
+      "categoryTag": "professional development",
+      "parentClubId": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "logo": "MEN",
+      "size": "sm",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "Artificial Intelligence Society at UTD",
+          "role": "Director of Innovation Lab"
+        },
+        {
+          "id": "person-ajay-alluri",
+          "name": "Ajay Alluri",
+          "avatarUrl": "https://i.pravatar.cc/80?img=17",
+          "company": "Unknown",
+          "role": "Director of Finance"
+        },
+        {
+          "id": "person-anveetha-suresh",
+          "name": "Anveetha Suresh",
+          "avatarUrl": "https://i.pravatar.cc/80?img=36",
+          "company": "Agaram Tamil Student Association",
+          "role": "President"
+        },
+        {
+          "id": "person-hamiz-iqbal",
+          "name": "Hamiz Iqbal",
+          "avatarUrl": "https://i.pravatar.cc/80?img=65",
+          "company": "Unknown",
+          "role": "Director of AIM"
+        }
+      ]
+    },
+    {
+      "id": "company-acm-utd",
+      "type": "company",
+      "label": "ACM UTD",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "AU",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-elijah-walker",
+          "name": "Elijah Walker",
+          "avatarUrl": "https://i.pravatar.cc/80?img=10",
+          "company": "ACM UTD",
+          "role": "President"
+        },
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "ACM UTD",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-mercedes-xiong",
+          "name": "Mercedes Xiong",
+          "avatarUrl": "https://i.pravatar.cc/80?img=1",
+          "company": "ACM UTD",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "company-agaram-tamil-student-association",
+      "type": "company",
+      "label": "Agaram Tamil Student Association",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "ATSA",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-anveetha-suresh",
+          "name": "Anveetha Suresh",
+          "avatarUrl": "https://i.pravatar.cc/80?img=36",
+          "company": "Agaram Tamil Student Association",
+          "role": "President"
+        }
+      ]
+    },
+    {
+      "id": "company-alpha-kappa-psi",
+      "type": "company",
+      "label": "Alpha Kappa Psi",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "AKP",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-elijah-walker",
+          "name": "Elijah Walker",
+          "avatarUrl": "https://i.pravatar.cc/80?img=10",
+          "company": "Alpha Kappa Psi",
+          "role": "President"
+        },
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "Alpha Kappa Psi",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "company-american-red-cross",
+      "type": "company",
+      "label": "American Red Cross",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "ARC",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-mytri-nair",
+          "name": "Mytri Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=37",
+          "company": "American Red Cross",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "company-apple",
+      "type": "company",
+      "label": "Apple",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "APPL",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "Apple",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "company-archer",
+      "type": "company",
+      "label": "Archer",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "ARCH",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-mercedes-xiong",
+          "name": "Mercedes Xiong",
+          "avatarUrl": "https://i.pravatar.cc/80?img=1",
+          "company": "Archer",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "company-artificial-intelligence-society-at-utd",
+      "type": "company",
+      "label": "Artificial Intelligence Society at UTD",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "AISA",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "Artificial Intelligence Society at UTD",
+          "role": "Director of Innovation Lab"
+        },
+        {
+          "id": "person-anveetha-suresh",
+          "name": "Anveetha Suresh",
+          "avatarUrl": "https://i.pravatar.cc/80?img=36",
+          "company": "Artificial Intelligence Society at UTD",
+          "role": "President"
+        },
+        {
+          "id": "person-herbert-melgar",
+          "name": "Herbert Melgar",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Artificial Intelligence Society at UTD",
+          "role": "Secretary"
+        }
+      ]
+    },
+    {
+      "id": "company-aws-certified-cloud-practitioner",
+      "type": "company",
+      "label": "AWS Certified Cloud Practitioner",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "ACCP",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "AWS Certified Cloud Practitioner",
+          "role": "Director of Innovation Lab"
+        }
+      ]
+    },
+    {
+      "id": "company-bell-flight-internship",
+      "type": "company",
+      "label": "Bell Flight \u00b7 Internship",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "BFI",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-elijah-walker",
+          "name": "Elijah Walker",
+          "avatarUrl": "https://i.pravatar.cc/80?img=10",
+          "company": "Bell Flight \u00b7 Internship",
+          "role": "President"
+        }
+      ]
+    },
+    {
+      "id": "company-big-data-bowl",
+      "type": "company",
+      "label": "Big Data Bowl",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "BDB",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-sarvesh-gopalakrishnan",
+          "name": "Sarvesh Gopalakrishnan",
+          "avatarUrl": "https://i.pravatar.cc/80?img=18",
+          "company": "Big Data Bowl",
+          "role": "Vice-Director of AIM"
+        }
+      ]
+    },
+    {
+      "id": "company-black-box",
+      "type": "company",
+      "label": "Black Box",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "BB",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-vasudev-nair",
+          "name": "Vasudev Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Black Box",
+          "role": "Director of AI Academy"
+        }
+      ]
+    },
+    {
+      "id": "company-break-through-tech",
+      "type": "company",
+      "label": "Break Through Tech",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "BTT",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-anveetha-suresh",
+          "name": "Anveetha Suresh",
+          "avatarUrl": "https://i.pravatar.cc/80?img=36",
+          "company": "Break Through Tech",
+          "role": "President"
+        }
+      ]
+    },
+    {
+      "id": "company-centennial-high-school",
+      "type": "company",
+      "label": "Centennial High School",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "CHS",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "Centennial High School",
+          "role": "Director of Innovation Lab"
+        }
+      ]
+    },
+    {
+      "id": "company-cloud-digital-leader-certification",
+      "type": "company",
+      "label": "Cloud Digital Leader Certification",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "CDLC",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "Cloud Digital Leader Certification",
+          "role": "Director of Innovation Lab"
+        }
+      ]
+    },
+    {
+      "id": "company-cognizant",
+      "type": "company",
+      "label": "Cognizant",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "COGN",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-anveetha-suresh",
+          "name": "Anveetha Suresh",
+          "avatarUrl": "https://i.pravatar.cc/80?img=36",
+          "company": "Cognizant",
+          "role": "President"
+        }
+      ]
+    },
+    {
+      "id": "company-comet-robotics-at-ut-dallas",
+      "type": "company",
+      "label": "Comet Robotics at UT Dallas",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "CRAU",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-herbert-melgar",
+          "name": "Herbert Melgar",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Comet Robotics at UT Dallas",
+          "role": "Secretary"
+        }
+      ]
+    },
+    {
+      "id": "company-consult-your-community-at-utdallas",
+      "type": "company",
+      "label": "Consult Your Community at UTDallas",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "CYCA",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-mytri-nair",
+          "name": "Mytri Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=37",
+          "company": "Consult Your Community at UTDallas",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "company-coppell-high-school",
+      "type": "company",
+      "label": "Coppell High School",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "CHS",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "Coppell High School",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-mytri-nair",
+          "name": "Mytri Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=37",
+          "company": "Coppell High School",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "company-developer",
+      "type": "company",
+      "label": "Developer",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "DEVE",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "Developer",
+          "role": "Director of Innovation Lab"
+        }
+      ]
+    },
+    {
+      "id": "company-finterest",
+      "type": "company",
+      "label": "Finterest",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "FINT",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-mercedes-xiong",
+          "name": "Mercedes Xiong",
+          "avatarUrl": "https://i.pravatar.cc/80?img=1",
+          "company": "Finterest",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "company-fiserv",
+      "type": "company",
+      "label": "Fiserv",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "FISE",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-vasudev-nair",
+          "name": "Vasudev Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Fiserv",
+          "role": "Director of AI Academy"
+        }
+      ]
+    },
+    {
+      "id": "company-gemini",
+      "type": "company",
+      "label": "Gemini",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "GEMI",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-vasudev-nair",
+          "name": "Vasudev Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Gemini",
+          "role": "Director of AI Academy"
+        }
+      ]
+    },
+    {
+      "id": "company-gideon-math-reading",
+      "type": "company",
+      "label": "Gideon Math & Reading",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "GMR",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-mytri-nair",
+          "name": "Mytri Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=37",
+          "company": "Gideon Math & Reading",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "company-girls-who-code",
+      "type": "company",
+      "label": "Girls Who Code",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "GWC",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "Girls Who Code",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "company-goldman-sachs-internship",
+      "type": "company",
+      "label": "Goldman Sachs \u00b7 Internship",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "GSI",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-elijah-walker",
+          "name": "Elijah Walker",
+          "avatarUrl": "https://i.pravatar.cc/80?img=10",
+          "company": "Goldman Sachs \u00b7 Internship",
+          "role": "President"
+        }
+      ]
+    },
+    {
+      "id": "company-google",
+      "type": "company",
+      "label": "Google",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "GOOG",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "Google",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "company-home-quest",
+      "type": "company",
+      "label": "Home Quest",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "HQ",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-anveetha-suresh",
+          "name": "Anveetha Suresh",
+          "avatarUrl": "https://i.pravatar.cc/80?img=36",
+          "company": "Home Quest",
+          "role": "President"
+        }
+      ]
+    },
+    {
+      "id": "company-ibm",
+      "type": "company",
+      "label": "IBM",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "IBM",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-anveetha-suresh",
+          "name": "Anveetha Suresh",
+          "avatarUrl": "https://i.pravatar.cc/80?img=36",
+          "company": "IBM",
+          "role": "President"
+        },
+        {
+          "id": "person-sarvesh-gopalakrishnan",
+          "name": "Sarvesh Gopalakrishnan",
+          "avatarUrl": "https://i.pravatar.cc/80?img=18",
+          "company": "IBM",
+          "role": "Vice-Director of AIM"
+        }
+      ]
+    },
+    {
+      "id": "company-kpmg",
+      "type": "company",
+      "label": "KPMG",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "KPMG",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-anveetha-suresh",
+          "name": "Anveetha Suresh",
+          "avatarUrl": "https://i.pravatar.cc/80?img=36",
+          "company": "KPMG",
+          "role": "President"
+        }
+      ]
+    },
+    {
+      "id": "company-marketpulse-financial-hub",
+      "type": "company",
+      "label": "MarketPulse - Financial Hub",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "MFH",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "MarketPulse - Financial Hub",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "company-microsoft",
+      "type": "company",
+      "label": "Microsoft",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "MICR",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-elijah-walker",
+          "name": "Elijah Walker",
+          "avatarUrl": "https://i.pravatar.cc/80?img=10",
+          "company": "Microsoft",
+          "role": "President"
+        },
+        {
+          "id": "person-herbert-melgar",
+          "name": "Herbert Melgar",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Microsoft",
+          "role": "Secretary"
+        },
+        {
+          "id": "person-mytri-nair",
+          "name": "Mytri Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=37",
+          "company": "Microsoft",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-vasudev-nair",
+          "name": "Vasudev Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Microsoft",
+          "role": "Director of AI Academy"
+        }
+      ]
+    },
+    {
+      "id": "company-nba",
+      "type": "company",
+      "label": "NBA",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "NBA",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-sarvesh-gopalakrishnan",
+          "name": "Sarvesh Gopalakrishnan",
+          "avatarUrl": "https://i.pravatar.cc/80?img=18",
+          "company": "NBA",
+          "role": "Vice-Director of AIM"
+        }
+      ]
+    },
+    {
+      "id": "company-nebula-labs",
+      "type": "company",
+      "label": "Nebula Labs",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "NL",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "Nebula Labs",
+          "role": "Director of Innovation Lab"
+        }
+      ]
+    },
+    {
+      "id": "company-onetech-sap-delivery-intern",
+      "type": "company",
+      "label": "OneTech - SAP Delivery Intern",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "OSDI",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "OneTech - SAP Delivery Intern",
+          "role": "Director of Innovation Lab"
+        }
+      ]
+    },
+    {
+      "id": "company-papadeaux-seafood-kitchen-logo",
+      "type": "company",
+      "label": "Papadeaux Seafood Kitchen logo",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "PSKL",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-herbert-melgar",
+          "name": "Herbert Melgar",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Papadeaux Seafood Kitchen logo",
+          "role": "Secretary"
+        }
+      ]
+    },
+    {
+      "id": "company-process-analyst-intern",
+      "type": "company",
+      "label": "Process Analyst Intern",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "PAI",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-sarvesh-gopalakrishnan",
+          "name": "Sarvesh Gopalakrishnan",
+          "avatarUrl": "https://i.pravatar.cc/80?img=18",
+          "company": "Process Analyst Intern",
+          "role": "Vice-Director of AIM"
+        }
+      ]
+    },
+    {
+      "id": "company-restoration-of-elementary-science-olympiad-branches",
+      "type": "company",
+      "label": "Restoration of Elementary Science Olympiad Branches",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "ROES",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-mytri-nair",
+          "name": "Mytri Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=37",
+          "company": "Restoration of Elementary Science Olympiad Branches",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "company-science-olympiad-inc",
+      "type": "company",
+      "label": "Science Olympiad, Inc.",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "SOI",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-mytri-nair",
+          "name": "Mytri Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=37",
+          "company": "Science Olympiad, Inc.",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "company-seo",
+      "type": "company",
+      "label": "SEO",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "SEO",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-herbert-melgar",
+          "name": "Herbert Melgar",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "SEO",
+          "role": "Secretary"
+        }
+      ]
+    },
+    {
+      "id": "company-sloan-sports-analytics-conference",
+      "type": "company",
+      "label": "Sloan Sports Analytics Conference",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "SSAC",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-sarvesh-gopalakrishnan",
+          "name": "Sarvesh Gopalakrishnan",
+          "avatarUrl": "https://i.pravatar.cc/80?img=18",
+          "company": "Sloan Sports Analytics Conference",
+          "role": "Vice-Director of AIM"
+        }
+      ]
+    },
+    {
+      "id": "company-smart-pharma-solutions",
+      "type": "company",
+      "label": "Smart Pharma Solutions",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "SPS",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "Smart Pharma Solutions",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "company-system-provenance-undergraduate-researcher",
+      "type": "company",
+      "label": "System Provenance Undergraduate Researcher",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "SPUR",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "System Provenance Undergraduate Researcher",
+          "role": "Director of Innovation Lab"
+        }
+      ]
+    },
+    {
+      "id": "company-the-sports-analytics-club",
+      "type": "company",
+      "label": "The Sports Analytics Club",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "TSAC",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-sarvesh-gopalakrishnan",
+          "name": "Sarvesh Gopalakrishnan",
+          "avatarUrl": "https://i.pravatar.cc/80?img=18",
+          "company": "The Sports Analytics Club",
+          "role": "Vice-Director of AIM"
+        }
+      ]
+    },
+    {
+      "id": "company-the-university-of-texas-at-dallas",
+      "type": "company",
+      "label": "The University of Texas at Dallas",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "TUOT",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "The University of Texas at Dallas",
+          "role": "Director of Innovation Lab"
+        },
+        {
+          "id": "person-anveetha-suresh",
+          "name": "Anveetha Suresh",
+          "avatarUrl": "https://i.pravatar.cc/80?img=36",
+          "company": "The University of Texas at Dallas",
+          "role": "President"
+        },
+        {
+          "id": "person-elijah-walker",
+          "name": "Elijah Walker",
+          "avatarUrl": "https://i.pravatar.cc/80?img=10",
+          "company": "The University of Texas at Dallas",
+          "role": "President"
+        },
+        {
+          "id": "person-herbert-melgar",
+          "name": "Herbert Melgar",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "The University of Texas at Dallas",
+          "role": "Secretary"
+        },
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "The University of Texas at Dallas",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-mercedes-xiong",
+          "name": "Mercedes Xiong",
+          "avatarUrl": "https://i.pravatar.cc/80?img=1",
+          "company": "The University of Texas at Dallas",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-mytri-nair",
+          "name": "Mytri Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=37",
+          "company": "The University of Texas at Dallas",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-sarvesh-gopalakrishnan",
+          "name": "Sarvesh Gopalakrishnan",
+          "avatarUrl": "https://i.pravatar.cc/80?img=18",
+          "company": "The University of Texas at Dallas",
+          "role": "Vice-Director of AIM"
+        },
+        {
+          "id": "person-vasudev-nair",
+          "name": "Vasudev Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "The University of Texas at Dallas",
+          "role": "Director of AI Academy"
+        }
+      ]
+    },
+    {
+      "id": "company-town-of-little-elm",
+      "type": "company",
+      "label": "Town of Little Elm",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "TOLE",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-mercedes-xiong",
+          "name": "Mercedes Xiong",
+          "avatarUrl": "https://i.pravatar.cc/80?img=1",
+          "company": "Town of Little Elm",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "company-udemy",
+      "type": "company",
+      "label": "Udemy",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "UDEM",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-vasudev-nair",
+          "name": "Vasudev Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Udemy",
+          "role": "Director of AI Academy"
+        }
+      ]
+    },
+    {
+      "id": "company-unsupervised-behavior-analysis-in-parkinson-s-models-summer-program-for-undergraduate-research",
+      "type": "company",
+      "label": "Unsupervised Behavior Analysis in Parkinson\u2019s Models - Summer Program for Undergraduate Research",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "UBAI",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-anveetha-suresh",
+          "name": "Anveetha Suresh",
+          "avatarUrl": "https://i.pravatar.cc/80?img=36",
+          "company": "Unsupervised Behavior Analysis in Parkinson\u2019s Models - Summer Program for Undergraduate Research",
+          "role": "President"
+        }
+      ]
+    },
+    {
+      "id": "company-uplift-education-north-hills-preparatory-high-school",
+      "type": "company",
+      "label": "Uplift Education-North Hills Preparatory High School",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "UEHP",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-herbert-melgar",
+          "name": "Herbert Melgar",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Uplift Education-North Hills Preparatory High School",
+          "role": "Secretary"
+        }
+      ]
+    },
+    {
+      "id": "company-utd-school-of-behavioral-and-brain-sciences",
+      "type": "company",
+      "label": "UTD School of Behavioral and Brain Sciences",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "USOB",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-sarvesh-gopalakrishnan",
+          "name": "Sarvesh Gopalakrishnan",
+          "avatarUrl": "https://i.pravatar.cc/80?img=18",
+          "company": "UTD School of Behavioral and Brain Sciences",
+          "role": "Vice-Director of AIM"
+        }
+      ]
+    },
+    {
+      "id": "company-utd-trends",
+      "type": "company",
+      "label": "UTD Trends",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "UT",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "UTD Trends",
+          "role": "Director of Innovation Lab"
+        }
+      ]
+    },
+    {
+      "id": "company-ux-club-at-ut-dallas",
+      "type": "company",
+      "label": "UX Club at UT Dallas",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "UCAU",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "UX Club at UT Dallas",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "company-westlake-academy",
+      "type": "company",
+      "label": "Westlake Academy",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "WA",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-elijah-walker",
+          "name": "Elijah Walker",
+          "avatarUrl": "https://i.pravatar.cc/80?img=10",
+          "company": "Westlake Academy",
+          "role": "President"
+        }
+      ]
+    },
+    {
+      "id": "company-ymca",
+      "type": "company",
+      "label": "YMCA",
+      "tags": [
+        "career"
+      ],
+      "categoryTag": "career",
+      "logo": "YMCA",
+      "size": "md",
+      "people": [
+        {
+          "id": "person-herbert-melgar",
+          "name": "Herbert Melgar",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "YMCA",
+          "role": "Secretary"
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-agaram-tamil-student-association",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-agaram-tamil-student-association",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-anveetha-suresh",
+          "name": "Anveetha Suresh",
+          "avatarUrl": "https://i.pravatar.cc/80?img=36",
+          "company": "Agaram Tamil Student Association",
+          "role": "President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-american-red-cross",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-american-red-cross",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-mytri-nair",
+          "name": "Mytri Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=37",
+          "company": "American Red Cross",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-artificial-intelligence-society-at-utd",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-artificial-intelligence-society-at-utd",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 3,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "Artificial Intelligence Society at UTD",
+          "role": "Director of Innovation Lab"
+        },
+        {
+          "id": "person-anveetha-suresh",
+          "name": "Anveetha Suresh",
+          "avatarUrl": "https://i.pravatar.cc/80?img=36",
+          "company": "Artificial Intelligence Society at UTD",
+          "role": "President"
+        },
+        {
+          "id": "person-herbert-melgar",
+          "name": "Herbert Melgar",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Artificial Intelligence Society at UTD",
+          "role": "Secretary"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-aws-certified-cloud-practitioner",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-aws-certified-cloud-practitioner",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "AWS Certified Cloud Practitioner",
+          "role": "Director of Innovation Lab"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-big-data-bowl",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-big-data-bowl",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-sarvesh-gopalakrishnan",
+          "name": "Sarvesh Gopalakrishnan",
+          "avatarUrl": "https://i.pravatar.cc/80?img=18",
+          "company": "Big Data Bowl",
+          "role": "Vice-Director of AIM"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-black-box",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-black-box",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-vasudev-nair",
+          "name": "Vasudev Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Black Box",
+          "role": "Director of AI Academy"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-break-through-tech",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-break-through-tech",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-anveetha-suresh",
+          "name": "Anveetha Suresh",
+          "avatarUrl": "https://i.pravatar.cc/80?img=36",
+          "company": "Break Through Tech",
+          "role": "President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-centennial-high-school",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-centennial-high-school",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "Centennial High School",
+          "role": "Director of Innovation Lab"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-cloud-digital-leader-certification",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-cloud-digital-leader-certification",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "Cloud Digital Leader Certification",
+          "role": "Director of Innovation Lab"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-cognizant",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-cognizant",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-anveetha-suresh",
+          "name": "Anveetha Suresh",
+          "avatarUrl": "https://i.pravatar.cc/80?img=36",
+          "company": "Cognizant",
+          "role": "President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-comet-robotics-at-ut-dallas",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-comet-robotics-at-ut-dallas",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-herbert-melgar",
+          "name": "Herbert Melgar",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Comet Robotics at UT Dallas",
+          "role": "Secretary"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-consult-your-community-at-utdallas",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-consult-your-community-at-utdallas",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-mytri-nair",
+          "name": "Mytri Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=37",
+          "company": "Consult Your Community at UTDallas",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-coppell-high-school",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-coppell-high-school",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-mytri-nair",
+          "name": "Mytri Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=37",
+          "company": "Coppell High School",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-developer",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-developer",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "Developer",
+          "role": "Director of Innovation Lab"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-fiserv",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-fiserv",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-vasudev-nair",
+          "name": "Vasudev Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Fiserv",
+          "role": "Director of AI Academy"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-gemini",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-gemini",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-vasudev-nair",
+          "name": "Vasudev Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Gemini",
+          "role": "Director of AI Academy"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-gideon-math-reading",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-gideon-math-reading",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-mytri-nair",
+          "name": "Mytri Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=37",
+          "company": "Gideon Math & Reading",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-home-quest",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-home-quest",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-anveetha-suresh",
+          "name": "Anveetha Suresh",
+          "avatarUrl": "https://i.pravatar.cc/80?img=36",
+          "company": "Home Quest",
+          "role": "President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-ibm",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-ibm",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 2,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-anveetha-suresh",
+          "name": "Anveetha Suresh",
+          "avatarUrl": "https://i.pravatar.cc/80?img=36",
+          "company": "IBM",
+          "role": "President"
+        },
+        {
+          "id": "person-sarvesh-gopalakrishnan",
+          "name": "Sarvesh Gopalakrishnan",
+          "avatarUrl": "https://i.pravatar.cc/80?img=18",
+          "company": "IBM",
+          "role": "Vice-Director of AIM"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-kpmg",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-kpmg",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-anveetha-suresh",
+          "name": "Anveetha Suresh",
+          "avatarUrl": "https://i.pravatar.cc/80?img=36",
+          "company": "KPMG",
+          "role": "President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-microsoft",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-microsoft",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 3,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-herbert-melgar",
+          "name": "Herbert Melgar",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Microsoft",
+          "role": "Secretary"
+        },
+        {
+          "id": "person-mytri-nair",
+          "name": "Mytri Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=37",
+          "company": "Microsoft",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-vasudev-nair",
+          "name": "Vasudev Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Microsoft",
+          "role": "Director of AI Academy"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-nba",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-nba",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-sarvesh-gopalakrishnan",
+          "name": "Sarvesh Gopalakrishnan",
+          "avatarUrl": "https://i.pravatar.cc/80?img=18",
+          "company": "NBA",
+          "role": "Vice-Director of AIM"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-nebula-labs",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-nebula-labs",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "Nebula Labs",
+          "role": "Director of Innovation Lab"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-onetech-sap-delivery-intern",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-onetech-sap-delivery-intern",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "OneTech - SAP Delivery Intern",
+          "role": "Director of Innovation Lab"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-papadeaux-seafood-kitchen-logo",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-papadeaux-seafood-kitchen-logo",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-herbert-melgar",
+          "name": "Herbert Melgar",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Papadeaux Seafood Kitchen logo",
+          "role": "Secretary"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-process-analyst-intern",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-process-analyst-intern",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-sarvesh-gopalakrishnan",
+          "name": "Sarvesh Gopalakrishnan",
+          "avatarUrl": "https://i.pravatar.cc/80?img=18",
+          "company": "Process Analyst Intern",
+          "role": "Vice-Director of AIM"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-restoration-of-elementary-science-olympiad-branches",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-restoration-of-elementary-science-olympiad-branches",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-mytri-nair",
+          "name": "Mytri Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=37",
+          "company": "Restoration of Elementary Science Olympiad Branches",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-science-olympiad-inc",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-science-olympiad-inc",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-mytri-nair",
+          "name": "Mytri Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=37",
+          "company": "Science Olympiad, Inc.",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-seo",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-seo",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-herbert-melgar",
+          "name": "Herbert Melgar",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "SEO",
+          "role": "Secretary"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-sloan-sports-analytics-conference",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-sloan-sports-analytics-conference",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-sarvesh-gopalakrishnan",
+          "name": "Sarvesh Gopalakrishnan",
+          "avatarUrl": "https://i.pravatar.cc/80?img=18",
+          "company": "Sloan Sports Analytics Conference",
+          "role": "Vice-Director of AIM"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-system-provenance-undergraduate-researcher",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-system-provenance-undergraduate-researcher",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "System Provenance Undergraduate Researcher",
+          "role": "Director of Innovation Lab"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-the-sports-analytics-club",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-the-sports-analytics-club",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-sarvesh-gopalakrishnan",
+          "name": "Sarvesh Gopalakrishnan",
+          "avatarUrl": "https://i.pravatar.cc/80?img=18",
+          "company": "The Sports Analytics Club",
+          "role": "Vice-Director of AIM"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-the-university-of-texas-at-dallas",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-the-university-of-texas-at-dallas",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 6,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "The University of Texas at Dallas",
+          "role": "Director of Innovation Lab"
+        },
+        {
+          "id": "person-anveetha-suresh",
+          "name": "Anveetha Suresh",
+          "avatarUrl": "https://i.pravatar.cc/80?img=36",
+          "company": "The University of Texas at Dallas",
+          "role": "President"
+        },
+        {
+          "id": "person-herbert-melgar",
+          "name": "Herbert Melgar",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "The University of Texas at Dallas",
+          "role": "Secretary"
+        },
+        {
+          "id": "person-mytri-nair",
+          "name": "Mytri Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=37",
+          "company": "The University of Texas at Dallas",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-sarvesh-gopalakrishnan",
+          "name": "Sarvesh Gopalakrishnan",
+          "avatarUrl": "https://i.pravatar.cc/80?img=18",
+          "company": "The University of Texas at Dallas",
+          "role": "Vice-Director of AIM"
+        },
+        {
+          "id": "person-vasudev-nair",
+          "name": "Vasudev Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "The University of Texas at Dallas",
+          "role": "Director of AI Academy"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-udemy",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-udemy",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-vasudev-nair",
+          "name": "Vasudev Nair",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Udemy",
+          "role": "Director of AI Academy"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-unsupervised-behavior-analysis-in-parkinson-s-models-summer-program-for-undergraduate-research",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-unsupervised-behavior-analysis-in-parkinson-s-models-summer-program-for-undergraduate-research",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-anveetha-suresh",
+          "name": "Anveetha Suresh",
+          "avatarUrl": "https://i.pravatar.cc/80?img=36",
+          "company": "Unsupervised Behavior Analysis in Parkinson\u2019s Models - Summer Program for Undergraduate Research",
+          "role": "President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-uplift-education-north-hills-preparatory-high-school",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-uplift-education-north-hills-preparatory-high-school",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-herbert-melgar",
+          "name": "Herbert Melgar",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Uplift Education-North Hills Preparatory High School",
+          "role": "Secretary"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-utd-school-of-behavioral-and-brain-sciences",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-utd-school-of-behavioral-and-brain-sciences",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-sarvesh-gopalakrishnan",
+          "name": "Sarvesh Gopalakrishnan",
+          "avatarUrl": "https://i.pravatar.cc/80?img=18",
+          "company": "UTD School of Behavioral and Brain Sciences",
+          "role": "Vice-Director of AIM"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-utd-trends",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-utd-trends",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "UTD Trends",
+          "role": "Director of Innovation Lab"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa-company-ymca",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "company-ymca",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-herbert-melgar",
+          "name": "Herbert Melgar",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "YMCA",
+          "role": "Secretary"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-association-for-computing-machinery-654d35edbfe4308bcdfc4005-company-acm-utd",
+      "source": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "target": "company-acm-utd",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 3,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-elijah-walker",
+          "name": "Elijah Walker",
+          "avatarUrl": "https://i.pravatar.cc/80?img=10",
+          "company": "ACM UTD",
+          "role": "President"
+        },
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "ACM UTD",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-mercedes-xiong",
+          "name": "Mercedes Xiong",
+          "avatarUrl": "https://i.pravatar.cc/80?img=1",
+          "company": "ACM UTD",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-association-for-computing-machinery-654d35edbfe4308bcdfc4005-company-alpha-kappa-psi",
+      "source": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "target": "company-alpha-kappa-psi",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 2,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-elijah-walker",
+          "name": "Elijah Walker",
+          "avatarUrl": "https://i.pravatar.cc/80?img=10",
+          "company": "Alpha Kappa Psi",
+          "role": "President"
+        },
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "Alpha Kappa Psi",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-association-for-computing-machinery-654d35edbfe4308bcdfc4005-company-apple",
+      "source": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "target": "company-apple",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "Apple",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-association-for-computing-machinery-654d35edbfe4308bcdfc4005-company-archer",
+      "source": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "target": "company-archer",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-mercedes-xiong",
+          "name": "Mercedes Xiong",
+          "avatarUrl": "https://i.pravatar.cc/80?img=1",
+          "company": "Archer",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-association-for-computing-machinery-654d35edbfe4308bcdfc4005-company-bell-flight-internship",
+      "source": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "target": "company-bell-flight-internship",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-elijah-walker",
+          "name": "Elijah Walker",
+          "avatarUrl": "https://i.pravatar.cc/80?img=10",
+          "company": "Bell Flight \u00b7 Internship",
+          "role": "President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-association-for-computing-machinery-654d35edbfe4308bcdfc4005-company-coppell-high-school",
+      "source": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "target": "company-coppell-high-school",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "Coppell High School",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-association-for-computing-machinery-654d35edbfe4308bcdfc4005-company-finterest",
+      "source": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "target": "company-finterest",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-mercedes-xiong",
+          "name": "Mercedes Xiong",
+          "avatarUrl": "https://i.pravatar.cc/80?img=1",
+          "company": "Finterest",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-association-for-computing-machinery-654d35edbfe4308bcdfc4005-company-girls-who-code",
+      "source": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "target": "company-girls-who-code",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "Girls Who Code",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-association-for-computing-machinery-654d35edbfe4308bcdfc4005-company-goldman-sachs-internship",
+      "source": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "target": "company-goldman-sachs-internship",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-elijah-walker",
+          "name": "Elijah Walker",
+          "avatarUrl": "https://i.pravatar.cc/80?img=10",
+          "company": "Goldman Sachs \u00b7 Internship",
+          "role": "President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-association-for-computing-machinery-654d35edbfe4308bcdfc4005-company-google",
+      "source": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "target": "company-google",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "Google",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-association-for-computing-machinery-654d35edbfe4308bcdfc4005-company-marketpulse-financial-hub",
+      "source": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "target": "company-marketpulse-financial-hub",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "MarketPulse - Financial Hub",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-association-for-computing-machinery-654d35edbfe4308bcdfc4005-company-microsoft",
+      "source": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "target": "company-microsoft",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-elijah-walker",
+          "name": "Elijah Walker",
+          "avatarUrl": "https://i.pravatar.cc/80?img=10",
+          "company": "Microsoft",
+          "role": "President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-association-for-computing-machinery-654d35edbfe4308bcdfc4005-company-smart-pharma-solutions",
+      "source": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "target": "company-smart-pharma-solutions",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "Smart Pharma Solutions",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-association-for-computing-machinery-654d35edbfe4308bcdfc4005-company-the-university-of-texas-at-dallas",
+      "source": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "target": "company-the-university-of-texas-at-dallas",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 3,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-elijah-walker",
+          "name": "Elijah Walker",
+          "avatarUrl": "https://i.pravatar.cc/80?img=10",
+          "company": "The University of Texas at Dallas",
+          "role": "President"
+        },
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "The University of Texas at Dallas",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-mercedes-xiong",
+          "name": "Mercedes Xiong",
+          "avatarUrl": "https://i.pravatar.cc/80?img=1",
+          "company": "The University of Texas at Dallas",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-association-for-computing-machinery-654d35edbfe4308bcdfc4005-company-town-of-little-elm",
+      "source": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "target": "company-town-of-little-elm",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-mercedes-xiong",
+          "name": "Mercedes Xiong",
+          "avatarUrl": "https://i.pravatar.cc/80?img=1",
+          "company": "Town of Little Elm",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-association-for-computing-machinery-654d35edbfe4308bcdfc4005-company-ux-club-at-ut-dallas",
+      "source": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "target": "company-ux-club-at-ut-dallas",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "UX Club at UT Dallas",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-career-club-association-for-computing-machinery-654d35edbfe4308bcdfc4005-company-westlake-academy",
+      "source": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "target": "company-westlake-academy",
+      "type": "career",
+      "edgeKind": "club_to_company",
+      "weight": 1,
+      "relationLabel": "Alumni Path",
+      "people": [
+        {
+          "id": "person-elijah-walker",
+          "name": "Elijah Walker",
+          "avatarUrl": "https://i.pravatar.cc/80?img=10",
+          "company": "Westlake Academy",
+          "role": "President"
+        }
+      ]
+    },
+    {
+      "id": "e-root-club-american-red-cross-club-at-the-university-of-texas-at-dallas-654d35ebbfe4308bcdfc3fec",
+      "source": "root",
+      "target": "club-american-red-cross-club-at-the-university-of-texas-at-dallas-654d35ebbfe4308bcdfc3fec",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 1,
+      "relationLabel": "Popular Entry",
+      "people": []
+    },
+    {
+      "id": "e-root-club-artificial-intelligence-in-medicine-654d35ecbfe4308bcdfc3ff8",
+      "source": "root",
+      "target": "club-artificial-intelligence-in-medicine-654d35ecbfe4308bcdfc3ff8",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 1,
+      "relationLabel": "Popular Entry",
+      "people": []
+    },
+    {
+      "id": "e-root-club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "source": "root",
+      "target": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 8,
+      "relationLabel": "Popular Entry",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "Artificial Intelligence Society at UTD",
+          "role": "Director of Innovation Lab"
+        },
+        {
+          "id": "person-ajay-alluri",
+          "name": "Ajay Alluri",
+          "avatarUrl": "https://i.pravatar.cc/80?img=17",
+          "company": "Unknown",
+          "role": "Director of Finance"
+        },
+        {
+          "id": "person-anveetha-suresh",
+          "name": "Anveetha Suresh",
+          "avatarUrl": "https://i.pravatar.cc/80?img=36",
+          "company": "Agaram Tamil Student Association",
+          "role": "President"
+        },
+        {
+          "id": "person-hamiz-iqbal",
+          "name": "Hamiz Iqbal",
+          "avatarUrl": "https://i.pravatar.cc/80?img=65",
+          "company": "Unknown",
+          "role": "Director of AIM"
+        },
+        {
+          "id": "person-herbert-melgar",
+          "name": "Herbert Melgar",
+          "avatarUrl": "https://i.pravatar.cc/80?img=23",
+          "company": "Artificial Intelligence Society at UTD",
+          "role": "Secretary"
+        }
+      ]
+    },
+    {
+      "id": "e-root-club-ascm-ut-dallas-student-forum-654d35edbfe4308bcdfc3fff",
+      "source": "root",
+      "target": "club-ascm-ut-dallas-student-forum-654d35edbfe4308bcdfc3fff",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 1,
+      "relationLabel": "Popular Entry",
+      "people": []
+    },
+    {
+      "id": "e-root-club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "source": "root",
+      "target": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 3,
+      "relationLabel": "Popular Entry",
+      "people": [
+        {
+          "id": "person-elijah-walker",
+          "name": "Elijah Walker",
+          "avatarUrl": "https://i.pravatar.cc/80?img=10",
+          "company": "ACM UTD",
+          "role": "President"
+        },
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "ACM UTD",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-mercedes-xiong",
+          "name": "Mercedes Xiong",
+          "avatarUrl": "https://i.pravatar.cc/80?img=1",
+          "company": "ACM UTD",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-root-club-association-for-information-systems-654d35eebfe4308bcdfc4006",
+      "source": "root",
+      "target": "club-association-for-information-systems-654d35eebfe4308bcdfc4006",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 1,
+      "relationLabel": "Popular Entry",
+      "people": []
+    },
+    {
+      "id": "e-root-club-autoimmune-awareness-organization-xegqdpnhteaf2l8v4igz",
+      "source": "root",
+      "target": "club-autoimmune-awareness-organization-xegqdpnhteaf2l8v4igz",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 1,
+      "relationLabel": "Popular Entry",
+      "people": []
+    },
+    {
+      "id": "e-root-club-aws-organization-at-utd-654d35efbfe4308bcdfc4012",
+      "source": "root",
+      "target": "club-aws-organization-at-utd-654d35efbfe4308bcdfc4012",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 1,
+      "relationLabel": "Popular Entry",
+      "people": []
+    },
+    {
+      "id": "e-root-club-collegiate-chapter-of-the-association-of-fundraising-professionals-at-ut-dallas-afp-utd-654d35f7bfe4308bcdfc4050",
+      "source": "root",
+      "target": "club-collegiate-chapter-of-the-association-of-fundraising-professionals-at-ut-dallas-afp-utd-654d35f7bfe4308bcdfc4050",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 5,
+      "relationLabel": "Popular Entry",
+      "people": [
+        {
+          "id": "person-ananya-mahodaya",
+          "name": "Ananya Mahodaya",
+          "avatarUrl": "https://i.pravatar.cc/80?img=62",
+          "company": "Unknown",
+          "role": "President"
+        },
+        {
+          "id": "person-barak-geary",
+          "name": "Barak Geary",
+          "avatarUrl": "https://i.pravatar.cc/80?img=1",
+          "company": "Unknown",
+          "role": "Secretary"
+        },
+        {
+          "id": "person-chrystal-oneal",
+          "name": "Chrystal Oneal",
+          "avatarUrl": "https://i.pravatar.cc/80?img=3",
+          "company": "Unknown",
+          "role": "Treasurer"
+        },
+        {
+          "id": "person-kya-ingram",
+          "name": "Kya Ingram",
+          "avatarUrl": "https://i.pravatar.cc/80?img=67",
+          "company": "Unknown",
+          "role": "Media Chair"
+        },
+        {
+          "id": "person-veronica-okafor",
+          "name": "Veronica Okafor",
+          "avatarUrl": "https://i.pravatar.cc/80?img=60",
+          "company": "Unknown",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-root-club-dems-at-utd-654d3600bfe4308bcdfc4087",
+      "source": "root",
+      "target": "club-dems-at-utd-654d3600bfe4308bcdfc4087",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 1,
+      "relationLabel": "Popular Entry",
+      "people": []
+    },
+    {
+      "id": "e-root-club-faces-of-african-muslims-ygshp0kppd2fkuwwu8ta",
+      "source": "root",
+      "target": "club-faces-of-african-muslims-ygshp0kppd2fkuwwu8ta",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 1,
+      "relationLabel": "Popular Entry",
+      "people": []
+    },
+    {
+      "id": "e-root-club-friends-of-msf-at-ut-dallas-654d3606bfe4308bcdfc40ac",
+      "source": "root",
+      "target": "club-friends-of-msf-at-ut-dallas-654d3606bfe4308bcdfc40ac",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 5,
+      "relationLabel": "Popular Entry",
+      "people": [
+        {
+          "id": "person-boyu-huang",
+          "name": "Boyu Huang",
+          "avatarUrl": "https://i.pravatar.cc/80?img=20",
+          "company": "Unknown",
+          "role": "Social Secretary"
+        },
+        {
+          "id": "person-junior-hernandez",
+          "name": "Junior Hernandez",
+          "avatarUrl": "https://i.pravatar.cc/80?img=40",
+          "company": "Unknown",
+          "role": "Treasurer"
+        },
+        {
+          "id": "person-sarah-asadollahi",
+          "name": "Sarah Asadollahi",
+          "avatarUrl": "https://i.pravatar.cc/80?img=44",
+          "company": "Unknown",
+          "role": "President"
+        },
+        {
+          "id": "person-stephen-pereira",
+          "name": "Stephen Pereira",
+          "avatarUrl": "https://i.pravatar.cc/80?img=44",
+          "company": "Unknown",
+          "role": "Vice-President"
+        },
+        {
+          "id": "person-uzair-saeed",
+          "name": "Uzair Saeed",
+          "avatarUrl": "https://i.pravatar.cc/80?img=27",
+          "company": "Unknown",
+          "role": "Events Secretary"
+        }
+      ]
+    },
+    {
+      "id": "e-root-club-global-medical-and-dental-brigades-654d360abfe4308bcdfc40c1",
+      "source": "root",
+      "target": "club-global-medical-and-dental-brigades-654d360abfe4308bcdfc40c1",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 2,
+      "relationLabel": "Popular Entry",
+      "people": [
+        {
+          "id": "person-chloe-mammen",
+          "name": "Chloe Mammen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=15",
+          "company": "Unknown",
+          "role": "President"
+        },
+        {
+          "id": "person-stephanie-joseph",
+          "name": "Stephanie Joseph",
+          "avatarUrl": "https://i.pravatar.cc/80?img=44",
+          "company": "Unknown",
+          "role": "President"
+        }
+      ]
+    },
+    {
+      "id": "e-root-club-investments-and-securities-club-at-utd-654d3616bfe4308bcdfc40f4",
+      "source": "root",
+      "target": "club-investments-and-securities-club-at-utd-654d3616bfe4308bcdfc40f4",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 1,
+      "relationLabel": "Popular Entry",
+      "people": []
+    },
+    {
+      "id": "e-root-club-islamic-relief-at-utd-654d3617bfe4308bcdfc40f9",
+      "source": "root",
+      "target": "club-islamic-relief-at-utd-654d3617bfe4308bcdfc40f9",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 1,
+      "relationLabel": "Popular Entry",
+      "people": []
+    },
+    {
+      "id": "e-root-club-marathi-mitra-mandal-n-3skaiin7-chy1cufwq",
+      "source": "root",
+      "target": "club-marathi-mitra-mandal-n-3skaiin7-chy1cufwq",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 1,
+      "relationLabel": "Popular Entry",
+      "people": []
+    },
+    {
+      "id": "e-root-club-medicine-education-and-development-for-low-income-families-everywhere-medlife-654d361dbfe4308bcdfc4132",
+      "source": "root",
+      "target": "club-medicine-education-and-development-for-low-income-families-everywhere-medlife-654d361dbfe4308bcdfc4132",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 1,
+      "relationLabel": "Popular Entry",
+      "people": []
+    },
+    {
+      "id": "e-root-club-nontraditional-student-organization-at-utd-qvo5xogv3enioaymtov8",
+      "source": "root",
+      "target": "club-nontraditional-student-organization-at-utd-qvo5xogv3enioaymtov8",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 6,
+      "relationLabel": "Popular Entry",
+      "people": [
+        {
+          "id": "person-britny-carrino",
+          "name": "Britny Carrino",
+          "avatarUrl": "https://i.pravatar.cc/80?img=49",
+          "company": "Unknown",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-desiree-martinez",
+          "name": "Desiree Martinez",
+          "avatarUrl": "https://i.pravatar.cc/80?img=30",
+          "company": "Unknown",
+          "role": "Special Projects Officer"
+        },
+        {
+          "id": "person-dr-gregg-dieckmann",
+          "name": "Dr. Gregg Dieckmann",
+          "avatarUrl": "https://i.pravatar.cc/80?img=62",
+          "company": "Unknown",
+          "role": "Faculty Advisor"
+        },
+        {
+          "id": "person-jim-shaw",
+          "name": "Jim Shaw",
+          "avatarUrl": "https://i.pravatar.cc/80?img=53",
+          "company": "Unknown",
+          "role": "Secretary"
+        },
+        {
+          "id": "person-lacy-templeton",
+          "name": "Lacy Templeton",
+          "avatarUrl": "https://i.pravatar.cc/80?img=14",
+          "company": "Unknown",
+          "role": "President"
+        }
+      ]
+    },
+    {
+      "id": "e-root-club-partners-in-health-engage-at-the-university-of-texas-at-dallas-654d3622bfe4308bcdfc415c",
+      "source": "root",
+      "target": "club-partners-in-health-engage-at-the-university-of-texas-at-dallas-654d3622bfe4308bcdfc415c",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 1,
+      "relationLabel": "Popular Entry",
+      "people": []
+    },
+    {
+      "id": "e-root-club-process-automation-and-reengineering-club-654d3626bfe4308bcdfc417e",
+      "source": "root",
+      "target": "club-process-automation-and-reengineering-club-654d3626bfe4308bcdfc417e",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 1,
+      "relationLabel": "Popular Entry",
+      "people": []
+    },
+    {
+      "id": "e-root-club-queer-and-trans-people-of-color-at-ut-dallas-654d3627bfe4308bcdfc4186",
+      "source": "root",
+      "target": "club-queer-and-trans-people-of-color-at-ut-dallas-654d3627bfe4308bcdfc4186",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 1,
+      "relationLabel": "Popular Entry",
+      "people": []
+    },
+    {
+      "id": "e-root-club-roundnet-at-ut-dallas-rn-utd-654d3629bfe4308bcdfc4196",
+      "source": "root",
+      "target": "club-roundnet-at-ut-dallas-rn-utd-654d3629bfe4308bcdfc4196",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 5,
+      "relationLabel": "Popular Entry",
+      "people": [
+        {
+          "id": "person-marten-weldon",
+          "name": "Marten Weldon",
+          "avatarUrl": "https://i.pravatar.cc/80?img=54",
+          "company": "Unknown",
+          "role": "President"
+        },
+        {
+          "id": "person-matthew-bidwell",
+          "name": "Matthew Bidwell",
+          "avatarUrl": "https://i.pravatar.cc/80?img=64",
+          "company": "Unknown",
+          "role": "Treasurer"
+        },
+        {
+          "id": "person-owen-unger",
+          "name": "Owen Unger",
+          "avatarUrl": "https://i.pravatar.cc/80?img=60",
+          "company": "Unknown",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-renner-veazey",
+          "name": "Renner Veazey",
+          "avatarUrl": "https://i.pravatar.cc/80?img=55",
+          "company": "Unknown",
+          "role": "Social Media Manager"
+        },
+        {
+          "id": "person-saloni-maniar",
+          "name": "Saloni Maniar",
+          "avatarUrl": "https://i.pravatar.cc/80?img=69",
+          "company": "Unknown",
+          "role": "Events Coordinator"
+        }
+      ]
+    },
+    {
+      "id": "e-root-club-sampe-at-utd-society-for-the-advancement-of-material-and-process-engineering-at-utd-sgo0lkitymtajdrm8una",
+      "source": "root",
+      "target": "club-sampe-at-utd-society-for-the-advancement-of-material-and-process-engineering-at-utd-sgo0lkitymtajdrm8una",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 5,
+      "relationLabel": "Popular Entry",
+      "people": [
+        {
+          "id": "person-anush-kambala",
+          "name": "Anush Kambala",
+          "avatarUrl": "https://i.pravatar.cc/80?img=69",
+          "company": "Unknown",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-derek-amiotte-fuhr",
+          "name": "Derek Amiotte Fuhr",
+          "avatarUrl": "https://i.pravatar.cc/80?img=34",
+          "company": "Unknown",
+          "role": "President"
+        },
+        {
+          "id": "person-quan-vu-tran",
+          "name": "Quan Vu Tran",
+          "avatarUrl": "https://i.pravatar.cc/80?img=1",
+          "company": "Unknown",
+          "role": "Secretary"
+        },
+        {
+          "id": "person-shereef-ashraf-kamel",
+          "name": "Shereef Ashraf Kamel",
+          "avatarUrl": "https://i.pravatar.cc/80?img=64",
+          "company": "Unknown",
+          "role": "Technical Director"
+        },
+        {
+          "id": "person-sri-anirudh-arvipalli",
+          "name": "Sri Anirudh Arvipalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=32",
+          "company": "Unknown",
+          "role": "Treasurer"
+        }
+      ]
+    },
+    {
+      "id": "e-root-club-student-tutors-reviving-identity-through-volunteerism-and-education-654d3633bfe4308bcdfc41cd",
+      "source": "root",
+      "target": "club-student-tutors-reviving-identity-through-volunteerism-and-education-654d3633bfe4308bcdfc41cd",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 1,
+      "relationLabel": "Popular Entry",
+      "people": []
+    },
+    {
+      "id": "e-root-club-students-promoting-acts-of-random-kindness-spark-654d3635bfe4308bcdfc41d4",
+      "source": "root",
+      "target": "club-students-promoting-acts-of-random-kindness-spark-654d3635bfe4308bcdfc41d4",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 1,
+      "relationLabel": "Popular Entry",
+      "people": []
+    },
+    {
+      "id": "e-root-club-the-biomedical-professionals-society-at-utd-77j4kejgwjjj7vkfwzgu",
+      "source": "root",
+      "target": "club-the-biomedical-professionals-society-at-utd-77j4kejgwjjj7vkfwzgu",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 1,
+      "relationLabel": "Popular Entry",
+      "people": []
+    },
+    {
+      "id": "e-root-club-the-ilm-network-btzr9s2cl2vb-u50gjbf",
+      "source": "root",
+      "target": "club-the-ilm-network-btzr9s2cl2vb-u50gjbf",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 1,
+      "relationLabel": "Popular Entry",
+      "people": []
+    },
+    {
+      "id": "e-root-club-the-institute-of-electrical-and-electronics-engineers-at-the-university-of-texas-at-dallas-654d3639bfe4308bcdfc41ed",
+      "source": "root",
+      "target": "club-the-institute-of-electrical-and-electronics-engineers-at-the-university-of-texas-at-dallas-654d3639bfe4308bcdfc41ed",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 8,
+      "relationLabel": "Popular Entry",
+      "people": [
+        {
+          "id": "person-alya-mansoor",
+          "name": "Alya Mansoor",
+          "avatarUrl": "https://i.pravatar.cc/80?img=8",
+          "company": "Unknown",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-bhavya-chandran",
+          "name": "Bhavya Chandran",
+          "avatarUrl": "https://i.pravatar.cc/80?img=4",
+          "company": "Unknown",
+          "role": "Director of Engineering"
+        },
+        {
+          "id": "person-bhavya-kamath",
+          "name": "Bhavya Kamath",
+          "avatarUrl": "https://i.pravatar.cc/80?img=68",
+          "company": "Unknown",
+          "role": "Marketing Coordinator"
+        },
+        {
+          "id": "person-cathy-salda-a",
+          "name": "Cathy Salda\u00f1a",
+          "avatarUrl": "https://i.pravatar.cc/80?img=30",
+          "company": "Unknown",
+          "role": "Secretary"
+        },
+        {
+          "id": "person-charlie-wang",
+          "name": "Charlie Wang",
+          "avatarUrl": "https://i.pravatar.cc/80?img=49",
+          "company": "Unknown",
+          "role": "Outreach Coordinator"
+        }
+      ]
+    },
+    {
+      "id": "e-root-club-the-national-society-of-leadership-and-success-nsls-654d3639bfe4308bcdfc41f2",
+      "source": "root",
+      "target": "club-the-national-society-of-leadership-and-success-nsls-654d3639bfe4308bcdfc41f2",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 1,
+      "relationLabel": "Popular Entry",
+      "people": []
+    },
+    {
+      "id": "e-root-club-youth-with-a-mission-zylraxcw5jm9lbkn13vm",
+      "source": "root",
+      "target": "club-youth-with-a-mission-zylraxcw5jm9lbkn13vm",
+      "type": "hierarchy",
+      "edgeKind": "root_to_club",
+      "weight": 1,
+      "relationLabel": "Popular Entry",
+      "people": []
+    },
+    {
+      "id": "e-sub-acm-projects",
+      "source": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "target": "sub-acm-projects",
+      "type": "hierarchy",
+      "edgeKind": "club_to_subprogram",
+      "weight": 3,
+      "relationLabel": "Program",
+      "people": [
+        {
+          "id": "person-elijah-walker",
+          "name": "Elijah Walker",
+          "avatarUrl": "https://i.pravatar.cc/80?img=10",
+          "company": "ACM UTD",
+          "role": "President"
+        },
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "ACM UTD",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-mercedes-xiong",
+          "name": "Mercedes Xiong",
+          "avatarUrl": "https://i.pravatar.cc/80?img=1",
+          "company": "ACM UTD",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-sub-acm-research",
+      "source": "club-association-for-computing-machinery-654d35edbfe4308bcdfc4005",
+      "target": "sub-acm-research",
+      "type": "hierarchy",
+      "edgeKind": "club_to_subprogram",
+      "weight": 3,
+      "relationLabel": "Program",
+      "people": [
+        {
+          "id": "person-elijah-walker",
+          "name": "Elijah Walker",
+          "avatarUrl": "https://i.pravatar.cc/80?img=10",
+          "company": "ACM UTD",
+          "role": "President"
+        },
+        {
+          "id": "person-hiba-mubeen",
+          "name": "Hiba Mubeen",
+          "avatarUrl": "https://i.pravatar.cc/80?img=58",
+          "company": "ACM UTD",
+          "role": "Vice President"
+        },
+        {
+          "id": "person-mercedes-xiong",
+          "name": "Mercedes Xiong",
+          "avatarUrl": "https://i.pravatar.cc/80?img=1",
+          "company": "ACM UTD",
+          "role": "Vice President"
+        }
+      ]
+    },
+    {
+      "id": "e-sub-ais-mentorship",
+      "source": "club-artificial-intelligence-society-654d35edbfe4308bcdfc3ffa",
+      "target": "sub-ais-mentorship",
+      "type": "hierarchy",
+      "edgeKind": "club_to_subprogram",
+      "weight": 4,
+      "relationLabel": "Program",
+      "people": [
+        {
+          "id": "person-abhiram-tadepalli",
+          "name": "Abhiram Tadepalli",
+          "avatarUrl": "https://i.pravatar.cc/80?img=2",
+          "company": "Artificial Intelligence Society at UTD",
+          "role": "Director of Innovation Lab"
+        },
+        {
+          "id": "person-ajay-alluri",
+          "name": "Ajay Alluri",
+          "avatarUrl": "https://i.pravatar.cc/80?img=17",
+          "company": "Unknown",
+          "role": "Director of Finance"
+        },
+        {
+          "id": "person-anveetha-suresh",
+          "name": "Anveetha Suresh",
+          "avatarUrl": "https://i.pravatar.cc/80?img=36",
+          "company": "Agaram Tamil Student Association",
+          "role": "President"
+        },
+        {
+          "id": "person-hamiz-iqbal",
+          "name": "Hamiz Iqbal",
+          "avatarUrl": "https://i.pravatar.cc/80?img=65",
+          "company": "Unknown",
+          "role": "Director of AIM"
+        }
+      ]
+    }
+  ]
+}

@@ -9,7 +9,7 @@ from typing import Any
 from dotenv import load_dotenv
 from pymongo import MongoClient
 
-from backend.graph_builder import build_graph_dataset
+from graph_builder import build_graph_dataset
 
 
 def parse_args() -> argparse.Namespace:

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import pickle
+import zipfile
 from pathlib import Path
 
 from backend.rl.path_policy import (
@@ -9,6 +11,7 @@ from backend.rl.path_policy import (
     build_traversable_graph,
     compute_action_reward,
     load_policy_bundle,
+    recommend_paths_payload,
     save_policy_checkpoint,
     shortest_hop_distances,
 )
@@ -185,6 +188,24 @@ def test_checkpoint_round_trip_preserves_linear_weights(tmp_path: Path):
     assert loaded.feature_names == FEATURE_NAMES
 
 
+def test_load_policy_bundle_reads_torch_archive_without_torch(tmp_path: Path):
+    checkpoint_path = tmp_path / "policy.pt"
+    payload = {
+        "feature_names": FEATURE_NAMES,
+        "weights": [0.25 for _ in FEATURE_NAMES],
+        "bias": 0.1,
+    }
+
+    with zipfile.ZipFile(checkpoint_path, "w") as archive:
+        archive.writestr("policy/data.pkl", pickle.dumps(payload))
+
+    loaded = load_policy_bundle(checkpoint_path)
+
+    assert loaded is not None
+    assert loaded.weights == payload["weights"]
+    assert loaded.bias == payload["bias"]
+
+
 def test_rl_beam_search_prefers_direct_stronger_acm_path():
     graph = sample_graph()
     filters = default_filters()
@@ -223,3 +244,27 @@ def test_rl_beam_search_prefers_direct_stronger_acm_path():
     assert result["pathSet"]["primary"] is not None
     assert result["pathSet"]["primary"]["edgeIds"] == ["e-root-acm", "e-acm-jp"]
 
+
+def test_recommend_paths_payload_uses_loaded_policy_archive(tmp_path: Path):
+    checkpoint_path = tmp_path / "policy.pt"
+    payload = {
+        "feature_names": FEATURE_NAMES,
+        "weights": [0.1 for _ in FEATURE_NAMES],
+        "bias": 0.0,
+    }
+
+    with zipfile.ZipFile(checkpoint_path, "w") as archive:
+        archive.writestr("policy/data.pkl", pickle.dumps(payload))
+
+    result = recommend_paths_payload(
+        graph=sample_graph(),
+        filters=default_filters(),
+        profile=default_profile(),
+        checkpoint_path=str(checkpoint_path),
+        feature_manifest_path=None,
+        training_summary_path=None,
+    )
+
+    assert result["modelMeta"]["mode"] == "rl"
+    assert result["modelMeta"]["policyLoaded"] is True
+    assert result["pathSet"]["primary"] is not None

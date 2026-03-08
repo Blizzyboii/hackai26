@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import json
 import math
+import pickle
 import random
+import zipfile
 from collections import deque
 from dataclasses import dataclass
 from pathlib import Path
@@ -767,7 +769,7 @@ def beam_search_paths(
         if not expansions:
             break
 
-        expansions.sort(reverse=True)
+        expansions.sort(key=lambda item: (item[0], item[1]), reverse=True)
         deduped: list[SearchState] = []
         seen_sequences: set[tuple[str, ...]] = set()
         for _, _, next_state in expansions:
@@ -829,6 +831,7 @@ def default_artifact_paths(base_dir: Path | None = None) -> dict[str, Path]:
     root = base_dir or DEFAULT_ARTIFACTS_DIR
     return {
         "checkpoint": root / "policy.pt",
+        "checkpoint_json": root / "policy.json",
         "manifest": root / "feature_manifest.json",
         "summary": root / "training_summary.json",
     }
@@ -841,6 +844,20 @@ def save_policy_checkpoint(checkpoint_path: Path, payload: dict[str, Any]) -> No
         return
 
     checkpoint_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+
+
+def load_torch_archive_without_torch(checkpoint_path: Path) -> dict[str, Any] | None:
+    try:
+        with zipfile.ZipFile(checkpoint_path, "r") as archive:
+            data_entry = next((name for name in archive.namelist() if name.endswith("data.pkl")), None)
+            if not data_entry:
+                return None
+            payload = pickle.loads(archive.read(data_entry))
+            if not isinstance(payload, dict):
+                return None
+            return payload
+    except (zipfile.BadZipFile, pickle.UnpicklingError, EOFError, AttributeError, ValueError):
+        return None
 
 
 def load_policy_bundle(
@@ -866,7 +883,7 @@ def load_policy_bundle(
         if summary_path.exists():
             summary_data = json.loads(summary_path.read_text(encoding="utf-8"))
 
-    payload: dict[str, Any]
+    payload: dict[str, Any] | None = None
     if torch is not None:
         loaded = torch.load(resolved_checkpoint, map_location="cpu")
         if not isinstance(loaded, dict):
@@ -875,8 +892,19 @@ def load_policy_bundle(
     else:
         try:
             payload = json.loads(resolved_checkpoint.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
-            return None
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            payload = load_torch_archive_without_torch(resolved_checkpoint)
+            if payload is None:
+                fallback_json_path = resolved_checkpoint.with_suffix(".json")
+                if not fallback_json_path.exists():
+                    return None
+                try:
+                    payload = json.loads(fallback_json_path.read_text(encoding="utf-8"))
+                except (json.JSONDecodeError, UnicodeDecodeError):
+                    return None
+
+    if payload is None:
+        return None
 
     if "state_dict" in payload:
         state_dict = payload["state_dict"]
@@ -1106,27 +1134,31 @@ def train_linear_policy(
     output_root = Path(output_dir)
     output_root.mkdir(parents=True, exist_ok=True)
     checkpoint_path = output_root / "policy.pt"
+    checkpoint_json_path = output_root / "policy.json"
     manifest_path = output_root / "feature_manifest.json"
     summary_path = output_root / "training_summary.json"
 
+    serialized_payload = {
+        "feature_names": FEATURE_NAMES,
+        "weights": [float(value) for value in model.weight.detach().reshape(-1).tolist()],
+        "bias": float(model.bias.detach().reshape(-1).tolist()[0]),
+        "training_summary": {
+            "episodes": episodes,
+            "gamma": gamma,
+            "lr": lr,
+            "batch_size": batch_size,
+            "replay_size": replay_size,
+            "epsilon_start": epsilon_start,
+            "epsilon_end": epsilon_end,
+            "seed": seed,
+        },
+    }
+
     save_policy_checkpoint(
         checkpoint_path,
-        {
-            "feature_names": FEATURE_NAMES,
-            "weights": [float(value) for value in model.weight.detach().reshape(-1).tolist()],
-            "bias": float(model.bias.detach().reshape(-1).tolist()[0]),
-            "training_summary": {
-                "episodes": episodes,
-                "gamma": gamma,
-                "lr": lr,
-                "batch_size": batch_size,
-                "replay_size": replay_size,
-                "epsilon_start": epsilon_start,
-                "epsilon_end": epsilon_end,
-                "seed": seed,
-            },
-        },
+        serialized_payload,
     )
+    checkpoint_json_path.write_text(json.dumps(serialized_payload, indent=2), encoding="utf-8")
 
     manifest = {
         "feature_names": FEATURE_NAMES,
@@ -1145,6 +1177,7 @@ def train_linear_policy(
         "average_reward": average_reward,
         "total_steps": total_steps,
         "checkpoint_path": str(checkpoint_path),
+        "checkpoint_json_path": str(checkpoint_json_path),
         "feature_manifest_path": str(manifest_path),
         "seed": seed,
     }
@@ -1152,6 +1185,7 @@ def train_linear_policy(
 
     return {
         "checkpoint_path": str(checkpoint_path),
+        "checkpoint_json_path": str(checkpoint_json_path),
         "feature_manifest_path": str(manifest_path),
         "training_summary_path": str(summary_path),
         "summary": training_summary,
@@ -1310,9 +1344,9 @@ def recommend_paths_payload(
             "mode": active_mode,
             "policyLoaded": policy is not None,
             "checkpointPath": resolved_checkpoint_path,
+            "checkpointJsonPath": str(artifact_paths["checkpoint_json"]),
             "featureManifestPath": resolved_manifest_path,
             "reason": reason,
             "featureNames": policy.feature_names if policy else FEATURE_NAMES,
         },
     }
-
