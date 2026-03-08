@@ -1,2 +1,0 @@
-"""EDGE worker package."""
-
