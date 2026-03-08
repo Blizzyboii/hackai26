@@ -122,4 +122,5 @@ curl http://localhost:8000/health
 
 - Upload supports `mp3`, `wav`, `m4a` and enforces max duration `180s`.
 - `ffmpeg` is required on the API host for upload transcoding.
+- API now sends song audio to the worker via upload endpoint, so API/worker can run on different hosts.
 - EDGE generation now fails fast when checkpoint/GPU/runtime is unavailable (`EDGE_UNAVAILABLE`).

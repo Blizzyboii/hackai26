@@ -34,22 +34,54 @@ def generate_motion_frames(
     worker_auth_header: str | None = None,
 ) -> EdgeMotionResult:
     base_url = worker_url.rstrip("/")
-    payload = {
-        "song_path": str(song_path),
-        "difficulty": difficulty,
-        "fps": fps,
-        "chunk_seconds": chunk_seconds,
-        "overlap_seconds": overlap_seconds,
-        "checkpoint_path": checkpoint_path,
-    }
     headers: dict[str, str] | None = None
     auth: tuple[str, str] | None = None
     if worker_auth_header:
         headers = {"Authorization": worker_auth_header}
     elif worker_username:
         auth = (worker_username, worker_password or "")
+
+    form = {
+        "difficulty": str(difficulty),
+        "fps": str(fps),
+        "chunk_seconds": str(chunk_seconds),
+        "overlap_seconds": str(overlap_seconds),
+    }
+    if checkpoint_path:
+        form["checkpoint_path"] = checkpoint_path
     try:
-        response = requests.post(f"{base_url}/generate", json=payload, timeout=300, headers=headers, auth=auth)
+        with song_path.open("rb") as song_fp:
+            response = requests.post(
+                f"{base_url}/generate-upload",
+                data=form,
+                files={"file": (song_path.name, song_fp, "audio/wav")},
+                timeout=300,
+                headers=headers,
+                auth=auth,
+            )
+        if response.status_code == 404:
+            detail = ""
+            try:
+                detail_value = response.json().get("detail", "")
+                detail = str(detail_value)
+            except Exception:
+                detail = ""
+            if detail == "Not Found":
+                legacy_payload = {
+                    "song_path": str(song_path),
+                    "difficulty": difficulty,
+                    "fps": fps,
+                    "chunk_seconds": chunk_seconds,
+                    "overlap_seconds": overlap_seconds,
+                    "checkpoint_path": checkpoint_path,
+                }
+                response = requests.post(
+                    f"{base_url}/generate",
+                    json=legacy_payload,
+                    timeout=300,
+                    headers=headers,
+                    auth=auth,
+                )
     except requests.RequestException as exc:
         raise EdgeError("failed to connect to EDGE worker", code="EDGE_UNAVAILABLE") from exc
 

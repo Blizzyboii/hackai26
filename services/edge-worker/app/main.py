@@ -9,7 +9,7 @@ import wave
 from pathlib import Path
 
 import numpy as np
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from pydantic import BaseModel, Field
 
 app = FastAPI(title="EDGE Worker", version="0.2.0")
@@ -223,14 +223,7 @@ def _generate_motion(
     return merged_frames
 
 
-@app.get("/health")
-def health():
-    return {"status": "ok"}
-
-
-@app.post("/generate", response_model=GenerateResponse)
-def generate(payload: GenerateRequest):
-    song_path = Path(payload.song_path)
+def _run_generation(song_path: Path, payload: GenerateRequest) -> GenerateResponse:
     if not song_path.exists():
         raise HTTPException(status_code=404, detail="song_path not found")
 
@@ -260,3 +253,42 @@ def generate(payload: GenerateRequest):
         frames_3d=frames_3d,
         frames_2d=frames_2d,
     )
+
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+
+@app.post("/generate", response_model=GenerateResponse)
+def generate(payload: GenerateRequest):
+    return _run_generation(Path(payload.song_path), payload)
+
+
+@app.post("/generate-upload", response_model=GenerateResponse)
+async def generate_upload(
+    file: UploadFile = File(...),
+    difficulty: int = Form(...),
+    fps: int = Form(30),
+    chunk_seconds: int = Form(24),
+    overlap_seconds: int = Form(4),
+    checkpoint_path: str | None = Form(None),
+):
+    payload = GenerateRequest(
+        song_path=file.filename or "uploaded.wav",
+        difficulty=difficulty,
+        fps=fps,
+        chunk_seconds=chunk_seconds,
+        overlap_seconds=overlap_seconds,
+        checkpoint_path=checkpoint_path,
+    )
+    suffix = Path(file.filename or "uploaded.wav").suffix or ".wav"
+    with tempfile.NamedTemporaryFile(prefix="edge_upload_", suffix=suffix, delete=False) as temp_fp:
+        temp_path = Path(temp_fp.name)
+        content = await file.read()
+        temp_fp.write(content)
+
+    try:
+        return _run_generation(temp_path, payload)
+    finally:
+        temp_path.unlink(missing_ok=True)
