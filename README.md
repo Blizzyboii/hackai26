@@ -45,6 +45,8 @@ Open `http://localhost:3000`.
 ```bash
 API_ALLOWED_ORIGINS=http://localhost:3000
 EDGE_WORKER_URL=http://localhost:8010
+EDGE_WORKER_USERNAME=
+EDGE_WORKER_PASSWORD=
 API_DATA_DIR=./data
 EDGE_CHECKPOINT_PATH=/absolute/path/to/checkpoint.pt
 EDGE_CHUNK_SECONDS=24
@@ -60,6 +62,9 @@ LYRIA_ENABLE_MOCK=0
 ```
 
 If Lyria credentials are unavailable, `POST /api/songs/generate` returns `LYRIA_UNAVAILABLE`.
+
+If your EDGE worker sits behind Basic auth (for example Open OnDemand proxy), set
+`EDGE_WORKER_USERNAME` and `EDGE_WORKER_PASSWORD` in the API env.
 
 ### EDGE worker runtime
 

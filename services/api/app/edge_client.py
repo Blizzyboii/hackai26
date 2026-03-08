@@ -29,7 +29,11 @@ def generate_motion_frames(
     chunk_seconds: int,
     overlap_seconds: int,
     checkpoint_path: str | None,
+    worker_username: str | None = None,
+    worker_password: str | None = None,
+    worker_auth_header: str | None = None,
 ) -> EdgeMotionResult:
+    base_url = worker_url.rstrip("/")
     payload = {
         "song_path": str(song_path),
         "difficulty": difficulty,
@@ -38,8 +42,14 @@ def generate_motion_frames(
         "overlap_seconds": overlap_seconds,
         "checkpoint_path": checkpoint_path,
     }
+    headers: dict[str, str] | None = None
+    auth: tuple[str, str] | None = None
+    if worker_auth_header:
+        headers = {"Authorization": worker_auth_header}
+    elif worker_username:
+        auth = (worker_username, worker_password or "")
     try:
-        response = requests.post(f"{worker_url}/generate", json=payload, timeout=300)
+        response = requests.post(f"{base_url}/generate", json=payload, timeout=300, headers=headers, auth=auth)
     except requests.RequestException as exc:
         raise EdgeError("failed to connect to EDGE worker", code="EDGE_UNAVAILABLE") from exc
 
@@ -49,7 +59,7 @@ def generate_motion_frames(
             detail = data.get("detail", "")
         except Exception:
             detail = ""
-        code = "EDGE_UNAVAILABLE" if response.status_code == 503 else "EDGE_FAILED"
+        code = "EDGE_UNAVAILABLE" if response.status_code in {401, 403, 503} else "EDGE_FAILED"
         raise EdgeError(f"EDGE worker error ({response.status_code}) {detail}".strip(), code=code)
 
     data = response.json()

@@ -14,6 +14,9 @@ class Settings(BaseSettings):
     api_data_dir: str = "./data"
     api_max_duration_sec: int = 180
     edge_worker_url: str = "http://localhost:8010"
+    edge_worker_username: str | None = None
+    edge_worker_password: str | None = None
+    edge_worker_auth_header: str | None = None
     edge_checkpoint_path: str | None = None
     edge_chunk_seconds: int = 24
     edge_overlap_seconds: int = 4

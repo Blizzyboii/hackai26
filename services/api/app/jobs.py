@@ -55,6 +55,13 @@ def generate_routine_job(routine_id: str) -> None:
             routine.updated_at = _utc_now()
 
             edge_t0 = time.perf_counter()
+            edge_auth_args: dict[str, str] = {}
+            if settings.edge_worker_auth_header:
+                edge_auth_args["worker_auth_header"] = settings.edge_worker_auth_header
+            elif settings.edge_worker_username:
+                edge_auth_args["worker_username"] = settings.edge_worker_username
+                if settings.edge_worker_password:
+                    edge_auth_args["worker_password"] = settings.edge_worker_password
             motion = generate_motion_frames(
                 worker_url=settings.edge_worker_url,
                 song_path=Path(song.wav_path),
@@ -63,6 +70,7 @@ def generate_routine_job(routine_id: str) -> None:
                 chunk_seconds=settings.edge_chunk_seconds,
                 overlap_seconds=settings.edge_overlap_seconds,
                 checkpoint_path=settings.edge_checkpoint_path,
+                **edge_auth_args,
             )
             logger.info("routine=%s edge_ms=%d", routine.id, int((time.perf_counter() - edge_t0) * 1000))
 
