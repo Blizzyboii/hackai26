@@ -112,7 +112,7 @@ export async function loadGraphDataset(signal?: AbortSignal): Promise<GraphLoadR
     return {
       graph: mockGraph,
       source: "mock",
-      warning: `Live backend graph unavailable. Showing fallback mock graph. (${detail})`,
+      warning: ``,
     };
   }
 }
