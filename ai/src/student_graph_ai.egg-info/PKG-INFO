@@ -1,0 +1,19 @@
+Metadata-Version: 2.4
+Name: student-graph-ai
+Version: 0.1.0
+Summary: AI research workspace for constrained graph ranking and company pathway recommendations
+Requires-Python: >=3.11
+Requires-Dist: numpy==2.4.2
+Requires-Dist: pandas==3.0.1
+Requires-Dist: networkx==3.6.1
+Requires-Dist: scipy==1.17.1
+Requires-Dist: scikit-learn==1.8.0
+Requires-Dist: xgboost==3.2.0
+Requires-Dist: pyarrow==23.0.1
+Requires-Dist: matplotlib==3.10.8
+Requires-Dist: plotly==6.6.0
+Requires-Dist: jupyter==1.1.1
+Requires-Dist: ipywidgets==8.1.8
+Provides-Extra: dev
+Requires-Dist: pytest==9.0.2; extra == "dev"
+Requires-Dist: ipykernel==7.2.0; extra == "dev"
