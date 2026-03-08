@@ -243,6 +243,74 @@ def test_rl_beam_search_prefers_direct_stronger_acm_path():
 
     assert result["pathSet"]["primary"] is not None
     assert result["pathSet"]["primary"]["edgeIds"] == ["e-root-acm", "e-acm-jp"]
+    assert result["pathSet"]["primary"]["scoreBreakdown"]["directEvidence"] > 0.7
+    assert "directEvidence" in result["pathSet"]["primary"]["explanations"]
+
+
+def test_decomposed_scoring_prefers_stronger_direct_alumni_path():
+    result = build_recommendation(sample_graph(), default_filters(), default_profile(), policy=None)
+
+    primary = result["pathSet"]["primary"]
+    secondary = result["pathSet"]["secondary"][0]
+
+    assert primary is not None
+    assert primary["edgeIds"] == ["e-root-acm", "e-acm-jp"]
+    assert primary["scoreBreakdown"]["directEvidence"] > secondary["scoreBreakdown"]["directEvidence"]
+    assert primary["scoreBreakdown"]["overall"] > secondary["scoreBreakdown"]["overall"]
+
+
+def test_fit_scoring_changes_with_selected_tags():
+    base = build_recommendation(sample_graph(), default_filters(), default_profile(), policy=None)
+    fintech = build_recommendation(
+        sample_graph(),
+        {**default_filters(), "includeTags": ["finance"]},
+        default_profile(),
+        policy=None,
+    )
+
+    assert base["pathSet"]["primary"] is not None
+    assert fintech["pathSet"]["primary"] is not None
+    assert base["pathSet"]["primary"]["scoreBreakdown"]["fit"] != fintech["pathSet"]["primary"]["scoreBreakdown"]["fit"]
+
+
+def test_edge_analysis_labels_direct_vs_transfer_edges():
+    result = build_recommendation(sample_graph(), default_filters(), default_profile(), policy=None)
+
+    direct_edge = result["edgeAnalysis"]["e-acm-jp"]
+    transfer_edge = result["edgeAnalysis"]["e-bridge-ais-acm"]
+
+    assert direct_edge["dominantReason"] == "directEvidence"
+    assert direct_edge["directEvidence"] > direct_edge["transferability"]
+    assert transfer_edge["dominantReason"] == "transferability"
+    assert transfer_edge["transferability"] > transfer_edge["directEvidence"]
+
+
+def test_recommend_paths_payload_returns_scenario_analysis_without_mutating_baseline(tmp_path: Path):
+    checkpoint_path = tmp_path / "policy.pt"
+    payload = {
+        "feature_names": FEATURE_NAMES,
+        "weights": [0.1 for _ in FEATURE_NAMES],
+        "bias": 0.0,
+    }
+
+    with zipfile.ZipFile(checkpoint_path, "w") as archive:
+        archive.writestr("policy/data.pkl", pickle.dumps(payload))
+
+    result = recommend_paths_payload(
+        graph=sample_graph(),
+        filters=default_filters(),
+        profile=default_profile(),
+        checkpoint_path=str(checkpoint_path),
+        feature_manifest_path=None,
+        training_summary_path=None,
+        scenario_club_id="club-acm",
+    )
+
+    assert result["pathSet"]["primary"] is not None
+    assert result["pathSet"]["primary"]["edgeIds"] == ["e-root-acm", "e-acm-jp"]
+    assert result["scenarioAnalysis"] is not None
+    assert result["scenarioAnalysis"]["excludedClubId"] == "club-acm"
+    assert result["scenarioAnalysis"]["baselinePath"]["edgeIds"] == ["e-root-acm", "e-acm-jp"]
 
 
 def test_recommend_paths_payload_uses_loaded_policy_archive(tmp_path: Path):

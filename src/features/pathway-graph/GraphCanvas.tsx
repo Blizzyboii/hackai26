@@ -108,37 +108,37 @@ export function GraphCanvas({
           nodesDraggable={false}
           nodesConnectable={false}
           elementsSelectable={false}
-          panOnDrag={false}
+          panOnDrag
           panOnScroll
           zoomOnPinch
           zoomOnScroll
           zoomOnDoubleClick={false}
           fitView
-          minZoom={0.4}
-          maxZoom={1.85}
+          minZoom={0.3}
+          maxZoom={2.0}
           onNodeDoubleClick={(_, node) => {
             setDoubleClickNodeId(node.id);
           }}
           proOptions={{ hideAttribution: true }}
-          className="bg-[#0a0a0a]"
+          className="bg-[#07080c]"
         >
           <FitViewController fitViewNodeIds={fitViewNodeIds} />
           <DoubleClickZoomController targetNodeId={doubleClickNodeId} />
           <Background
             variant={BackgroundVariant.Dots}
-            gap={24}
-            size={1.4}
-            color="#1f2937"
+            gap={28}
+            size={1}
+            color="#1a1f2e"
           />
           <MiniMap
             zoomable
             pannable
-            className="!bg-[#0f1118] !border !border-slate-700"
+            className="!bg-slate-900/80 !border !border-slate-700/40 !rounded-xl !backdrop-blur-md !shadow-xl"
             nodeColor={(node) => {
               const data = node.data as PathwayNodeViewData;
 
               if (data.isDimmed) {
-                return "#334155";
+                return "#1e293b";
               }
 
               if (data.type === "club") {
@@ -146,40 +146,46 @@ export function GraphCanvas({
               }
 
               if (data.type === "company") {
-                return "#94a3b8";
-              }
-
-              if (data.type === "subprogram") {
                 return "#64748b";
               }
 
-              return "#38bdf8";
+              if (data.type === "subprogram") {
+                return "#475569";
+              }
+
+              return "#22d3ee";
             }}
           />
           <Controls
             showInteractive={false}
-            className="!border !border-slate-700 !bg-[#0f1118] [&_button]:!bg-[#111827] [&_button]:!text-slate-100"
+            className="!border !border-slate-700/40 !bg-slate-900/80 !rounded-xl !backdrop-blur-md !shadow-xl [&_button]:!bg-slate-800/80 [&_button]:!text-slate-200 [&_button]:!border-slate-700/40 [&_button:hover]:!bg-slate-700/80"
           />
           <Panel position="top-right" className="flex gap-2">
             <button
               type="button"
-              className="rounded-md border border-slate-700 bg-[#0f1118] px-3 py-1.5 text-xs font-semibold text-slate-100 shadow-sm hover:bg-slate-800"
+              className={`rounded-xl border px-4 py-2 text-xs font-bold shadow-lg backdrop-blur-md transition-all duration-200 ${!showingFullMap
+                  ? "border-cyan-400/40 bg-cyan-500/15 text-cyan-200 shadow-cyan-500/10"
+                  : "border-slate-600/40 bg-slate-900/80 text-slate-300 hover:bg-slate-800/80"
+                }`}
               onClick={onResetFocus}
             >
               Focus Mode
             </button>
             <button
               type="button"
-              className="rounded-md border border-cyan-400/40 bg-cyan-500/15 px-3 py-1.5 text-xs font-semibold text-cyan-100 shadow-sm hover:bg-cyan-500/25"
+              className={`rounded-xl border px-4 py-2 text-xs font-bold shadow-lg backdrop-blur-md transition-all duration-200 ${showingFullMap
+                  ? "border-cyan-400/40 bg-cyan-500/15 text-cyan-200 shadow-cyan-500/10"
+                  : "border-slate-600/40 bg-slate-900/80 text-slate-300 hover:bg-slate-800/80"
+                }`}
               onClick={onViewFullMap}
             >
-              View Full Map
+              Full Map
             </button>
           </Panel>
           {showingFullMap ? (
             <Panel position="top-center">
-              <div className="rounded-full border border-slate-700 bg-[#0f1118]/95 px-3 py-1 text-xs text-slate-200">
-                Showing all paths - select a company to focus.
+              <div className="rounded-full border border-slate-600/40 bg-slate-900/80 px-4 py-1.5 text-xs font-medium text-slate-300 shadow-lg backdrop-blur-md">
+                Showing all paths — select a company to focus
               </div>
             </Panel>
           ) : null}

@@ -98,7 +98,19 @@ function makeRecommendation(): RecommendationResult {
         extraHops: 0,
         score: 82,
         confidence: 0.88,
-        rationale: ["Confidence 88%"],
+        scoreBreakdown: {
+          overall: 0.82,
+          directEvidence: 0.88,
+          transferability: 0.34,
+          fit: 0.74,
+        },
+        explanations: {
+          summary: "This path is strongest because ACM has direct alumni proof to JPMorgan.",
+          directEvidence: "2 alumni went directly from ACM to JPMorgan.",
+          transferability: "ACM has adjacent overlap with AIS, which gives this route a backup transfer path.",
+          fit: "This path builds on completed activities like ACM and stays realistic for your current timeline.",
+        },
+        rationale: ["This path is strongest because ACM has direct alumni proof to JPMorgan."],
       },
       secondary: [],
       all: [
@@ -110,7 +122,19 @@ function makeRecommendation(): RecommendationResult {
           extraHops: 0,
           score: 82,
           confidence: 0.88,
-          rationale: ["Confidence 88%"],
+          scoreBreakdown: {
+            overall: 0.82,
+            directEvidence: 0.88,
+            transferability: 0.34,
+            fit: 0.74,
+          },
+          explanations: {
+            summary: "This path is strongest because ACM has direct alumni proof to JPMorgan.",
+            directEvidence: "2 alumni went directly from ACM to JPMorgan.",
+            transferability: "ACM has adjacent overlap with AIS, which gives this route a backup transfer path.",
+            fit: "This path builds on completed activities like ACM and stays realistic for your current timeline.",
+          },
+          rationale: ["This path is strongest because ACM has direct alumni proof to JPMorgan."],
         },
       ],
     },
@@ -124,6 +148,14 @@ function makeRecommendation(): RecommendationResult {
         hasRoute: true,
       },
     ],
+    edgeAnalysis: {
+      "e-acm-jp": {
+        directEvidence: 0.88,
+        transferability: 0.18,
+        dominantReason: "directEvidence",
+      },
+    },
+    scenarioAnalysis: null,
     modelMeta: {
       mode: "rl",
       policyLoaded: true,
@@ -174,6 +206,7 @@ describe("GraphWorkspace", () => {
         filters: expect.objectContaining({
           targetCompany: defaultStudentProfile.activeTargetCompany,
         }),
+        scenarioClubId: null,
       }),
       expect.any(AbortSignal),
     );

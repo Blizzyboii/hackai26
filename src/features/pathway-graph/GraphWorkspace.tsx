@@ -18,6 +18,7 @@ import { buildNodePositions } from "./logic/layout";
 import { buildPathSet, getEdgeBaseConfidence } from "./logic/pathfinding";
 import {
   CompanyOutlook,
+  EdgeAnalysis,
   FilterState,
   GraphDataset,
   GraphEdgeData,
@@ -25,6 +26,7 @@ import {
   PathCandidate,
   Person,
   RecommendationResult,
+  ScenarioAnalysis,
   StudentProfile,
 } from "./types";
 
@@ -47,6 +49,7 @@ interface DetailPayload {
   subtitle: string;
   people: Person[];
   countLabel?: string;
+  detailLines?: string[];
   contextActionLabel?: string;
   onContextAction?: () => void;
 }
@@ -81,13 +84,17 @@ function nodeDetailPayload(
     contextActionLabel: isClub ? (isEliminated ? "Re-enable club" : "Mark club unavailable") : undefined,
     onContextAction: isClub
       ? () => {
-          onToggleEliminatedClub(node.id);
-        }
+        onToggleEliminatedClub(node.id);
+      }
       : undefined,
   };
 }
 
-function edgeDetailPayload(edge: GraphEdgeData, nodeById: Map<string, GraphNodeData>): DetailPayload {
+function edgeDetailPayload(
+  edge: GraphEdgeData,
+  nodeById: Map<string, GraphNodeData>,
+  edgeAnalysis?: EdgeAnalysis,
+): DetailPayload {
   const sourceLabel = nodeById.get(edge.source)?.label ?? edge.source;
   const targetLabel = nodeById.get(edge.target)?.label ?? edge.target;
 
@@ -108,6 +115,13 @@ function edgeDetailPayload(edge: GraphEdgeData, nodeById: Map<string, GraphNodeD
     subtitle: edge.relationLabel ?? edge.edgeKind,
     people,
     countLabel: `${edge.weight} weighted alumni`,
+    detailLines: edgeAnalysis
+      ? [
+        `Direct evidence ${Math.round(edgeAnalysis.directEvidence * 100)}%`,
+        `Transferability ${Math.round(edgeAnalysis.transferability * 100)}%`,
+        `Dominant signal ${edgeAnalysis.dominantReason}`,
+      ]
+      : undefined,
   };
 }
 
@@ -142,6 +156,20 @@ function sameStringArray(left: string[], right: string[]) {
   return left.length === right.length && left.every((value, index) => value === right[index]);
 }
 
+function compareScoreBreakdowns(
+  baseline: PathCandidate | null,
+  counterfactual: PathCandidate | null,
+): ScenarioAnalysis["scoreDelta"] {
+  return {
+    overall: (counterfactual?.scoreBreakdown.overall ?? 0) - (baseline?.scoreBreakdown.overall ?? 0),
+    directEvidence:
+      (counterfactual?.scoreBreakdown.directEvidence ?? 0) - (baseline?.scoreBreakdown.directEvidence ?? 0),
+    transferability:
+      (counterfactual?.scoreBreakdown.transferability ?? 0) - (baseline?.scoreBreakdown.transferability ?? 0),
+    fit: (counterfactual?.scoreBreakdown.fit ?? 0) - (baseline?.scoreBreakdown.fit ?? 0),
+  };
+}
+
 export function GraphWorkspace() {
   const [graph, setGraph] = useState<GraphDataset>(mockGraph);
   const [graphWarning, setGraphWarning] = useState<string | null>(null);
@@ -161,6 +189,7 @@ export function GraphWorkspace() {
   const [hoverPreview, setHoverPreview] = useState<HoverPreviewState | null>(null);
   const [inspectState, setInspectState] = useState<InspectState | null>(null);
   const [activePathId, setActivePathId] = useState<string | null>(null);
+  const [selectedScenarioClubId, setSelectedScenarioClubId] = useState<string | null>(null);
   const [viewportSize, setViewportSize] = useState({ width: 1280, height: 720 });
   const hoverCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -300,13 +329,47 @@ export function GraphWorkspace() {
     });
   }, [filters, graph, nodeLabelById, profile]);
 
+  const fallbackScenarioAnalysis = useMemo<ScenarioAnalysis | null>(() => {
+    if (!selectedScenarioClubId) {
+      return null;
+    }
+
+    const scenarioFilters = {
+      ...filters,
+      eliminatedClubIds: filters.eliminatedClubIds.includes(selectedScenarioClubId)
+        ? filters.eliminatedClubIds
+        : [...filters.eliminatedClubIds, selectedScenarioClubId],
+    };
+    const counterfactual = buildPathSet(graph, scenarioFilters, profile);
+    const counterfactualPrimary = counterfactual.pathSet.primary;
+    const deltas = compareScoreBreakdowns(fallbackPathResult.pathSet.primary, counterfactualPrimary);
+    const excludedClubLabel = nodeLabelById.get(selectedScenarioClubId) ?? selectedScenarioClubId;
+    const counterfactualLabel = counterfactualPrimary
+      ? counterfactualPrimary.nodeIds.map((nodeId) => nodeLabelById.get(nodeId) ?? nodeId).join(" -> ")
+      : null;
+
+    return {
+      excludedClubId: selectedScenarioClubId,
+      excludedClubLabel,
+      baselinePath: fallbackPathResult.pathSet.primary,
+      counterfactualPath: counterfactualPrimary,
+      scoreDelta: deltas,
+      summary: counterfactualLabel
+        ? `If ${excludedClubLabel} is removed, the strongest route shifts to ${counterfactualLabel}, losing ${Math.round(
+          Math.abs(Math.min(deltas.directEvidence, 0)) * 100,
+        )}% direct evidence and ${Math.round(Math.abs(Math.min(deltas.fit, 0)) * 100)}% fit.`
+        : `If ${excludedClubLabel} is removed, there is no same-target backup route under the current filters.`,
+    };
+  }, [fallbackPathResult.pathSet.primary, filters, graph, nodeLabelById, profile, selectedScenarioClubId]);
+
   const recommendationRequestKey = useMemo(
     () =>
       JSON.stringify({
         filters,
         profile,
+        scenarioClubId: selectedScenarioClubId,
       }),
-    [filters, profile],
+    [filters, profile, selectedScenarioClubId],
   );
 
   useEffect(() => {
@@ -322,6 +385,7 @@ export function GraphWorkspace() {
         filters,
         profile,
         topK: 4,
+        scenarioClubId: selectedScenarioClubId,
       },
       controller.signal,
     )
@@ -359,7 +423,7 @@ export function GraphWorkspace() {
       cancelled = true;
       controller.abort();
     };
-  }, [filters, graphLoading, profile, recommendationRequestKey]);
+  }, [filters, graphLoading, profile, recommendationRequestKey, selectedScenarioClubId]);
 
   const currentRecommendationState =
     recommendationState?.requestKey === recommendationRequestKey ? recommendationState : null;
@@ -371,11 +435,14 @@ export function GraphWorkspace() {
         traversableNodeIds: fallbackPathResult.traversableNodeIds,
         traversableEdgeIds: fallbackPathResult.traversableEdgeIds,
         companyOutlook: fallbackCompanyOutlook,
+        edgeAnalysis: {},
+        scenarioAnalysis: fallbackScenarioAnalysis,
         modelMeta: null,
       },
     [
       currentRecommendationState?.result,
       fallbackCompanyOutlook,
+      fallbackScenarioAnalysis,
       fallbackPathResult.pathSet,
       fallbackPathResult.traversableEdgeIds,
       fallbackPathResult.traversableNodeIds,
@@ -386,6 +453,33 @@ export function GraphWorkspace() {
     () => getDisplayedPaths(recommendation.pathSet, activePathId),
     [recommendation.pathSet, activePathId],
   );
+
+  const scenarioClubOptions = useMemo(() => {
+    const primary = displayedPaths.primary;
+    if (!primary) {
+      return [];
+    }
+
+    const clubIds = new Set<string>();
+    primary.nodeIds.forEach((nodeId) => {
+      const node = nodeById.get(nodeId);
+      if (node?.type === "club") {
+        clubIds.add(node.id);
+      } else if (node?.type === "subprogram" && node.parentClubId) {
+        clubIds.add(node.parentClubId);
+      }
+    });
+
+    return Array.from(clubIds).map((clubId) => ({
+      id: clubId,
+      label: nodeLabelById.get(clubId) ?? clubId,
+    }));
+  }, [displayedPaths.primary, nodeById, nodeLabelById]);
+
+  const resolvedScenarioClubId =
+    selectedScenarioClubId && scenarioClubOptions.some((club) => club.id === selectedScenarioClubId)
+      ? selectedScenarioClubId
+      : null;
 
   const visibilityState = useMemo(
     () =>
@@ -428,10 +522,11 @@ export function GraphWorkspace() {
     clearHoverCloseTimeout();
     hoverCloseTimeoutRef.current = setTimeout(() => {
       setHoverPreview(null);
-    }, 160);
+    }, 250);
   }, [clearHoverCloseTimeout]);
 
   const toggleEliminatedClub = useCallback((clubId: string) => {
+    setSelectedScenarioClubId((current) => (current === clubId ? null : current));
     setFilters((current) => {
       const exists = current.eliminatedClubIds.includes(clubId);
 
@@ -491,6 +586,7 @@ export function GraphWorkspace() {
         data: {
           ...edge,
           confidence: getEdgeBaseConfidence(edge),
+          edgeAnalysis: recommendation.edgeAnalysis[edge.id],
           isDimmed: visibility?.isDimmed ?? false,
           isOnPrimary: visibility?.isOnPrimary ?? false,
           isOnSecondary: visibility?.isOnSecondary ?? false,
@@ -505,7 +601,7 @@ export function GraphWorkspace() {
         },
       };
     });
-  }, [graph, handleHover, handleHoverLeave, visibilityState.edgeVisibility]);
+  }, [graph, handleHover, handleHoverLeave, recommendation.edgeAnalysis, visibilityState.edgeVisibility]);
 
   const hoverPayload = useMemo(() => {
     if (!hoverPreview) {
@@ -526,8 +622,8 @@ export function GraphWorkspace() {
       return null;
     }
 
-    return edgeDetailPayload(edge, nodeById);
-  }, [edgeById, filters, hoverPreview, nodeById, toggleEliminatedClub]);
+    return edgeDetailPayload(edge, nodeById, recommendation.edgeAnalysis[edge.id]);
+  }, [edgeById, filters, hoverPreview, nodeById, recommendation.edgeAnalysis, toggleEliminatedClub]);
 
   const inspectPayload = useMemo(() => {
     if (!inspectState) {
@@ -540,8 +636,8 @@ export function GraphWorkspace() {
     }
 
     const edge = edgeById.get(inspectState.id);
-    return edge ? edgeDetailPayload(edge, nodeById) : null;
-  }, [edgeById, filters, inspectState, nodeById, toggleEliminatedClub]);
+    return edge ? edgeDetailPayload(edge, nodeById, recommendation.edgeAnalysis[edge.id]) : null;
+  }, [edgeById, filters, inspectState, nodeById, recommendation.edgeAnalysis, toggleEliminatedClub]);
 
   const fitViewNodeIds = useMemo(() => {
     if (filters.showFullTree) {
@@ -593,11 +689,15 @@ export function GraphWorkspace() {
           secondaryPaths={displayedPaths.secondary}
           pathDescriptions={pathDescriptions}
           activePathId={activePathId}
+          scenarioAnalysis={recommendation.scenarioAnalysis ?? fallbackScenarioAnalysis}
+          scenarioClubOptions={scenarioClubOptions}
+          selectedScenarioClubId={resolvedScenarioClubId}
           noRouteReason={noRouteReason}
           mobileOpen={mobileRailOpen}
           onMobileOpenChange={setMobileRailOpen}
           onTargetCompaniesChange={(companyIds) => {
             setActivePathId(null);
+            setSelectedScenarioClubId(null);
             const nextTargets = normalizeTargetCompanies(companyIds).filter((id) => validCompanyIds.has(id));
             const nextActive =
               profile.activeTargetCompany && nextTargets.includes(profile.activeTargetCompany)
@@ -619,6 +719,7 @@ export function GraphWorkspace() {
           }}
           onActiveTargetChange={(targetCompany) => {
             setActivePathId(null);
+            setSelectedScenarioClubId(null);
             const resolvedTarget = targetCompany && validCompanyIds.has(targetCompany) ? targetCompany : null;
 
             setProfile((current) => {
@@ -690,6 +791,7 @@ export function GraphWorkspace() {
           }
           onIncludeTagsChange={(includeTags) => {
             setActivePathId(null);
+            setSelectedScenarioClubId(null);
             setFilters((current) => ({
               ...current,
               includeTags,
@@ -699,6 +801,7 @@ export function GraphWorkspace() {
           }}
           onExcludeTagsChange={(excludeTags) => {
             setActivePathId(null);
+            setSelectedScenarioClubId(null);
             setFilters((current) => ({
               ...current,
               excludeTags,
@@ -717,6 +820,7 @@ export function GraphWorkspace() {
             }));
             setActivePathId(pathId);
           }}
+          onScenarioClubChange={setSelectedScenarioClubId}
           onToggleFocusMode={() =>
             setFilters((current) => ({
               ...current,
@@ -730,15 +834,18 @@ export function GraphWorkspace() {
               showFullTree: !current.showFullTree,
             }))
           }
-          onToggleClubBridges={() =>
+          onToggleClubBridges={() => {
+            setSelectedScenarioClubId(null);
             setFilters((current) => ({
               ...current,
               includeClubBridges: !current.includeClubBridges,
               showFullTree: false,
-            }))
+            }));
+          }
           }
           onClearFilters={() => {
             setActivePathId(null);
+            setSelectedScenarioClubId(null);
 
             const resetTargets = defaultStudentProfile.targetCompanies.filter((id) => validCompanyIds.has(id));
             const nextTargets = resetTargets.length > 0 ? resetTargets : preferredDefaultTarget ? [preferredDefaultTarget] : [];
@@ -795,6 +902,7 @@ export function GraphWorkspace() {
           subtitle={hoverPayload.subtitle}
           people={hoverPayload.people}
           countLabel={hoverPayload.countLabel}
+          detailLines={hoverPayload.detailLines}
           point={hoverPreview.point}
           viewport={viewportSize}
           onInspect={() => {
@@ -811,9 +919,9 @@ export function GraphWorkspace() {
           contextAction={
             hoverPayload.contextActionLabel && hoverPayload.onContextAction
               ? {
-                  label: hoverPayload.contextActionLabel,
-                  onClick: hoverPayload.onContextAction,
-                }
+                label: hoverPayload.contextActionLabel,
+                onClick: hoverPayload.onContextAction,
+              }
               : undefined
           }
           onMouseEnter={clearHoverCloseTimeout}
@@ -825,6 +933,7 @@ export function GraphWorkspace() {
         title={inspectPayload?.title}
         subtitle={inspectPayload?.subtitle}
         people={inspectPayload?.people}
+        detailLines={inspectPayload?.detailLines}
         contextActionLabel={inspectPayload?.contextActionLabel}
         onContextAction={inspectPayload?.onContextAction}
         open={Boolean(inspectPayload)}

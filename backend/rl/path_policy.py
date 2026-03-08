@@ -24,6 +24,10 @@ CROSS_CLUB_HOP_PENALTY = 1.35
 DEFAULT_TOP_K = 4
 DEFAULT_BEAM_SIZE = 8
 DEFAULT_POLICY_MODE = "rl"
+DIRECT_EVIDENCE_WEIGHT = 0.5
+TRANSFERABILITY_WEIGHT = 0.2
+FIT_WEIGHT = 0.3
+BALANCED_DOMINANCE_THRESHOLD = 0.08
 
 FEATURE_NAMES = [
     "edge_kind_root_to_club",
@@ -114,6 +118,16 @@ class SearchState:
     q_values: tuple[float, ...]
     feature_maps: tuple[dict[str, float], ...]
     cross_club_count: int
+
+
+@dataclass(frozen=True)
+class AnalysisSupport:
+    direct_score_by_club: dict[str, float]
+    direct_edge_id_by_club: dict[str, str]
+    transfer_score_by_club: dict[str, float]
+    transfer_partner_by_club: dict[str, str]
+    max_direct_weight: float
+    max_bridge_weight: float
 
 
 def clamp(value: float, minimum: float, maximum: float) -> float:
@@ -445,6 +459,657 @@ def score_paths(
 
     candidates.sort(key=lambda item: (-item["score"], len(item["edgeIds"])))
     return candidates
+
+
+def label_map_for_graph(graph: dict[str, Any]) -> dict[str, str]:
+    return {
+        str(node.get("id")): str(node.get("label", node.get("id")))
+        for node in graph.get("nodes", [])
+        if isinstance(node, dict) and isinstance(node.get("id"), str)
+    }
+
+
+def direct_edge_score(edge: dict[str, Any], max_direct_weight: float) -> float:
+    normalized_weight = clamp(float(edge.get("weight", 1) or 1) / max(max_direct_weight, 1.0), 0.0, 1.0)
+    confidence = get_edge_base_confidence(edge)
+    return clamp(0.72 * normalized_weight + 0.28 * confidence, 0.0, 1.0)
+
+
+def bridge_edge_score(edge: dict[str, Any], max_bridge_weight: float) -> float:
+    normalized_weight = clamp(float(edge.get("weight", 1) or 1) / max(max_bridge_weight, 1.0), 0.0, 1.0)
+    confidence = get_edge_base_confidence(edge)
+    return clamp(0.55 * normalized_weight + 0.45 * confidence, 0.0, 1.0)
+
+
+def club_id_for_node(node_map: dict[str, dict[str, Any]], node_id: str) -> str | None:
+    node = node_map.get(node_id)
+    if not node:
+        return None
+
+    node_type = node.get("type")
+    if node_type == "club":
+        return node_id
+    if node_type == "subprogram":
+        parent_club_id = node.get("parentClubId")
+        if isinstance(parent_club_id, str):
+            return parent_club_id
+    return None
+
+
+def build_analysis_support(traversable: TraversableGraph, target_company: str) -> AnalysisSupport:
+    direct_edges = [
+        edge
+        for edge in traversable.edge_map.values()
+        if edge.get("edgeKind") == "club_to_company" and edge.get("target") == target_company
+    ]
+    bridge_edges = [edge for edge in traversable.edge_map.values() if edge.get("edgeKind") == "cross_club"]
+
+    max_direct_weight = max([float(edge.get("weight", 1) or 1) for edge in direct_edges], default=1.0)
+    max_bridge_weight = max([float(edge.get("weight", 1) or 1) for edge in bridge_edges], default=1.0)
+
+    direct_score_by_club: dict[str, float] = {}
+    direct_edge_id_by_club: dict[str, str] = {}
+
+    for edge in direct_edges:
+        source = edge.get("source")
+        edge_id = edge.get("id")
+        if not isinstance(source, str) or not isinstance(edge_id, str):
+            continue
+        score = direct_edge_score(edge, max_direct_weight)
+        current = direct_score_by_club.get(source, 0.0)
+        if score > current:
+            direct_score_by_club[source] = score
+            direct_edge_id_by_club[source] = edge_id
+
+    transfer_score_by_club: dict[str, float] = {}
+    transfer_partner_by_club: dict[str, str] = {}
+
+    for edge in bridge_edges:
+        source = edge.get("source")
+        target = edge.get("target")
+        if not isinstance(source, str) or not isinstance(target, str):
+            continue
+
+        bridge_score = bridge_edge_score(edge, max_bridge_weight)
+        source_direct = direct_score_by_club.get(source, 0.0)
+        target_direct = direct_score_by_club.get(target, 0.0)
+
+        source_candidate = clamp(0.55 * bridge_score + 0.45 * target_direct, 0.0, 1.0)
+        target_candidate = clamp(0.55 * bridge_score + 0.45 * source_direct, 0.0, 1.0)
+
+        if source_candidate > transfer_score_by_club.get(source, 0.0):
+            transfer_score_by_club[source] = source_candidate
+            transfer_partner_by_club[source] = target
+        if target_candidate > transfer_score_by_club.get(target, 0.0):
+            transfer_score_by_club[target] = target_candidate
+            transfer_partner_by_club[target] = source
+
+    return AnalysisSupport(
+        direct_score_by_club=direct_score_by_club,
+        direct_edge_id_by_club=direct_edge_id_by_club,
+        transfer_score_by_club=transfer_score_by_club,
+        transfer_partner_by_club=transfer_partner_by_club,
+        max_direct_weight=max_direct_weight,
+        max_bridge_weight=max_bridge_weight,
+    )
+
+
+def resolved_activity_nodes(node_map: dict[str, dict[str, Any]], path_node_ids: Sequence[str]) -> list[dict[str, Any]]:
+    return [
+        node_map[node_id]
+        for node_id in path_node_ids
+        if node_id in node_map and node_map[node_id].get("type") in {"club", "subprogram"}
+    ]
+
+
+def path_fit_score(
+    node_map: dict[str, dict[str, Any]],
+    edge_map: dict[str, dict[str, Any]],
+    path: dict[str, Any],
+    filters: dict[str, Any],
+    context: ScoringContext,
+) -> tuple[float, dict[str, float]]:
+    activity_nodes = resolved_activity_nodes(node_map, path["nodeIds"])
+    include_tags = filters.get("includeTags", [])
+    if include_tags:
+        tag_hits = sum(1 for node in activity_nodes if has_tag_overlap(node, include_tags))
+        tag_component = clamp(tag_hits / max(len(activity_nodes), 1), 0.0, 1.0)
+    else:
+        tag_component = 0.6
+
+    completed_hits = sum(1 for node_id in path["nodeIds"] if node_id in context.completed_node_ids)
+    completion_signal = clamp(
+        0.45 * (completed_hits / max(len(activity_nodes), 1) if activity_nodes else 0.0)
+        + 0.55 * progress_signal(context),
+        0.0,
+        1.0,
+    )
+
+    cross_club_count = sum(
+        1
+        for edge_id in path["edgeIds"]
+        if edge_map.get(edge_id, {}).get("edgeKind") == "cross_club"
+    )
+    timeline_raw = context.semesters_remaining - len(path["edgeIds"]) - max(path.get("extraHops", 0), 0)
+    timeline_component = clamp(0.5 + 0.09 * timeline_raw, 0.0, 1.0)
+    if context.risk_tolerance == "low":
+        timeline_component = clamp(timeline_component - 0.05 * cross_club_count, 0.0, 1.0)
+    elif context.risk_tolerance == "high":
+        timeline_component = clamp(timeline_component + 0.03 * max(path.get("extraHops", 0), 0), 0.0, 1.0)
+
+    fit = clamp(0.45 * tag_component + 0.35 * completion_signal + 0.20 * timeline_component, 0.0, 1.0)
+    return fit, {
+        "tagComponent": tag_component,
+        "completionComponent": completion_signal,
+        "timelineComponent": timeline_component,
+        "completedHits": float(completed_hits),
+    }
+
+
+def path_transferability_score(
+    traversable: TraversableGraph,
+    path: dict[str, Any],
+    support: AnalysisSupport,
+) -> tuple[float, dict[str, Any]]:
+    bridge_count = 0
+    best_path_bridge: tuple[float, dict[str, Any] | None] = (0.0, None)
+    for edge_id in path["edgeIds"]:
+        edge = traversable.edge_map.get(edge_id)
+        if not edge or edge.get("edgeKind") != "cross_club":
+            continue
+        bridge_count += 1
+        bridge_score = bridge_edge_score(edge, support.max_bridge_weight)
+        source = str(edge.get("source"))
+        target = str(edge.get("target"))
+        adjacent_support = max(
+            support.direct_score_by_club.get(source, 0.0),
+            support.direct_score_by_club.get(target, 0.0),
+        )
+        score = clamp(
+            0.45 * bridge_score
+            + 0.25 * adjacent_support
+            - 0.14 * max(path.get("extraHops", 0), 0)
+            - 0.08 * bridge_count,
+            0.0,
+            1.0,
+        )
+        if score > best_path_bridge[0]:
+            best_path_bridge = (score, edge)
+
+    best_adjacent_club_id = None
+    best_adjacent_score = 0.0
+    for node_id in path["nodeIds"]:
+        club_id = club_id_for_node(traversable.node_map, node_id)
+        if club_id is None:
+            continue
+        candidate = support.transfer_score_by_club.get(club_id, 0.0)
+        if candidate > best_adjacent_score:
+            best_adjacent_score = candidate
+            best_adjacent_club_id = club_id
+
+    if best_path_bridge[1] is not None:
+        return clamp(best_path_bridge[0], 0.0, 1.0), {
+            "kind": "bridge",
+            "edge": best_path_bridge[1],
+        }
+
+    return clamp(best_adjacent_score * 0.75, 0.0, 1.0), {
+        "kind": "adjacent" if best_adjacent_club_id else "none",
+        "clubId": best_adjacent_club_id,
+        "partnerClubId": support.transfer_partner_by_club.get(best_adjacent_club_id or "", ""),
+    }
+
+
+def path_direct_evidence_score(
+    traversable: TraversableGraph,
+    path: dict[str, Any],
+    target_company: str,
+    support: AnalysisSupport,
+) -> tuple[float, dict[str, Any]]:
+    origin_club_id = next(
+        (
+            resolved_club_id
+            for node_id in path["nodeIds"]
+            for resolved_club_id in [club_id_for_node(traversable.node_map, node_id)]
+            if resolved_club_id is not None
+        ),
+        None,
+    )
+    best_score = 0.0
+    best_edge: dict[str, Any] | None = None
+    for index, edge_id in enumerate(path["edgeIds"]):
+        edge = traversable.edge_map.get(edge_id)
+        if (
+            not edge
+            or edge.get("edgeKind") != "club_to_company"
+            or edge.get("target") != target_company
+            or edge.get("source") != origin_club_id
+        ):
+            continue
+        score = clamp(
+            direct_edge_score(edge, support.max_direct_weight) - 0.12 * index,
+            0.0,
+            1.0,
+        )
+        if score > best_score:
+            best_score = score
+            best_edge = edge
+
+    return clamp(best_score, 0.0, 1.0), {"edge": best_edge, "originClubId": origin_club_id}
+
+
+def primary_source_label(
+    traversable: TraversableGraph,
+    path: dict[str, Any],
+    direct_detail: dict[str, Any],
+) -> str:
+    direct_edge = direct_detail.get("edge")
+    if isinstance(direct_edge, dict):
+        source = direct_edge.get("source")
+        if isinstance(source, str):
+            return str(traversable.node_map.get(source, {}).get("label", source))
+
+    origin_club_id = direct_detail.get("originClubId")
+    if isinstance(origin_club_id, str) and origin_club_id:
+        return str(traversable.node_map.get(origin_club_id, {}).get("label", origin_club_id))
+
+    for node_id in path["nodeIds"]:
+        node = traversable.node_map.get(node_id)
+        if node and node.get("type") in {"club", "subprogram"}:
+            return str(node.get("label", node_id))
+    return "this route"
+
+
+def format_percentage(score: float) -> str:
+    return f"{round(clamp(score, 0.0, 1.0) * 100)}%"
+
+
+def fit_explanation(
+    traversable: TraversableGraph,
+    path: dict[str, Any],
+    filters: dict[str, Any],
+    context: ScoringContext,
+    fit_components: dict[str, float],
+) -> str:
+    include_tags = filters.get("includeTags", [])
+    completed_activity_labels = [
+        str(traversable.node_map[node_id].get("label", node_id))
+        for node_id in path["nodeIds"]
+        if node_id in context.completed_node_ids and node_id in traversable.node_map
+    ]
+
+    if include_tags and completed_activity_labels:
+        selected_tags = ", ".join(include_tags[:2])
+        completed_preview = ", ".join(completed_activity_labels[:2])
+        return f"This path matches your selected interests in {selected_tags} and overlaps with {completed_preview}."
+
+    if include_tags:
+        selected_tags = ", ".join(include_tags[:2])
+        return f"This path matches your selected interests in {selected_tags} and stays realistic for your current timeline."
+
+    if completed_activity_labels:
+        completed_preview = ", ".join(completed_activity_labels[:2])
+        return f"This path builds on completed activities like {completed_preview} and stays realistic for your current timeline."
+
+    timeline_score = format_percentage(fit_components["timelineComponent"])
+    return f"This path fits a {timeline_score} timeline match for your current profile and remaining semesters."
+
+
+def transferability_explanation(
+    traversable: TraversableGraph,
+    transfer_detail: dict[str, Any],
+    support: AnalysisSupport,
+) -> str:
+    kind = transfer_detail.get("kind")
+    if kind == "bridge":
+        edge = transfer_detail.get("edge")
+        if isinstance(edge, dict):
+            source_label = str(traversable.node_map.get(str(edge.get("source")), {}).get("label", edge.get("source")))
+            target_label = str(traversable.node_map.get(str(edge.get("target")), {}).get("label", edge.get("target")))
+            return f"{source_label} overlaps with {target_label}, which keeps this route viable even without direct alumni proof."
+
+    club_id = transfer_detail.get("clubId")
+    partner_id = transfer_detail.get("partnerClubId")
+    if isinstance(club_id, str) and club_id:
+        club_label = str(traversable.node_map.get(club_id, {}).get("label", club_id))
+        if isinstance(partner_id, str) and partner_id:
+            partner_label = str(traversable.node_map.get(partner_id, {}).get("label", partner_id))
+            return f"{club_label} has adjacent overlap with {partner_label}, which gives this route a backup transfer path."
+        return f"{club_label} keeps adjacent club overlap in play, which preserves some transferability if the primary route weakens."
+
+    return "This path depends less on adjacent-club overlap, so most of its strength comes from direct evidence."
+
+
+def direct_evidence_explanation(
+    traversable: TraversableGraph,
+    target_company: str,
+    direct_detail: dict[str, Any],
+) -> str:
+    edge = direct_detail.get("edge")
+    company_label = str(traversable.node_map.get(target_company, {}).get("label", target_company))
+    if isinstance(edge, dict):
+        source = str(edge.get("source"))
+        source_label = str(traversable.node_map.get(source, {}).get("label", source))
+        count = int(float(edge.get("weight", 1) or 1))
+        alumni_label = "alumnus" if count == 1 else "alumni"
+        return f"{count} {alumni_label} went directly from {source_label} to {company_label}."
+    origin_club_id = direct_detail.get("originClubId")
+    if isinstance(origin_club_id, str) and origin_club_id:
+        origin_label = str(traversable.node_map.get(origin_club_id, {}).get("label", origin_club_id))
+        return f"There is limited direct alumni evidence from {origin_label} to {company_label}."
+    return f"There is limited direct alumni evidence from the selected clubs to {company_label}."
+
+
+def fit_summary_phrase(
+    traversable: TraversableGraph,
+    path: dict[str, Any],
+    filters: dict[str, Any],
+    context: ScoringContext,
+) -> str:
+    include_tags = filters.get("includeTags", [])
+    if include_tags:
+        selected_tags = ", ".join(include_tags[:2])
+        return f"matches your selected interests in {selected_tags}"
+
+    completed_activity_labels = [
+        str(traversable.node_map[node_id].get("label", node_id))
+        for node_id in path["nodeIds"]
+        if node_id in context.completed_node_ids and node_id in traversable.node_map
+    ]
+    if completed_activity_labels:
+        completed_preview = ", ".join(completed_activity_labels[:2])
+        return f"builds on completed activities like {completed_preview}"
+
+    return "fits your current timeline"
+
+
+def transfer_summary_phrase(
+    traversable: TraversableGraph,
+    transfer_detail: dict[str, Any],
+    support: AnalysisSupport,
+) -> str:
+    kind = transfer_detail.get("kind")
+    if kind == "bridge":
+        edge = transfer_detail.get("edge")
+        if isinstance(edge, dict):
+            source_label = str(traversable.node_map.get(str(edge.get("source")), {}).get("label", edge.get("source")))
+            target_label = str(traversable.node_map.get(str(edge.get("target")), {}).get("label", edge.get("target")))
+            return f"{source_label} and {target_label} keep adjacent-club overlap available"
+
+    club_id = transfer_detail.get("clubId")
+    partner_id = transfer_detail.get("partnerClubId")
+    if isinstance(club_id, str) and club_id:
+        club_label = str(traversable.node_map.get(club_id, {}).get("label", club_id))
+        if isinstance(partner_id, str) and partner_id:
+            partner_label = str(traversable.node_map.get(partner_id, {}).get("label", partner_id))
+            return f"{club_label} still connects to adjacent overlap with {partner_label}"
+        return f"{club_label} keeps some adjacent-club overlap in reserve"
+
+    return "the route relies more on direct proof than transfer overlap"
+
+
+def build_path_explanations(
+    traversable: TraversableGraph,
+    path: dict[str, Any],
+    filters: dict[str, Any],
+    context: ScoringContext,
+    target_company: str,
+    support: AnalysisSupport,
+) -> tuple[dict[str, str], dict[str, float]]:
+    direct_evidence, direct_detail = path_direct_evidence_score(traversable, path, target_company, support)
+    transferability, transfer_detail = path_transferability_score(traversable, path, support)
+    fit, fit_components = path_fit_score(traversable.node_map, traversable.edge_map, path, filters, context)
+    overall = clamp(
+        DIRECT_EVIDENCE_WEIGHT * direct_evidence
+        + TRANSFERABILITY_WEIGHT * transferability
+        + FIT_WEIGHT * fit,
+        0.0,
+        1.0,
+    )
+
+    direct_text = direct_evidence_explanation(traversable, target_company, direct_detail)
+    transfer_text = transferability_explanation(traversable, transfer_detail, support)
+    fit_text = fit_explanation(traversable, path, filters, context, fit_components)
+    source_label = primary_source_label(traversable, path, direct_detail)
+    company_label = str(traversable.node_map.get(target_company, {}).get("label", target_company))
+    transfer_phrase = transfer_summary_phrase(traversable, transfer_detail, support)
+    fit_phrase = fit_summary_phrase(traversable, path, filters, context)
+    summary = (
+        f"This path is strongest because {source_label} has direct alumni proof to {company_label}, "
+        f"{transfer_phrase}, and it {fit_phrase}."
+    )
+
+    return (
+        {
+            "summary": summary,
+            "directEvidence": direct_text,
+            "transferability": transfer_text,
+            "fit": fit_text,
+        },
+        {
+            "overall": overall,
+            "directEvidence": direct_evidence,
+            "transferability": transferability,
+            "fit": fit,
+        },
+    )
+
+
+def annotate_candidates(
+    graph: dict[str, Any],
+    traversable: TraversableGraph,
+    filters: dict[str, Any],
+    profile: dict[str, Any],
+    candidates: Sequence[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    target_company = filters.get("targetCompany")
+    if not isinstance(target_company, str) or not target_company:
+        return list(candidates)
+
+    context = build_scoring_context(profile)
+    support = build_analysis_support(traversable, target_company)
+    annotated: list[dict[str, Any]] = []
+    label_map = label_map_for_graph(graph)
+
+    for index, candidate in enumerate(candidates):
+        explanations, breakdown = build_path_explanations(
+            traversable=traversable,
+            path=candidate,
+            filters=filters,
+            context=context,
+            target_company=target_company,
+            support=support,
+        )
+
+        candidate_nodes = candidate.get("nodeIds", [])
+        path_label = " -> ".join(label_map.get(node_id, node_id) for node_id in candidate_nodes)
+        summary = explanations["summary"]
+        if index > 0:
+            summary = f"If the primary route weakens, {path_label} is the next strongest same-target option."
+
+        annotated.append(
+            {
+                **candidate,
+                "score": round(breakdown["overall"] * 100, 4),
+                "scoreBreakdown": breakdown,
+                "explanations": {
+                    **explanations,
+                    "summary": summary,
+                },
+                "rationale": [
+                    summary,
+                    explanations["directEvidence"],
+                    explanations["transferability"],
+                    explanations["fit"],
+                ],
+            }
+        )
+
+    annotated.sort(
+        key=lambda item: (
+            -item["scoreBreakdown"]["overall"],
+            -item["scoreBreakdown"]["directEvidence"],
+            len(item["edgeIds"]),
+        )
+    )
+    for index, candidate in enumerate(annotated):
+        if index == 0:
+            candidate["explanations"]["summary"] = build_path_explanations(
+                traversable=traversable,
+                path=candidate,
+                filters=filters,
+                context=context,
+                target_company=target_company,
+                support=support,
+            )[0]["summary"]
+        else:
+            candidate_nodes = candidate.get("nodeIds", [])
+            path_label = " -> ".join(label_map.get(node_id, node_id) for node_id in candidate_nodes)
+            candidate["explanations"]["summary"] = (
+                f"If the primary route weakens, {path_label} is the next strongest same-target option."
+            )
+        candidate["rationale"][0] = candidate["explanations"]["summary"]
+    return annotated
+
+
+def build_edge_analysis(
+    traversable: TraversableGraph,
+    filters: dict[str, Any],
+) -> dict[str, dict[str, Any]]:
+    target_company = filters.get("targetCompany")
+    if not isinstance(target_company, str) or not target_company:
+        return {}
+
+    support = build_analysis_support(traversable, target_company)
+    analysis: dict[str, dict[str, Any]] = {}
+
+    for edge_id, edge in traversable.edge_map.items():
+        if edge_id not in traversable.traversable_edge_ids:
+            continue
+
+        direct_score = 0.0
+        transfer_score = 0.0
+        edge_kind = edge.get("edgeKind")
+        source = str(edge.get("source"))
+        target = str(edge.get("target"))
+
+        if edge_kind == "club_to_company" and target == target_company:
+            direct_score = direct_edge_score(edge, support.max_direct_weight)
+            transfer_score = clamp(support.transfer_score_by_club.get(source, 0.0) * 0.2, 0.0, 1.0)
+        elif edge_kind == "cross_club":
+            bridge_score = bridge_edge_score(edge, support.max_bridge_weight)
+            adjacent_direct = max(
+                support.direct_score_by_club.get(source, 0.0),
+                support.direct_score_by_club.get(target, 0.0),
+            )
+            direct_score = clamp(adjacent_direct * 0.18, 0.0, 1.0)
+            transfer_score = clamp(0.6 * bridge_score + 0.4 * adjacent_direct, 0.0, 1.0)
+        else:
+            related_club = club_id_for_node(traversable.node_map, target if edge_kind == "root_to_club" else source)
+            if related_club:
+                direct_score = support.direct_score_by_club.get(related_club, 0.0)
+                transfer_score = support.transfer_score_by_club.get(related_club, 0.0)
+
+        dominant_reason = "balanced"
+        if direct_score - transfer_score > BALANCED_DOMINANCE_THRESHOLD:
+            dominant_reason = "directEvidence"
+        elif transfer_score - direct_score > BALANCED_DOMINANCE_THRESHOLD:
+            dominant_reason = "transferability"
+
+        analysis[edge_id] = {
+            "directEvidence": round(clamp(direct_score, 0.0, 1.0), 4),
+            "transferability": round(clamp(transfer_score, 0.0, 1.0), 4),
+            "dominantReason": dominant_reason,
+        }
+
+    return analysis
+
+
+def enrich_recommendation_result(
+    graph: dict[str, Any],
+    filters: dict[str, Any],
+    profile: dict[str, Any],
+    result: dict[str, Any],
+) -> dict[str, Any]:
+    traversable = build_traversable_graph(graph, filters)
+    all_candidates = result.get("pathSet", {}).get("all", [])
+    annotated = annotate_candidates(graph, traversable, filters, profile, all_candidates)
+    reason = result.get("pathSet", {}).get("reason")
+    secondary_limit = max(len(result.get("pathSet", {}).get("secondary", [])), DEFAULT_TOP_K - 1)
+
+    return {
+        **result,
+        "pathSet": {
+            "primary": annotated[0] if annotated else None,
+            "secondary": annotated[1 : secondary_limit + 1],
+            "all": annotated,
+            **({"reason": reason} if reason else {}),
+        },
+        "edgeAnalysis": build_edge_analysis(traversable, filters),
+    }
+
+
+def compare_breakdowns(
+    baseline: dict[str, Any] | None,
+    counterfactual: dict[str, Any] | None,
+) -> dict[str, float]:
+    keys = ("overall", "directEvidence", "transferability", "fit")
+    baseline_breakdown = baseline.get("scoreBreakdown", {}) if isinstance(baseline, dict) else {}
+    counter_breakdown = counterfactual.get("scoreBreakdown", {}) if isinstance(counterfactual, dict) else {}
+    return {
+        key: round(float(counter_breakdown.get(key, 0.0)) - float(baseline_breakdown.get(key, 0.0)), 4)
+        for key in keys
+    }
+
+
+def build_scenario_analysis(
+    graph: dict[str, Any],
+    filters: dict[str, Any],
+    profile: dict[str, Any],
+    baseline_result: dict[str, Any],
+    scenario_club_id: str | None,
+    top_k: int,
+    policy: PolicyBundle | None,
+) -> dict[str, Any] | None:
+    if not isinstance(scenario_club_id, str) or not scenario_club_id:
+        return None
+
+    baseline_primary = baseline_result.get("pathSet", {}).get("primary")
+    scenario_filters = {
+        **filters,
+        "eliminatedClubIds": unique_strings([*filters.get("eliminatedClubIds", []), scenario_club_id]),
+    }
+
+    counterfactual = build_recommendation(
+        graph=graph,
+        filters=scenario_filters,
+        profile=profile,
+        top_k=top_k,
+        policy=policy,
+    )
+    counterfactual_primary = counterfactual.get("pathSet", {}).get("primary")
+    deltas = compare_breakdowns(baseline_primary, counterfactual_primary)
+    labels = label_map_for_graph(graph)
+    excluded_label = labels.get(scenario_club_id, scenario_club_id)
+
+    if counterfactual_primary:
+        counterfactual_path = " -> ".join(labels.get(node_id, node_id) for node_id in counterfactual_primary["nodeIds"])
+        summary = (
+            f"If {excluded_label} is removed, the strongest route shifts to {counterfactual_path}, "
+            f"losing {format_percentage(abs(min(deltas['directEvidence'], 0.0)))} direct evidence and "
+            f"{format_percentage(abs(min(deltas['fit'], 0.0)))} fit."
+        )
+    else:
+        summary = f"If {excluded_label} is removed, there is no same-target backup route under the current filters."
+
+    return {
+        "excludedClubId": scenario_club_id,
+        "excludedClubLabel": excluded_label,
+        "baselinePath": baseline_primary,
+        "counterfactualPath": counterfactual_primary,
+        "scoreDelta": deltas,
+        "summary": summary,
+    }
 
 
 def build_heuristic_path_result(
@@ -1250,21 +1915,28 @@ def build_recommendation(
     normalized_profile = normalize_profile(profile)
 
     if policy is None:
-        return build_heuristic_path_result(graph, normalized_filters, normalized_profile, top_k=top_k)
+        heuristic_result = build_heuristic_path_result(graph, normalized_filters, normalized_profile, top_k=top_k)
+        return enrich_recommendation_result(graph, normalized_filters, normalized_profile, heuristic_result)
 
     target_company = normalized_filters.get("targetCompany")
     if not isinstance(target_company, str) or not target_company:
-        return build_heuristic_path_result(graph, normalized_filters, normalized_profile, top_k=top_k)
+        heuristic_result = build_heuristic_path_result(graph, normalized_filters, normalized_profile, top_k=top_k)
+        return enrich_recommendation_result(graph, normalized_filters, normalized_profile, heuristic_result)
 
     traversable = build_traversable_graph(graph, normalized_filters)
     traversable_node_ids = sorted(traversable.traversable_node_ids)
     traversable_edge_ids = sorted(traversable.traversable_edge_ids)
     if target_company not in traversable.traversable_node_ids:
-        return {
+        return enrich_recommendation_result(
+            graph,
+            normalized_filters,
+            normalized_profile,
+            {
             "pathSet": {"primary": None, "secondary": [], "all": [], "reason": "Target company is filtered out by current constraints."},
             "traversableNodeIds": traversable_node_ids,
             "traversableEdgeIds": traversable_edge_ids,
-        }
+            },
+        )
 
     candidates = beam_search_paths(
         graph=graph,
@@ -1272,20 +1944,26 @@ def build_recommendation(
         filters=normalized_filters,
         profile=normalized_profile,
         policy=policy,
-        top_k=top_k,
+        top_k=max(top_k * 2, 6),
     )
     if not candidates:
-        return build_heuristic_path_result(graph, normalized_filters, normalized_profile, top_k=top_k)
+        heuristic_result = build_heuristic_path_result(graph, normalized_filters, normalized_profile, top_k=top_k)
+        return enrich_recommendation_result(graph, normalized_filters, normalized_profile, heuristic_result)
 
-    return {
+    return enrich_recommendation_result(
+        graph,
+        normalized_filters,
+        normalized_profile,
+        {
         "pathSet": {
-            "primary": candidates[0],
-            "secondary": candidates[1:top_k],
-            "all": candidates[:top_k],
+            "primary": candidates[0] if candidates else None,
+            "secondary": candidates[1:max(top_k, 1)],
+            "all": candidates,
         },
         "traversableNodeIds": traversable_node_ids,
         "traversableEdgeIds": traversable_edge_ids,
-    }
+        },
+    )
 
 
 def recommend_paths_payload(
@@ -1297,6 +1975,7 @@ def recommend_paths_payload(
     checkpoint_path: str | None = None,
     feature_manifest_path: str | None = None,
     training_summary_path: str | None = None,
+    scenario_club_id: str | None = None,
 ) -> dict[str, Any]:
     normalized_filters = normalize_filters(filters)
     normalized_profile = normalize_profile(profile)
@@ -1329,6 +2008,15 @@ def recommend_paths_payload(
         top_k=top_k,
         policy=policy,
     )
+    scenario_analysis = build_scenario_analysis(
+        graph=graph,
+        filters=normalized_filters,
+        profile=normalized_profile,
+        baseline_result=recommendation,
+        scenario_club_id=scenario_club_id,
+        top_k=top_k,
+        policy=policy if active_mode == "rl" else None,
+    )
     company_outlook = build_company_outlook(
         graph=graph,
         filters=normalized_filters,
@@ -1340,6 +2028,7 @@ def recommend_paths_payload(
     return {
         **recommendation,
         "companyOutlook": company_outlook,
+        "scenarioAnalysis": scenario_analysis,
         "modelMeta": {
             "mode": active_mode,
             "policyLoaded": policy is not None,

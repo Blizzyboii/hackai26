@@ -229,6 +229,7 @@ def recommend_paths():
         payload = request.get_json(silent=True) or {}
         filters = payload.get("filters")
         profile = payload.get("profile")
+        scenario_club_id = payload.get("scenarioClubId")
         top_k_raw = payload.get("topK", 4)
         top_k = top_k_raw if isinstance(top_k_raw, int) and top_k_raw > 0 else 4
 
@@ -243,6 +244,7 @@ def recommend_paths():
             checkpoint_path=config["checkpoint"],
             feature_manifest_path=config["manifest"],
             training_summary_path=config["summary"],
+            scenario_club_id=scenario_club_id if isinstance(scenario_club_id, str) else None,
         )
         return jsonify(response)
     except Exception as exc:

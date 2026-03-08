@@ -62,6 +62,20 @@ export interface FilterState {
   includeClubBridges: boolean;
 }
 
+export interface PathScoreBreakdown {
+  overall: number;
+  directEvidence: number;
+  transferability: number;
+  fit: number;
+}
+
+export interface PathExplanationSet {
+  summary: string;
+  directEvidence: string;
+  transferability: string;
+  fit: string;
+}
+
 export interface PathCandidate {
   id: string;
   nodeIds: string[];
@@ -70,6 +84,8 @@ export interface PathCandidate {
   extraHops: number;
   score: number;
   confidence: number;
+  scoreBreakdown: PathScoreBreakdown;
+  explanations: PathExplanationSet;
   rationale: string[];
 }
 
@@ -91,9 +107,27 @@ export interface RecommendationModelMeta {
   mode: string;
   policyLoaded: boolean;
   checkpointPath?: string;
+  checkpointJsonPath?: string;
   featureManifestPath?: string;
   reason?: string | null;
   featureNames?: string[];
+}
+
+export type EdgeDominantReason = "directEvidence" | "transferability" | "balanced";
+
+export interface EdgeAnalysis {
+  directEvidence: number;
+  transferability: number;
+  dominantReason: EdgeDominantReason;
+}
+
+export interface ScenarioAnalysis {
+  excludedClubId: string;
+  excludedClubLabel: string;
+  baselinePath: PathCandidate | null;
+  counterfactualPath: PathCandidate | null;
+  scoreDelta: PathScoreBreakdown;
+  summary: string;
 }
 
 export interface RecommendationResult {
@@ -101,6 +135,8 @@ export interface RecommendationResult {
   traversableNodeIds: Set<string>;
   traversableEdgeIds: Set<string>;
   companyOutlook: CompanyOutlook[];
+  edgeAnalysis: Record<string, EdgeAnalysis>;
+  scenarioAnalysis?: ScenarioAnalysis | null;
   modelMeta: RecommendationModelMeta | null;
 }
 
