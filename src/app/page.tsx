@@ -1,124 +1,175 @@
-import Link from "next/link";
-import { Sparkles, LayoutDashboard, Rocket, CheckCircle2 } from "lucide-react";
+import {
+  ArrowRight,
+  Brain,
+  Clock3,
+  Compass,
+  Network,
+  Orbit,
+  Sparkles,
+  Users,
+} from "lucide-react";
 import { ShaderAnimation } from "@/components/ui/shader-animation";
-import { GlowingEffectDemo } from "@/components/ui/glowing-effect-demo";
-import { GlowingEffect } from "@/components/ui/glowing-effect";
+
+const pillars = [
+  {
+    icon: <Network className="h-5 w-5" />,
+    title: "Branching Decision Tree",
+    body: "Turn Nebula's campus signals into every plausible path through clubs, research, orgs, and coursework.",
+  },
+  {
+    icon: <Brain className="h-5 w-5" />,
+    title: "Adaptive ML Guidance",
+    body: "Predict which combinations of choices actually lead to outcomes like JPMorgan, Apple, and beyond.",
+  },
+  {
+    icon: <Compass className="h-5 w-5" />,
+    title: "Career GPS",
+    body: "Students set goals and timeline, then Cortex surfaces the decisions that matter before it is too late.",
+  },
+];
+
+const impact = [
+  {
+    icon: <Clock3 className="h-4 w-4" />,
+    label: "Timing-sensitive",
+    value: "Course order and org timing can compound outcomes.",
+  },
+  {
+    icon: <Users className="h-4 w-4" />,
+    label: "Access gap",
+    value: "Institutional knowledge is usually hidden behind social circles.",
+  },
+  {
+    icon: <Orbit className="h-4 w-4" />,
+    label: "Visibility",
+    value: "Cortex makes hidden pathways legible for first-gen and under-networked students.",
+  },
+];
+
+const howItWorks = [
+  {
+    title: "1. Map The Campus Network",
+    body: "Every org at UTD becomes a node. Cortex visualizes real pathways students actually took across clubs, sub-programs, and companies.",
+  },
+  {
+    title: "2. Weigh Real Alumni Routes",
+    body: "Connections are weighted by alumni evidence, not guesses. Hover any edge to inspect who made that move and where they landed.",
+  },
+  {
+    title: "3. Adapt In Real Time",
+    body: "Set a target company and Cortex highlights strongest routes. If one path closes, the graph recalculates and promotes the next best option.",
+  },
+];
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-white text-slate-900">
-      <div className="pointer-events-none fixed inset-0 z-0 opacity-35 [filter:invert(1)_hue-rotate(180deg)]">
+    <main className="relative min-h-screen overflow-hidden bg-[#03050b] text-slate-100">
+      <div className="pointer-events-none fixed inset-0 z-0 opacity-45">
         <ShaderAnimation />
       </div>
-      <div className="pointer-events-none fixed inset-0 z-0 bg-white/55" />
+      <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(circle_at_58%_40%,rgba(14,116,144,0.22),rgba(2,6,23,0.92)_38%,#02030a_75%)]" />
 
-      <div className="relative z-10">
-      <header className="sticky top-0 z-40 border-b border-[#4c7894]/20 bg-white/90 backdrop-blur">
-        <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6">
-          <div className="flex items-center gap-2">
-            <div className="grid h-8 w-8 place-items-center rounded-lg bg-[#4c7894] text-white">
-              <Sparkles className="h-4 w-4" />
+      <div className="pointer-events-none absolute -right-20 top-12 z-10 h-[30rem] w-[30rem] rounded-full border border-cyan-400/30 shadow-[0_0_120px_rgba(8,145,178,0.35)] animate-[spin_28s_linear_infinite]" />
+      <div className="pointer-events-none absolute -right-8 top-24 z-10 h-[24rem] w-[24rem] rounded-full border border-cyan-200/25 animate-[spin_19s_linear_infinite_reverse]" />
+      <div className="pointer-events-none absolute right-28 top-52 z-10 h-52 w-52 rounded-full bg-cyan-500/20 blur-3xl" />
+
+      <div className="relative z-20">
+        <header className="sticky top-0 z-40 border-b border-cyan-500/20 bg-[#03050b]/80 backdrop-blur">
+          <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6">
+            <div className="flex items-center gap-2">
+              <div className="grid h-8 w-8 place-items-center rounded-lg border border-cyan-300/40 bg-cyan-500/15 text-cyan-200">
+                <Sparkles className="h-4 w-4" />
+              </div>
+              <span className="text-sm font-semibold tracking-[0.25em] text-cyan-100">CORTEX</span>
             </div>
-            <span className="font-semibold">HackAI</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Link href="/application" className="rounded-lg bg-[#4c7894] px-4 py-2 text-sm font-medium text-white hover:bg-[#3f657d]">
-              Open App
-            </Link>
-          </div>
-        </div>
-      </header>
-
-      <section className="mx-auto grid w-full max-w-6xl items-center gap-8 px-6 pb-14 pt-10 lg:grid-cols-2 lg:pt-16">
-        <div>
-          <p className="inline-flex rounded-full border border-[#dd7bbb]/30 bg-[#dd7bbb]/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.14em] text-[#9d3d74]">
-            Hackathon Starter
-          </p>
-          <h1 className="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">
-            Light, clean landing page with editable placeholder content.
-          </h1>
-          <p className="mt-4 max-w-xl text-slate-600">
-            Use this as your default project shell. Replace text, cards, and flows as your idea gets clearer.
-          </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <Link href="/application" className="rounded-xl bg-[#4c7894] px-5 py-3 text-sm font-medium text-white hover:bg-[#3f657d]">
-              Launch Placeholder App
-            </Link>
-            <a href="#features" className="rounded-xl border border-[#5a922c]/35 bg-[#5a922c]/10 px-5 py-3 text-sm font-medium text-[#355b19] hover:bg-[#5a922c]/15">
-              View Sections
+            <a
+              href="/graph"
+              className="rounded-lg border border-cyan-300/35 bg-cyan-500/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100 hover:bg-cyan-500/20"
+            >
+              Open Graph
             </a>
           </div>
-        </div>
+        </header>
 
-        <div className="relative overflow-hidden rounded-3xl border border-[#4c7894]/25 bg-gradient-to-b from-[#dd7bbb]/10 via-[#d79f1e]/10 to-[#4c7894]/10 p-4 shadow-xl">
-          <div className="relative z-10 rounded-2xl border border-[#4c7894]/20 bg-white p-6">
-            <GlowingEffect spread={36} glow disabled={false} proximity={56} inactiveZone={0.02} borderWidth={2} />
-            <p className="text-xs uppercase tracking-[0.14em] text-[#4c7894]">Live Preview</p>
-            <h2 className="mt-2 text-xl font-semibold">Your App Snapshot</h2>
-            <p className="mt-2 text-sm text-slate-600">Swap this preview with your real screenshots later.</p>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              <div className="relative rounded-xl border border-[#d79f1e]/25 bg-[#d79f1e]/10 p-3">
-                <GlowingEffect spread={30} glow disabled={false} proximity={48} inactiveZone={0.01} borderWidth={2} />
-                <p className="text-xs text-[#8c5e0d]">Active Users</p>
-                <p className="text-2xl font-semibold">2,184</p>
-              </div>
-              <div className="relative rounded-xl border border-[#5a922c]/25 bg-[#5a922c]/10 p-3">
-                <GlowingEffect spread={30} glow disabled={false} proximity={48} inactiveZone={0.01} borderWidth={2} />
-                <p className="text-xs text-[#355b19]">Demo Readiness</p>
-                <p className="text-2xl font-semibold">81%</p>
-              </div>
+        <section className="mx-auto grid w-full max-w-6xl gap-10 px-6 pb-14 pt-12 lg:grid-cols-[1.15fr_0.85fr]">
+          <div>
+            <p className="inline-flex rounded-full border border-cyan-300/30 bg-cyan-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-cyan-100">
+              Living Career GPS
+            </p>
+            <h1 className="mt-5 max-w-3xl text-4xl font-semibold tracking-tight text-white md:text-6xl">
+              Cortex makes invisible campus decisions visible.
+            </h1>
+            <p className="mt-5 max-w-2xl text-base leading-7 text-slate-300 md:text-lg">
+              Cortex transforms Nebula&apos;s campus data into a living, adaptive career GPS. Students enter their goals
+              and timeline, and our ML engine builds a branching decision tree across courses, clubs, research, and
+              organizations to predict where each path really leads.
+            </p>
+            <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300">
+              The difference between landing a dream job and missing it often comes down to decisions students did not
+              know mattered. That knowledge usually moves through word of mouth. Cortex changes that.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href="/graph"
+                className="inline-flex items-center gap-2 rounded-xl bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 hover:bg-cyan-300"
+              >
+                Explore Decision Graph
+                <ArrowRight className="h-4 w-4" />
+              </a>
             </div>
           </div>
-        </div>
-      </section>
 
-      <section id="features" className="mx-auto w-full max-w-6xl px-6 pb-16">
-        <div className="grid gap-4 md:grid-cols-3">
-          <FeatureCard
-            icon={<LayoutDashboard className="h-5 w-5" />}
-            title="Landing"
-            body="Simple hero, CTA, and clear positioning text."
-          />
-          <FeatureCard
-            icon={<Rocket className="h-5 w-5" />}
-            title="Application"
-            body="Dedicated placeholder app route ready for your real workflows."
-          />
-          <FeatureCard
-            icon={<CheckCircle2 className="h-5 w-5" />}
-            title="Editable"
-            body="All sections are scaffolded and easy to modify quickly."
-          />
-        </div>
-      </section>
+          <aside className="rounded-3xl border border-cyan-300/25 bg-slate-950/70 p-5 shadow-[0_0_80px_rgba(8,145,178,0.16)]">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-200">Why this matters</p>
+            <div className="mt-4 space-y-3">
+              {impact.map((item) => (
+                <article
+                  key={item.label}
+                  className="rounded-xl border border-cyan-300/20 bg-cyan-500/5 px-3 py-3"
+                >
+                  <div className="flex items-center gap-2 text-cyan-100">
+                    {item.icon}
+                    <p className="text-xs font-semibold uppercase tracking-[0.12em]">{item.label}</p>
+                  </div>
+                  <p className="mt-1 text-sm text-slate-300">{item.value}</p>
+                </article>
+              ))}
+            </div>
+          </aside>
+        </section>
 
-      <section className="mx-auto w-full max-w-6xl px-6 pb-20">
-        <div className="mb-5">
-          <p className="text-xs font-medium uppercase tracking-[0.14em] text-[#4c7894]">Interactive Cards</p>
-          <h2 className="mt-1 text-2xl font-semibold text-slate-900">Glowing Effect Section</h2>
-        </div>
-        <GlowingEffectDemo />
-      </section>
+        <section className="mx-auto w-full max-w-6xl px-6 pb-20">
+          <div className="mb-4 rounded-2xl border border-cyan-300/20 bg-slate-950/65 p-5 shadow-[0_0_40px_rgba(8,145,178,0.12)]">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-200">Cortex - How It Works</p>
+            <p className="mt-2 max-w-4xl text-sm leading-6 text-slate-300">
+              Cortex visualizes UTD&apos;s hidden career network as an interactive graph. Students choose a target company,
+              relevant paths illuminate, irrelevant paths fade, and non-obvious cross-club bridges surface automatically.
+            </p>
+            <div className="mt-4 grid gap-3 md:grid-cols-3">
+              {howItWorks.map((step) => (
+                <article key={step.title} className="rounded-xl border border-slate-700 bg-[#11131c] p-3">
+                  <h3 className="text-sm font-semibold text-slate-100">{step.title}</h3>
+                  <p className="mt-1 text-xs leading-5 text-slate-300">{step.body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            {pillars.map((pillar) => (
+              <article
+                key={pillar.title}
+                className="rounded-2xl border border-cyan-300/20 bg-slate-950/65 p-5 shadow-[0_0_40px_rgba(8,145,178,0.12)]"
+              >
+                <div className="inline-flex rounded-lg border border-cyan-200/35 bg-cyan-500/15 p-2 text-cyan-100">
+                  {pillar.icon}
+                </div>
+                <h2 className="mt-3 text-lg font-semibold text-white">{pillar.title}</h2>
+                <p className="mt-2 text-sm leading-6 text-slate-300">{pillar.body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
       </div>
     </main>
-  );
-}
-
-function FeatureCard({
-  icon,
-  title,
-  body,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  body: string;
-}) {
-  return (
-    <article className="relative rounded-2xl border border-[#4c7894]/20 bg-white p-5 shadow-sm">
-      <GlowingEffect spread={34} glow disabled={false} proximity={56} inactiveZone={0.02} borderWidth={2} />
-      <div className="mb-3 inline-flex rounded-lg bg-[#4c7894]/10 p-2 text-[#4c7894]">{icon}</div>
-      <h3 className="text-lg font-semibold">{title}</h3>
-      <p className="mt-1 text-sm text-slate-600">{body}</p>
-    </article>
   );
 }

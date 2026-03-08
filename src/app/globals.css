@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "maplibre-gl/dist/maplibre-gl.css";
+@import "@xyflow/react/dist/style.css";
 
 :root {
   --background: #f8fafc;
@@ -18,5 +20,5 @@ body {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), "Outfit", system-ui, sans-serif;
+  font-family: var(--font-space-grotesk), "Outfit", system-ui, sans-serif;
 }
