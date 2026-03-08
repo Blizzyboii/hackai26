@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cortex Graph (Frontend + Mongo Backend)
 
-## Getting Started
+This repository now runs a Next.js graph UI and a Flask backend that builds the graph from MongoDB club documents.
 
-First, run the development server:
+## Run frontend
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Frontend runs at `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Run backend
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python server.py
+```
 
-## Learn More
+Backend reads environment values from `backend/.env` and runs at `http://127.0.0.1:5000` by default.
 
-To learn more about Next.js, take a look at the following resources:
+## Data flow
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Frontend requests `GET /api/proxy/graph`.
+- Next.js proxy forwards to Flask `GET /graph`.
+- Flask builds `GraphDataset` from Mongo `clubs` collection:
+  - `club` nodes from club docs
+  - preserved hardcoded `subprogram` nodes via alias map (ACM/AIS/FinTech/WiCyS)
+  - `company` nodes from officer `experience[].company`
+  - `club_to_company` edges weighted by unique officers
+  - `cross_club` edges weighted by shared officers
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+If backend is unavailable, frontend automatically falls back to the existing mock graph and shows a warning banner.
 
-## Deploy on Vercel
+## Optional frontend proxy target override
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Set `API_PROXY_TARGET` if Flask is hosted elsewhere.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+API_PROXY_TARGET=http://127.0.0.1:5000
+```

@@ -11,6 +11,7 @@ import {
 
 const MAX_PATH_DEPTH = 8;
 const BASE_HOP_PENALTY = 0.65;
+const CROSS_CLUB_HOP_PENALTY = 1.35;
 
 interface TraversableGraph {
   nodeMap: Map<string, GraphNodeData>;
@@ -297,6 +298,10 @@ function scorePaths(
       const alumniWeight = careerEdges.reduce((sum, edge) => sum + edge.weight, 0);
       const effectiveAlumniWeight = alumniWeight > 0 ? alumniWeight : 1;
       const extraHops = Math.max(path.edgeIds.length - baselineEdgeCount, 0);
+      const crossClubHopCount = path.edgeIds.reduce((count, edgeId) => {
+        const edge = edgeMap.get(edgeId);
+        return edge?.edgeKind === "cross_club" ? count + 1 : count;
+      }, 0);
 
       const confidence = pathConfidence(path, edgeMap, extraHops, context);
       const completionHits = path.nodeIds.filter((nodeId) => context.completedNodeIds.has(nodeId)).length;
@@ -304,7 +309,7 @@ function scorePaths(
 
       const score =
         (effectiveAlumniWeight * confidence * completionBoost) /
-        (1 + hopPenalty * extraHops);
+        (1 + hopPenalty * extraHops + CROSS_CLUB_HOP_PENALTY * crossClubHopCount);
 
       const rationale: string[] = [
         `Confidence ${Math.round(confidence * 100)}%`,
@@ -317,6 +322,10 @@ function scorePaths(
 
       if (extraHops > 0) {
         rationale.push(`${extraHops} additional hops reduce certainty`);
+      }
+
+      if (crossClubHopCount > 0) {
+        rationale.push(`${crossClubHopCount} cross-club hops add transition risk`);
       }
 
       return {
