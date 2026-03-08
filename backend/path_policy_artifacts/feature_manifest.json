@@ -1,0 +1,39 @@
+{
+  "feature_names": [
+    "edge_kind_root_to_club",
+    "edge_kind_club_to_subprogram",
+    "edge_kind_club_to_company",
+    "edge_kind_cross_club",
+    "destination_type_root",
+    "destination_type_club",
+    "destination_type_subprogram",
+    "destination_type_company",
+    "normalized_edge_weight",
+    "base_edge_confidence",
+    "shortest_hop_distance_norm",
+    "distance_improvement_norm",
+    "include_tag_overlap",
+    "completed_node_hit",
+    "path_depth_norm",
+    "cross_club_count_norm",
+    "semesters_remaining_norm",
+    "risk_low",
+    "risk_medium",
+    "risk_high",
+    "destination_is_target"
+  ],
+  "reward_config": {
+    "step_penalty": -0.04,
+    "cross_club_penalty": -0.2,
+    "no_progress_penalty": -0.12,
+    "include_tag_bonus": 0.06,
+    "completed_node_bonus": 0.05,
+    "terminal_success": 1.0,
+    "terminal_weight_bonus": 0.2,
+    "terminal_confidence_bonus": 0.15,
+    "terminal_failure": -1.0
+  },
+  "max_path_depth": 8,
+  "beam_size": 8
+}
+

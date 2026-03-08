@@ -8,6 +8,7 @@ import { GraphCanvas } from "./GraphCanvas";
 import { loadGraphDataset } from "./data/graphApi";
 import { deriveGraphOptions } from "./data/graphOptions";
 import { defaultFilters, defaultStudentProfile, mockGraph } from "./data/mockGraph";
+import { loadPathRecommendations } from "./data/recommendationApi";
 import { LegendPanel } from "./LegendPanel";
 import { PathwayNode } from "./NodeRenderer";
 import { PeopleDrawer } from "./PeopleDrawer";
@@ -16,12 +17,14 @@ import { buildVisibilityState } from "./logic/filtering";
 import { buildNodePositions } from "./logic/layout";
 import { buildPathSet, getEdgeBaseConfidence } from "./logic/pathfinding";
 import {
+  CompanyOutlook,
   FilterState,
   GraphDataset,
   GraphEdgeData,
   GraphNodeData,
   PathCandidate,
   Person,
+  RecommendationResult,
   StudentProfile,
 } from "./types";
 
@@ -143,6 +146,11 @@ export function GraphWorkspace() {
   const [graph, setGraph] = useState<GraphDataset>(mockGraph);
   const [graphWarning, setGraphWarning] = useState<string | null>(null);
   const [graphLoading, setGraphLoading] = useState(true);
+  const [recommendationState, setRecommendationState] = useState<{
+    requestKey: string;
+    result: RecommendationResult | null;
+    warning: string | null;
+  } | null>(null);
 
   const [profile, setProfile] = useState<StudentProfile>(defaultStudentProfile);
   const [filters, setFilters] = useState<FilterState>(() => ({
@@ -267,11 +275,116 @@ export function GraphWorkspace() {
 
   const nodeLabelById = useMemo(() => new Map(graph.nodes.map((node) => [node.id, node.label])), [graph]);
 
-  const pathResult = useMemo(() => buildPathSet(graph, filters, profile), [graph, filters, profile]);
+  const fallbackPathResult = useMemo(() => buildPathSet(graph, filters, profile), [graph, filters, profile]);
+
+  const fallbackCompanyOutlook = useMemo<CompanyOutlook[]>(() => {
+    const uniqueTargets = normalizeTargetCompanies(profile.targetCompanies);
+
+    return uniqueTargets.map((companyId) => {
+      const targetPathResult = buildPathSet(
+        graph,
+        {
+          ...filters,
+          targetCompany: companyId,
+          showFullTree: false,
+        },
+        profile,
+      );
+
+      return {
+        companyId,
+        label: nodeLabelById.get(companyId) ?? companyId,
+        confidence: targetPathResult.pathSet.primary?.confidence ?? null,
+        hasRoute: Boolean(targetPathResult.pathSet.primary),
+      };
+    });
+  }, [filters, graph, nodeLabelById, profile]);
+
+  const recommendationRequestKey = useMemo(
+    () =>
+      JSON.stringify({
+        filters,
+        profile,
+      }),
+    [filters, profile],
+  );
+
+  useEffect(() => {
+    if (graphLoading) {
+      return;
+    }
+
+    let cancelled = false;
+    const controller = new AbortController();
+
+    loadPathRecommendations(
+      {
+        filters,
+        profile,
+        topK: 4,
+      },
+      controller.signal,
+    )
+      .then((result) => {
+        if (cancelled) {
+          return;
+        }
+
+        setRecommendationState({
+          requestKey: recommendationRequestKey,
+          result,
+          warning:
+            result.modelMeta?.mode === "heuristic"
+              ? result.modelMeta.reason ?? "Backend recommender is using heuristic mode."
+              : null,
+        });
+      })
+      .catch((error) => {
+        if (cancelled) {
+          return;
+        }
+
+        if (error instanceof DOMException && error.name === "AbortError") {
+          return;
+        }
+
+        setRecommendationState({
+          requestKey: recommendationRequestKey,
+          result: null,
+          warning: "Recommendation service unavailable. Using local heuristic ranking.",
+        });
+      });
+
+    return () => {
+      cancelled = true;
+      controller.abort();
+    };
+  }, [filters, graphLoading, profile, recommendationRequestKey]);
+
+  const currentRecommendationState =
+    recommendationState?.requestKey === recommendationRequestKey ? recommendationState : null;
+
+  const recommendation = useMemo<RecommendationResult>(
+    () =>
+      currentRecommendationState?.result ?? {
+        pathSet: fallbackPathResult.pathSet,
+        traversableNodeIds: fallbackPathResult.traversableNodeIds,
+        traversableEdgeIds: fallbackPathResult.traversableEdgeIds,
+        companyOutlook: fallbackCompanyOutlook,
+        modelMeta: null,
+      },
+    [
+      currentRecommendationState?.result,
+      fallbackCompanyOutlook,
+      fallbackPathResult.pathSet,
+      fallbackPathResult.traversableEdgeIds,
+      fallbackPathResult.traversableNodeIds,
+    ],
+  );
 
   const displayedPaths = useMemo(
-    () => getDisplayedPaths(pathResult.pathSet, activePathId),
-    [pathResult.pathSet, activePathId],
+    () => getDisplayedPaths(recommendation.pathSet, activePathId),
+    [recommendation.pathSet, activePathId],
   );
 
   const visibilityState = useMemo(
@@ -283,16 +396,16 @@ export function GraphWorkspace() {
           primary: displayedPaths.primary,
           secondary: displayedPaths.secondary,
         },
-        traversableNodeIds: pathResult.traversableNodeIds,
-        traversableEdgeIds: pathResult.traversableEdgeIds,
+        traversableNodeIds: recommendation.traversableNodeIds,
+        traversableEdgeIds: recommendation.traversableEdgeIds,
       }),
     [
       displayedPaths.primary,
       displayedPaths.secondary,
       filters,
       graph,
-      pathResult.traversableEdgeIds,
-      pathResult.traversableNodeIds,
+      recommendation.traversableEdgeIds,
+      recommendation.traversableNodeIds,
     ],
   );
 
@@ -441,7 +554,7 @@ export function GraphWorkspace() {
 
   const noRouteReason = displayedPaths.primary
     ? null
-    : pathResult.pathSet.reason ?? "No route found for current filters.";
+    : recommendation.pathSet.reason ?? "No route found for current filters.";
 
   const pathDescriptions = useMemo(() => {
     const output: Record<string, string> = {};
@@ -453,34 +566,17 @@ export function GraphWorkspace() {
     return output;
   }, [displayedPaths.all, nodeLabelById]);
 
-  const companyOutlook = useMemo(() => {
-    const uniqueTargets = normalizeTargetCompanies(profile.targetCompanies);
+  const companyOutlook = currentRecommendationState?.result?.companyOutlook ?? fallbackCompanyOutlook;
 
-    return uniqueTargets.map((companyId) => {
-      const targetPathResult = buildPathSet(
-        graph,
-        {
-          ...filters,
-          targetCompany: companyId,
-          showFullTree: false,
-        },
-        profile,
-      );
-
-      return {
-        companyId,
-        label: nodeLabelById.get(companyId) ?? companyId,
-        confidence: targetPathResult.pathSet.primary?.confidence ?? null,
-        hasRoute: Boolean(targetPathResult.pathSet.primary),
-      };
-    });
-  }, [filters, graph, nodeLabelById, profile]);
+  const bannerMessage = graphLoading
+    ? "Loading live backend graph..."
+    : graphWarning ?? currentRecommendationState?.warning ?? null;
 
   return (
     <div className="h-screen w-full overflow-hidden bg-[#0a0a0a] text-slate-100">
-      {graphLoading || graphWarning ? (
+      {bannerMessage ? (
         <div className="absolute left-1/2 top-3 z-50 -translate-x-1/2 rounded-lg border border-amber-300/50 bg-amber-500/15 px-3 py-2 text-xs text-amber-100">
-          {graphLoading ? "Loading live backend graph..." : graphWarning}
+          {bannerMessage}
         </div>
       ) : null}
 

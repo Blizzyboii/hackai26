@@ -6,7 +6,7 @@ from pathlib import Path
 
 import requests
 from dotenv import load_dotenv
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from pymongo import MongoClient
 from selenium import webdriver
@@ -17,8 +17,10 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 try:
     from backend.graph_builder import build_graph_dataset
+    from backend.rl.path_policy import DEFAULT_POLICY_MODE, default_artifact_paths, recommend_paths_payload
 except ModuleNotFoundError:
     from graph_builder import build_graph_dataset
+    from rl.path_policy import DEFAULT_POLICY_MODE, default_artifact_paths, recommend_paths_payload
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -50,6 +52,34 @@ def get_clubs_collection():
     db = client.clubs_data
     clubs_collection = db.clubs
     return clubs_collection
+
+
+def load_graph_dataset_from_store() -> dict[str, object]:
+    collection = get_clubs_collection()
+    clubs = list(
+        collection.find(
+            {},
+            {
+                "_id": 0,
+                "id": 1,
+                "name": 1,
+                "description": 1,
+                "tags": 1,
+                "officers": 1,
+            },
+        )
+    )
+    return build_graph_dataset(clubs)
+
+
+def path_policy_config() -> dict[str, str]:
+    artifacts = default_artifact_paths(BASE_DIR / "path_policy_artifacts")
+    return {
+        "mode": os.getenv("PATH_POLICY_MODE", DEFAULT_POLICY_MODE),
+        "checkpoint": os.getenv("PATH_POLICY_CHECKPOINT", str(artifacts["checkpoint"])),
+        "manifest": os.getenv("PATH_POLICY_FEATURES", str(artifacts["manifest"])),
+        "summary": str(artifacts["summary"]),
+    }
 
 
 def linkedin_scrape_with_selenium(profile_url: str) -> dict[str, object]:
@@ -179,27 +209,48 @@ def get_clubs(search_query: str):
 @app.route("/graph", methods=["GET"])
 def get_graph_dataset():
     try:
-        collection = get_clubs_collection()
-        clubs = list(
-            collection.find(
-                {},
-                {
-                    "_id": 0,
-                    "id": 1,
-                    "name": 1,
-                    "description": 1,
-                    "tags": 1,
-                    "officers": 1,
-                },
-            )
-        )
-        return jsonify(build_graph_dataset(clubs))
+        return jsonify(load_graph_dataset_from_store())
     except Exception as exc:
         return (
             jsonify(
                 {
                     "error_code": "GRAPH_BUILD_FAILED",
                     "message": "Failed to build graph dataset from Mongo data.",
+                    "detail": str(exc),
+                }
+            ),
+            500,
+        )
+
+
+@app.route("/recommend-paths", methods=["POST"])
+def recommend_paths():
+    try:
+        payload = request.get_json(silent=True) or {}
+        filters = payload.get("filters")
+        profile = payload.get("profile")
+        top_k_raw = payload.get("topK", 4)
+        top_k = top_k_raw if isinstance(top_k_raw, int) and top_k_raw > 0 else 4
+
+        graph = load_graph_dataset_from_store()
+        config = path_policy_config()
+        response = recommend_paths_payload(
+            graph=graph,
+            filters=filters,
+            profile=profile,
+            top_k=top_k,
+            mode=config["mode"],
+            checkpoint_path=config["checkpoint"],
+            feature_manifest_path=config["manifest"],
+            training_summary_path=config["summary"],
+        )
+        return jsonify(response)
+    except Exception as exc:
+        return (
+            jsonify(
+                {
+                    "error_code": "RECOMMEND_PATHS_FAILED",
+                    "message": "Failed to generate path recommendations.",
                     "detail": str(exc),
                 }
             ),

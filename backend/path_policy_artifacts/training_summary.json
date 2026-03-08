@@ -1,0 +1,6 @@
+{
+  "status": "untrained",
+  "message": "Run backend/rl/export_graph_snapshot.py and backend/rl/train_path_policy.py to produce policy.pt.",
+  "checkpoint_path": "backend/path_policy_artifacts/policy.pt"
+}
+

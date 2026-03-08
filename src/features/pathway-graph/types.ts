@@ -80,6 +80,30 @@ export interface PathSet {
   reason?: string;
 }
 
+export interface CompanyOutlook {
+  companyId: string;
+  label: string;
+  confidence: number | null;
+  hasRoute: boolean;
+}
+
+export interface RecommendationModelMeta {
+  mode: string;
+  policyLoaded: boolean;
+  checkpointPath?: string;
+  featureManifestPath?: string;
+  reason?: string | null;
+  featureNames?: string[];
+}
+
+export interface RecommendationResult {
+  pathSet: PathSet;
+  traversableNodeIds: Set<string>;
+  traversableEdgeIds: Set<string>;
+  companyOutlook: CompanyOutlook[];
+  modelMeta: RecommendationModelMeta | null;
+}
+
 export interface GraphDataset {
   rootNodeId: string;
   nodes: GraphNodeData[];

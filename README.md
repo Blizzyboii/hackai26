@@ -43,3 +43,24 @@ Set `API_PROXY_TARGET` if Flask is hosted elsewhere.
 ```bash
 API_PROXY_TARGET=http://127.0.0.1:5000
 ```
+
+## RL path recommender
+
+The backend now exposes `POST /recommend-paths` and will try to use a linear Q-policy checkpoint before falling back to the original heuristic scorer.
+
+- RL code lives in `backend/rl/path_policy.py`
+- Export the current graph snapshot with `backend/rl/export_graph_snapshot.py`
+- Train on a separate machine with `backend/rl/train_path_policy.py` or `backend/rl/train.sh`
+- GPU/training dependencies are listed in `backend/rl/requirements.txt`
+
+Default artifact paths:
+
+- checkpoint: `backend/path_policy_artifacts/policy.pt`
+- feature manifest: `backend/path_policy_artifacts/feature_manifest.json`
+- training summary: `backend/path_policy_artifacts/training_summary.json`
+
+Backend env vars:
+
+- `PATH_POLICY_MODE=rl|heuristic`
+- `PATH_POLICY_CHECKPOINT=/absolute/path/to/policy.pt`
+- `PATH_POLICY_FEATURES=/absolute/path/to/feature_manifest.json`
