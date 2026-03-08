@@ -18,6 +18,24 @@ COCO17_COUNT = 17
 SMPL24_COUNT = 24
 
 
+def _estimate_slice_count(duration_sec: float) -> int:
+    # test.py slices with window=2.5s and stride=5.0s.
+    if duration_sec < 2.5:
+        return 1
+    return int(np.floor((duration_sec - 2.5) / 5.0)) + 1
+
+
+def _choose_out_length_seconds(duration_sec: float) -> int:
+    # test.py uses:
+    #   sample_size = int(out_length / 2.5) - 1
+    # and requires sample_size <= number_of_slices.
+    slices = max(1, _estimate_slice_count(duration_sec))
+    max_out = int(max(5.0, 2.5 * (slices + 2) - 1e-3))
+    # Keep out_length bounded by source duration when possible.
+    bounded = int(min(max_out, max(5.0, duration_sec)))
+    return max(5, bounded)
+
+
 def _resolve_checkpoint(path: Path) -> Path:
     if path.is_file():
         return path
@@ -199,21 +217,23 @@ def _fit_frame_count(frames: list[list[list[float]]], target_count: int) -> list
         return frames
     if len(frames) == target_count:
         return frames
-    if len(frames) > target_count:
-        return frames[:target_count]
     if not frames:
         raise RuntimeError("cannot pad empty frame list")
-    padded = list(frames)
-    while len(padded) < target_count:
-        padded.append(padded[-1])
-    return padded
+    src_count = len(frames)
+    indices = np.linspace(0, src_count - 1, num=target_count)
+    out: list[list[list[float]]] = []
+    for idx in indices:
+        src_idx = int(round(float(idx)))
+        src_idx = max(0, min(src_idx, src_count - 1))
+        out.append(frames[src_idx])
+    return out
 
 
 def run_edge_inference(song_path: Path, checkpoint_path: Path, fps: int, difficulty: int) -> list[list[list[float]]]:
     del difficulty  # reserved for future EDGE conditioning
 
     duration_sec = _wav_duration_seconds(song_path)
-    out_length = max(5, int(round(duration_sec)))
+    out_length = _choose_out_length_seconds(duration_sec)
     payload = _run_edge_test_py(song_path=song_path, checkpoint_path=checkpoint_path, out_length_seconds=out_length)
     frames = _convert_payload_to_coco17_frames(payload)
 
