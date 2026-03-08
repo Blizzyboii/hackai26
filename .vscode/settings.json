@@ -1,0 +1,6 @@
+{
+    "python.defaultInterpreterPath": "/Users/sunayshehaan/miniconda3/envs/edge/bin/python",
+    "python.analysis.extraPaths": [
+        "/Users/sunayshehaan/Desktop/vscode/hackai26/EDGE"
+    ]
+}
