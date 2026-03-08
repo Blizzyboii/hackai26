@@ -78,7 +78,11 @@ function parseGraphDataset(value: unknown): GraphDataset | null {
     return null;
   }
 
-  return value as GraphDataset;
+  return {
+    rootNodeId: value.rootNodeId,
+    nodes: value.nodes as GraphDataset["nodes"],
+    edges: value.edges as GraphDataset["edges"],
+  };
 }
 
 export async function loadGraphDataset(signal?: AbortSignal): Promise<GraphLoadResult> {
@@ -112,4 +116,3 @@ export async function loadGraphDataset(signal?: AbortSignal): Promise<GraphLoadR
     };
   }
 }
-

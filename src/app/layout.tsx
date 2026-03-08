@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, IBM_Plex_Mono } from "next/font/google";
+import { Space_Grotesk, IBM_Plex_Mono, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -13,9 +13,15 @@ const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
 });
 
+const cormorant = Cormorant_Garamond({
+  weight: ["500", "600", "700"],
+  variable: "--font-cormorant",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
-  title: "HackAI",
-  description: "Hackathon starter application",
+  title: "Cortex",
+  description: "Adaptive career pathfinding workspace for UTD students.",
 };
 
 export default function RootLayout({
@@ -26,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${spaceGrotesk.variable} ${plexMono.variable} antialiased`}
+        className={`${spaceGrotesk.variable} ${plexMono.variable} ${cormorant.variable} antialiased`}
       >
         {children}
       </body>

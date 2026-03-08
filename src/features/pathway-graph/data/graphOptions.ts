@@ -20,9 +20,9 @@ export function deriveGraphOptions(graph: GraphDataset): GraphDerivedOptions {
     .map((node) => ({ id: node.id, label: node.label }))
     .sort((a, b) => a.label.localeCompare(b.label));
 
-  const activities = graph.nodes
+  const activities: GraphDerivedOptions["activities"] = graph.nodes
     .filter((node) => node.type === "club" || node.type === "subprogram")
-    .map((node) => ({
+    .map<GraphDerivedOptions["activities"][number]>((node) => ({
       id: node.id,
       label: node.label,
       type: node.type === "club" ? "club" : "subprogram",
@@ -36,4 +36,3 @@ export function deriveGraphOptions(graph: GraphDataset): GraphDerivedOptions {
     activities,
   };
 }
-

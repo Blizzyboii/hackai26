@@ -307,7 +307,8 @@ function buildPathAnalysis({
   const maxBridgeWeight = Math.max(...bridgeEdges.map((edge) => edge.weight), 1);
   const originClubId = path.nodeIds.map((nodeId) => clubIdForNode(nodeMap, nodeId)).find((clubId) => Boolean(clubId)) ?? null;
 
-  let bestDirectEdge: GraphEdgeData | null = null;
+  let bestDirectEdgeSourceId: string | null = null;
+  let bestDirectEdgeWeight = 0;
   let directEvidence = 0;
 
   path.edgeIds.forEach((edgeId, index) => {
@@ -319,7 +320,8 @@ function buildPathAnalysis({
     const candidate = clamp(directEdgeScore(edge, maxDirectWeight) - 0.12 * index, 0, 1);
     if (candidate > directEvidence) {
       directEvidence = candidate;
-      bestDirectEdge = edge;
+      bestDirectEdgeSourceId = edge.source;
+      bestDirectEdgeWeight = edge.weight;
     }
   });
 
@@ -415,8 +417,8 @@ function buildPathAnalysis({
   );
 
   const companyLabel = nodeMap.get(targetCompany)?.label ?? targetCompany;
-  const sourceLabel = bestDirectEdge
-    ? (nodeMap.get(bestDirectEdge.source)?.label ?? bestDirectEdge.source)
+  const sourceLabel = bestDirectEdgeSourceId
+    ? (nodeMap.get(bestDirectEdgeSourceId)?.label ?? bestDirectEdgeSourceId)
     : (originClubId ? (nodeMap.get(originClubId)?.label ?? originClubId) : activityNodes[0]?.label) ?? "this route";
   const selectedTags = filters.includeTags.slice(0, 2).join(", ");
   const completedLabels = path.nodeIds
@@ -424,8 +426,8 @@ function buildPathAnalysis({
     .map((nodeId) => nodeMap.get(nodeId)?.label ?? nodeId)
     .slice(0, 2);
 
-  const directExplanation = bestDirectEdge
-    ? `${bestDirectEdge.weight} ${bestDirectEdge.weight === 1 ? "alumnus" : "alumni"} went directly from ${sourceLabel} to ${companyLabel}.`
+  const directExplanation = bestDirectEdgeSourceId
+    ? `${bestDirectEdgeWeight} ${bestDirectEdgeWeight === 1 ? "alumnus" : "alumni"} went directly from ${sourceLabel} to ${companyLabel}.`
     : `There is limited direct alumni evidence from ${sourceLabel} to ${companyLabel}.`;
 
   let fitExplanation = `This path fits a ${Math.round(timelineComponent * 100)}% timeline match for your current profile and remaining semesters.`;
