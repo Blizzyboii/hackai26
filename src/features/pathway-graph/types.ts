@@ -46,6 +46,7 @@ export interface GraphEdgeData {
   type: EdgeType;
   edgeKind: EdgeKind;
   weight: number;
+  confidence?: number;
   people: Person[];
   relationLabel?: string;
   bidirectional?: boolean;
@@ -68,6 +69,8 @@ export interface PathCandidate {
   alumniWeight: number;
   extraHops: number;
   score: number;
+  confidence: number;
+  rationale: string[];
 }
 
 export interface PathSet {
@@ -101,4 +104,21 @@ export interface GraphVisibilityState {
   nodeVisibility: Record<string, NodeVisibility>;
   edgeVisibility: Record<string, EdgeVisibility>;
   relevantNodeIds: Set<string>;
+}
+
+export type RiskTolerance = "low" | "medium" | "high";
+
+export type GraduationTerm = "Spring" | "Summer" | "Fall";
+
+export interface StudentProfile {
+  targetCompanies: string[];
+  activeTargetCompany: string | null;
+  graduationTerm: GraduationTerm;
+  graduationYear: number;
+  semestersRemaining: number;
+  completedNodeIds: string[];
+  completedCourseCount: number;
+  completedResearchCount: number;
+  completedExtracurricularCount: number;
+  riskTolerance: RiskTolerance;
 }

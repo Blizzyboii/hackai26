@@ -61,6 +61,62 @@ const howItWorks = [
   },
 ];
 
+const buildDetails = [
+  {
+    title: "Data pipeline",
+    body: "Nebula API campus data is ingested across paginated endpoints, with course, section, grade, professor, and org signals merged into a single planning graph.",
+  },
+  {
+    title: "ML model",
+    body: "An XGBoost classifier predicts career alignment probabilities using engineered features like prerequisite depth, grade entropy, and consistency trends.",
+  },
+  {
+    title: "NLP skill mapping",
+    body: "Transformer-based extraction links course content and project descriptions to role skill keywords, connecting academics to career requirements.",
+  },
+  {
+    title: "Tree engine",
+    body: "Probability-weighted branching paths are recalculated as students mark nodes complete or unavailable, so the map keeps adapting in real time.",
+  },
+];
+
+const challengeHighlights = [
+  "No single ground-truth dataset cleanly maps exact UTD activity combinations to placements.",
+  "Nebula pagination and rate limits required resilient async ingestion with backoff.",
+  "Rendering dynamic weighted trees without overwhelming users demanded several layout and UX iterations.",
+];
+
+const accomplishmentHighlights = [
+  "A real feature-engineered ML pipeline with confidence-driven outputs.",
+  "A branching tree UX that makes tradeoffs visible instead of hidden in ranked lists.",
+  "A unified framework connecting courses, professors, clubs, and career outcomes.",
+];
+
+const learningHighlights = [
+  "Thoughtful feature engineering outperformed model complexity-first approaches.",
+  "Visualization is part of the prediction product, not just a presentation layer.",
+  "Campus data contains actionable institutional signals students rarely get to see.",
+];
+
+const nextRoadmap = [
+  "Integrate richer alumni outcome and recruiting signals for stronger calibration.",
+  "Add anonymous student outcome feedback loops to improve future predictions.",
+  "Support multi-semester simulation with compounding confidence forecasts.",
+  "Incorporate dynamic opportunities like events, research openings, and internships.",
+  "Ship a mobile app with path shift alerts and opportunity notifications.",
+];
+
+const builtWith = [
+  "React",
+  "TypeScript",
+  "Python",
+  "Flask",
+  "XGBoost",
+  "MongoDB",
+  "Nebula API",
+  "Analytics/ML tooling",
+];
+
 export default function Home() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#03050b] text-slate-100">
@@ -167,6 +223,85 @@ export default function Home() {
                 <p className="mt-2 text-sm leading-6 text-slate-300">{pillar.body}</p>
               </article>
             ))}
+          </div>
+
+          <div className="mt-6 grid gap-4 lg:grid-cols-2">
+            <article className="rounded-2xl border border-cyan-300/20 bg-slate-950/65 p-5 shadow-[0_0_40px_rgba(8,145,178,0.12)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-200">How we built it</p>
+              <div className="mt-3 space-y-3">
+                {buildDetails.map((item) => (
+                  <div key={item.title} className="rounded-xl border border-slate-700 bg-[#11131c] p-3">
+                    <h3 className="text-sm font-semibold text-slate-100">{item.title}</h3>
+                    <p className="mt-1 text-xs leading-5 text-slate-300">{item.body}</p>
+                  </div>
+                ))}
+              </div>
+            </article>
+
+            <article className="rounded-2xl border border-cyan-300/20 bg-slate-950/65 p-5 shadow-[0_0_40px_rgba(8,145,178,0.12)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-200">Challenges and accomplishments</p>
+              <div className="mt-3 space-y-3">
+                <div className="rounded-xl border border-slate-700 bg-[#11131c] p-3">
+                  <h3 className="text-sm font-semibold text-slate-100">Challenges</h3>
+                  <ul className="mt-2 list-disc space-y-1 pl-4 text-xs leading-5 text-slate-300">
+                    {challengeHighlights.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="rounded-xl border border-slate-700 bg-[#11131c] p-3">
+                  <h3 className="text-sm font-semibold text-slate-100">Accomplishments</h3>
+                  <ul className="mt-2 list-disc space-y-1 pl-4 text-xs leading-5 text-slate-300">
+                    {accomplishmentHighlights.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div className="mt-6 grid gap-4 lg:grid-cols-2">
+            <article className="rounded-2xl border border-cyan-300/20 bg-slate-950/65 p-5 shadow-[0_0_40px_rgba(8,145,178,0.12)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-200">What we learned</p>
+              <ul className="mt-3 list-disc space-y-2 pl-4 text-sm leading-6 text-slate-300">
+                {learningHighlights.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </article>
+
+            <article className="rounded-2xl border border-cyan-300/20 bg-slate-950/65 p-5 shadow-[0_0_40px_rgba(8,145,178,0.12)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-200">What&apos;s next</p>
+              <ul className="mt-3 list-disc space-y-2 pl-4 text-sm leading-6 text-slate-300">
+                {nextRoadmap.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </article>
+          </div>
+
+          <div className="mt-6 rounded-2xl border border-cyan-300/20 bg-slate-950/65 p-5 shadow-[0_0_40px_rgba(8,145,178,0.12)]">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-200">Built with</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {builtWith.map((tech) => (
+                <span
+                  key={tech}
+                  className="rounded-full border border-cyan-300/30 bg-cyan-500/10 px-3 py-1 text-xs font-semibold text-cyan-100"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+            <a
+              href="https://github.com/Blizzyboii/hackai26"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-4 inline-flex items-center gap-2 rounded-lg border border-cyan-300/35 bg-cyan-500/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100 hover:bg-cyan-500/20"
+            >
+              GitHub Repo
+              <ArrowRight className="h-3.5 w-3.5" />
+            </a>
           </div>
         </section>
       </div>

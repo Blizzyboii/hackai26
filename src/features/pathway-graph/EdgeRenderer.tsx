@@ -67,6 +67,22 @@ function curveForEdge(edge: PathwayEdgeViewData) {
   return 0.25;
 }
 
+function edgeKindLabel(edge: PathwayEdgeViewData) {
+  if (edge.edgeKind === "root_to_club") {
+    return "Entry";
+  }
+
+  if (edge.edgeKind === "club_to_subprogram") {
+    return "Program";
+  }
+
+  if (edge.edgeKind === "cross_club") {
+    return "Bridge";
+  }
+
+  return "Career";
+}
+
 export function EdgeRenderer({
   id,
   sourceX,
@@ -90,6 +106,7 @@ export function EdgeRenderer({
   });
 
   const visual = edgeVisual(edgeData);
+  const confidencePercent = Math.round((edgeData.confidence ?? 0.5) * 100);
 
   return (
     <>
@@ -142,10 +159,34 @@ export function EdgeRenderer({
             }}
             aria-label={`Inspect route ${edgeData.source} to ${edgeData.target}`}
           >
-            {edgeData.weight} alumni
+            {edgeData.weight} alumni · {confidencePercent}%
           </button>
         </EdgeLabelRenderer>
-      ) : null}
+      ) : (
+        <EdgeLabelRenderer>
+          <button
+            type="button"
+            className="nodrag nopan absolute -translate-x-1/2 -translate-y-1/2 rounded-md border border-slate-600 bg-slate-950 px-1.5 py-0.5 text-[10px] font-semibold text-slate-200 shadow"
+            style={{
+              transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
+              opacity: edgeData.isDimmed ? 0.22 : 0.9,
+            }}
+            onMouseEnter={(event) => {
+              edgeData.onHover(id, { x: event.clientX, y: event.clientY });
+            }}
+            onMouseMove={(event) => {
+              edgeData.onHover(id, { x: event.clientX, y: event.clientY });
+            }}
+            onMouseLeave={edgeData.onLeave}
+            onClick={() => {
+              edgeData.onInspect(id);
+            }}
+            aria-label={`Inspect ${edgeKindLabel(edgeData)} edge ${edgeData.source} to ${edgeData.target}`}
+          >
+            {edgeKindLabel(edgeData)} · {confidencePercent}%
+          </button>
+        </EdgeLabelRenderer>
+      )}
     </>
   );
 }

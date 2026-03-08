@@ -6,10 +6,12 @@ import { ControlRail } from "./ControlRail";
 import { PathwayEdge } from "./EdgeRenderer";
 import { GraphCanvas } from "./GraphCanvas";
 import {
+  availableActivityNodes,
   availableClubs,
   availableCompanies,
   availableTags,
   defaultFilters,
+  defaultStudentProfile,
   mockGraph,
 } from "./data/mockGraph";
 import { LegendPanel } from "./LegendPanel";
@@ -18,8 +20,15 @@ import { PeopleDrawer } from "./PeopleDrawer";
 import { PeopleHoverCard } from "./PeopleHoverCard";
 import { buildVisibilityState } from "./logic/filtering";
 import { buildNodePositions } from "./logic/layout";
-import { buildPathSet } from "./logic/pathfinding";
-import { FilterState, GraphEdgeData, GraphNodeData, PathCandidate, Person } from "./types";
+import { buildPathSet, getEdgeBaseConfidence } from "./logic/pathfinding";
+import {
+  FilterState,
+  GraphEdgeData,
+  GraphNodeData,
+  PathCandidate,
+  Person,
+  StudentProfile,
+} from "./types";
 
 interface HoverPreviewState {
   kind: "edge" | "node";
@@ -104,7 +113,10 @@ function edgeDetailPayload(
   };
 }
 
-function getDisplayedPaths(pathSet: { primary: PathCandidate | null; secondary: PathCandidate[]; all: PathCandidate[] }, activePathId: string | null) {
+function getDisplayedPaths(
+  pathSet: { primary: PathCandidate | null; secondary: PathCandidate[]; all: PathCandidate[] },
+  activePathId: string | null,
+) {
   if (!activePathId) {
     return pathSet;
   }
@@ -124,8 +136,16 @@ function getDisplayedPaths(pathSet: { primary: PathCandidate | null; secondary: 
   };
 }
 
+function normalizeTargetCompanies(companyIds: string[]) {
+  return Array.from(new Set(companyIds));
+}
+
 export function GraphWorkspace() {
-  const [filters, setFilters] = useState<FilterState>(defaultFilters);
+  const [profile, setProfile] = useState<StudentProfile>(defaultStudentProfile);
+  const [filters, setFilters] = useState<FilterState>(() => ({
+    ...defaultFilters,
+    targetCompany: defaultStudentProfile.activeTargetCompany,
+  }));
   const [mobileRailOpen, setMobileRailOpen] = useState(false);
   const [hoverPreview, setHoverPreview] = useState<HoverPreviewState | null>(null);
   const [inspectState, setInspectState] = useState<InspectState | null>(null);
@@ -143,6 +163,14 @@ export function GraphWorkspace() {
     return () => window.removeEventListener("resize", syncViewportSize);
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (hoverCloseTimeoutRef.current) {
+        clearTimeout(hoverCloseTimeoutRef.current);
+      }
+    };
+  }, []);
+
   const nodePositions = useMemo(() => buildNodePositions(mockGraph), []);
 
   const nodeById = useMemo(
@@ -154,12 +182,16 @@ export function GraphWorkspace() {
     () => new Map(mockGraph.edges.map((edge) => [edge.id, edge])),
     [],
   );
+
   const nodeLabelById = useMemo(
     () => new Map(mockGraph.nodes.map((node) => [node.id, node.label])),
     [],
   );
 
-  const pathResult = useMemo(() => buildPathSet(mockGraph, filters), [filters]);
+  const pathResult = useMemo(
+    () => buildPathSet(mockGraph, filters, profile),
+    [filters, profile],
+  );
 
   const displayedPaths = useMemo(
     () => getDisplayedPaths(pathResult.pathSet, activePathId),
@@ -178,7 +210,13 @@ export function GraphWorkspace() {
         traversableNodeIds: pathResult.traversableNodeIds,
         traversableEdgeIds: pathResult.traversableEdgeIds,
       }),
-    [displayedPaths.primary, displayedPaths.secondary, filters, pathResult.traversableEdgeIds, pathResult.traversableNodeIds],
+    [
+      displayedPaths.primary,
+      displayedPaths.secondary,
+      filters,
+      pathResult.traversableEdgeIds,
+      pathResult.traversableNodeIds,
+    ],
   );
 
   const clearHoverCloseTimeout = useCallback(() => {
@@ -262,6 +300,7 @@ export function GraphWorkspace() {
         selectable: false,
         data: {
           ...edge,
+          confidence: getEdgeBaseConfidence(edge),
           isDimmed: visibility?.isDimmed ?? false,
           isOnPrimary: visibility?.isOnPrimary ?? false,
           isOnSecondary: visibility?.isOnSecondary ?? false,
@@ -323,7 +362,10 @@ export function GraphWorkspace() {
     return relevant.length > 0 ? relevant : mockGraph.nodes.map((node) => node.id);
   }, [filters.showFullTree, visibilityState.relevantNodeIds]);
 
-  const noRouteReason = displayedPaths.primary ? null : pathResult.pathSet.reason ?? "No route found for current filters.";
+  const noRouteReason = displayedPaths.primary
+    ? null
+    : pathResult.pathSet.reason ?? "No route found for current filters.";
+
   const pathDescriptions = useMemo(() => {
     const output: Record<string, string> = {};
 
@@ -334,14 +376,40 @@ export function GraphWorkspace() {
     return output;
   }, [displayedPaths.all, nodeLabelById]);
 
+  const companyOutlook = useMemo(() => {
+    const uniqueTargets = normalizeTargetCompanies(profile.targetCompanies);
+
+    return uniqueTargets.map((companyId) => {
+      const targetPathResult = buildPathSet(
+        mockGraph,
+        {
+          ...filters,
+          targetCompany: companyId,
+          showFullTree: false,
+        },
+        profile,
+      );
+
+      return {
+        companyId,
+        label: nodeLabelById.get(companyId) ?? companyId,
+        confidence: targetPathResult.pathSet.primary?.confidence ?? null,
+        hasRoute: Boolean(targetPathResult.pathSet.primary),
+      };
+    });
+  }, [filters, nodeLabelById, profile]);
+
   return (
     <div className="h-screen w-full overflow-hidden bg-[#0a0a0a] text-slate-100">
       <div className="flex h-full">
         <ControlRail
           filters={filters}
+          profile={profile}
           tags={availableTags}
           clubs={availableClubs}
+          activities={availableActivityNodes}
           companies={availableCompanies}
+          companyOutlook={companyOutlook}
           primaryPath={displayedPaths.primary}
           secondaryPaths={displayedPaths.secondary}
           pathDescriptions={pathDescriptions}
@@ -349,14 +417,96 @@ export function GraphWorkspace() {
           noRouteReason={noRouteReason}
           mobileOpen={mobileRailOpen}
           onMobileOpenChange={setMobileRailOpen}
-          onTargetChange={(targetCompany) => {
+          onTargetCompaniesChange={(companyIds) => {
             setActivePathId(null);
+            const nextTargets = normalizeTargetCompanies(companyIds);
+            const nextActive =
+              profile.activeTargetCompany && nextTargets.includes(profile.activeTargetCompany)
+                ? profile.activeTargetCompany
+                : nextTargets[0] ?? null;
+
+            setProfile((current) => ({
+              ...current,
+              targetCompanies: nextTargets,
+              activeTargetCompany: nextActive,
+            }));
+
+            setFilters((current) => ({
+              ...current,
+              targetCompany: nextActive,
+              showFullTree: false,
+              focusMode: nextActive ? current.focusMode : false,
+            }));
+          }}
+          onActiveTargetChange={(targetCompany) => {
+            setActivePathId(null);
+            setProfile((current) => {
+              const nextTargets = targetCompany
+                ? normalizeTargetCompanies([...current.targetCompanies, targetCompany])
+                : current.targetCompanies;
+
+              return {
+                ...current,
+                targetCompanies: nextTargets,
+                activeTargetCompany: targetCompany,
+              };
+            });
+
             setFilters((current) => ({
               ...current,
               targetCompany,
               showFullTree: false,
+              focusMode: targetCompany ? current.focusMode : false,
             }));
           }}
+          onGraduationTermChange={(term) =>
+            setProfile((current) => ({
+              ...current,
+              graduationTerm: term,
+            }))
+          }
+          onGraduationYearChange={(year) =>
+            setProfile((current) => ({
+              ...current,
+              graduationYear: Number.isFinite(year) ? year : current.graduationYear,
+            }))
+          }
+          onSemestersRemainingChange={(value) =>
+            setProfile((current) => ({
+              ...current,
+              semestersRemaining: Math.max(1, Math.min(10, value)),
+            }))
+          }
+          onCompletedNodesChange={(nodeIds) =>
+            setProfile((current) => ({
+              ...current,
+              completedNodeIds: normalizeTargetCompanies(nodeIds),
+            }))
+          }
+          onCompletedCourseCountChange={(value) =>
+            setProfile((current) => ({
+              ...current,
+              completedCourseCount: Math.max(0, value),
+            }))
+          }
+          onCompletedResearchCountChange={(value) =>
+            setProfile((current) => ({
+              ...current,
+              completedResearchCount: Math.max(0, value),
+            }))
+          }
+          onCompletedExtracurricularCountChange={(value) =>
+            setProfile((current) => ({
+              ...current,
+              completedExtracurricularCount: Math.max(0, value),
+            }))
+          }
+          onRiskToleranceChange={(risk) =>
+            setProfile((current) => ({
+              ...current,
+              riskTolerance: risk,
+            }))
+          }
           onIncludeTagsChange={(includeTags) => {
             setActivePathId(null);
             setFilters((current) => ({
@@ -408,7 +558,11 @@ export function GraphWorkspace() {
           }
           onClearFilters={() => {
             setActivePathId(null);
-            setFilters(defaultFilters);
+            setProfile(defaultStudentProfile);
+            setFilters({
+              ...defaultFilters,
+              targetCompany: defaultStudentProfile.activeTargetCompany,
+            });
           }}
         />
 

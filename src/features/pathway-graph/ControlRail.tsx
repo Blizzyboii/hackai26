@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent } from "react";
-import { PathCandidate } from "./types";
+import { PathCandidate, RiskTolerance, StudentProfile } from "./types";
 
 interface CompanyOption {
   id: string;
@@ -11,6 +11,19 @@ interface CompanyOption {
 interface ClubOption {
   id: string;
   label: string;
+}
+
+interface ActivityOption {
+  id: string;
+  label: string;
+  type: "club" | "subprogram";
+}
+
+interface CompanyOutlook {
+  companyId: string;
+  label: string;
+  confidence: number | null;
+  hasRoute: boolean;
 }
 
 interface ControlRailProps {
@@ -23,9 +36,12 @@ interface ControlRailProps {
     showFullTree: boolean;
     includeClubBridges: boolean;
   };
+  profile: StudentProfile;
   tags: string[];
   clubs: ClubOption[];
+  activities: ActivityOption[];
   companies: CompanyOption[];
+  companyOutlook: CompanyOutlook[];
   primaryPath: PathCandidate | null;
   secondaryPaths: PathCandidate[];
   pathDescriptions: Record<string, string>;
@@ -33,7 +49,16 @@ interface ControlRailProps {
   noRouteReason: string | null;
   mobileOpen: boolean;
   onMobileOpenChange: (open: boolean) => void;
-  onTargetChange: (targetId: string | null) => void;
+  onTargetCompaniesChange: (companyIds: string[]) => void;
+  onActiveTargetChange: (targetId: string | null) => void;
+  onGraduationTermChange: (term: StudentProfile["graduationTerm"]) => void;
+  onGraduationYearChange: (year: number) => void;
+  onSemestersRemainingChange: (value: number) => void;
+  onCompletedNodesChange: (nodeIds: string[]) => void;
+  onCompletedCourseCountChange: (value: number) => void;
+  onCompletedResearchCountChange: (value: number) => void;
+  onCompletedExtracurricularCountChange: (value: number) => void;
+  onRiskToleranceChange: (risk: RiskTolerance) => void;
   onIncludeTagsChange: (tags: string[]) => void;
   onExcludeTagsChange: (tags: string[]) => void;
   onToggleEliminatedClub: (clubId: string) => void;
@@ -80,6 +105,26 @@ function ToggleRow({
   );
 }
 
+function RiskToggle({
+  value,
+  active,
+  onClick,
+}: {
+  value: RiskTolerance;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      className={`rounded-md px-2 py-1 text-xs font-semibold transition ${active ? "bg-cyan-500 text-slate-950" : "bg-[#11131c] text-slate-200 hover:bg-[#171b26]"}`}
+      onClick={onClick}
+    >
+      {value}
+    </button>
+  );
+}
+
 function PathCard({
   label,
   path,
@@ -100,24 +145,41 @@ function PathCard({
       onClick={onClick}
     >
       <p className="text-xs font-semibold uppercase tracking-[0.1em] text-cyan-200">{label}</p>
-      <p className="mt-1 text-xs text-slate-200">Score {path.score.toFixed(2)} · Alumni {path.alumniWeight}</p>
-      <p className="mt-1 text-xs text-slate-400">Extra hops {path.extraHops}</p>
+      <p className="mt-1 text-xs text-slate-200">
+        {Math.round(path.confidence * 100)}% confidence · Score {path.score.toFixed(2)}
+      </p>
+      <p className="mt-1 text-xs text-slate-400">Alumni {path.alumniWeight} · Extra hops {path.extraHops}</p>
       <p className="mt-1 text-xs text-slate-500">{description}</p>
+      {path.rationale.length > 0 ? (
+        <p className="mt-1 text-[11px] text-slate-500">{path.rationale[0]}</p>
+      ) : null}
     </button>
   );
 }
 
 function RailContent({
   filters,
+  profile,
   tags,
   clubs,
+  activities,
   companies,
+  companyOutlook,
   primaryPath,
   secondaryPaths,
   pathDescriptions,
   activePathId,
   noRouteReason,
-  onTargetChange,
+  onTargetCompaniesChange,
+  onActiveTargetChange,
+  onGraduationTermChange,
+  onGraduationYearChange,
+  onSemestersRemainingChange,
+  onCompletedNodesChange,
+  onCompletedCourseCountChange,
+  onCompletedResearchCountChange,
+  onCompletedExtracurricularCountChange,
+  onRiskToleranceChange,
   onIncludeTagsChange,
   onExcludeTagsChange,
   onToggleEliminatedClub,
@@ -137,23 +199,180 @@ function RailContent({
       </div>
 
       <div className="flex-1 space-y-4 overflow-y-auto px-4 py-4">
-        <section>
-          <label className="text-xs font-semibold uppercase tracking-[0.1em] text-slate-400" htmlFor="target-company">
-            Target company
+        <section className="rounded-lg border border-slate-700 bg-[#0f1118] p-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.1em] text-cyan-200">Student profile simulation</p>
+
+          <label className="mt-3 block text-xs font-semibold uppercase tracking-[0.1em] text-slate-400" htmlFor="target-companies">
+            Target companies (multi)
           </label>
           <select
-            id="target-company"
-            className="mt-2 w-full rounded-lg border border-slate-700 bg-[#11131c] px-3 py-2 text-sm text-slate-100"
-            value={filters.targetCompany ?? ""}
-            onChange={(event) => onTargetChange(event.target.value || null)}
+            id="target-companies"
+            multiple
+            size={Math.min(companies.length, 6)}
+            className="mt-1 w-full rounded-lg border border-slate-700 bg-[#11131c] px-3 py-2 text-sm text-slate-100"
+            value={profile.targetCompanies}
+            onChange={(event) => onTargetCompaniesChange(readMultiSelectValue(event))}
           >
-            <option value="">Select company</option>
             {companies.map((company) => (
               <option key={company.id} value={company.id}>
                 {company.label}
               </option>
             ))}
           </select>
+
+          <label className="mt-3 block text-xs font-semibold uppercase tracking-[0.1em] text-slate-400" htmlFor="active-target">
+            Active target focus
+          </label>
+          <select
+            id="active-target"
+            className="mt-1 w-full rounded-lg border border-slate-700 bg-[#11131c] px-3 py-2 text-sm text-slate-100"
+            value={profile.activeTargetCompany ?? ""}
+            onChange={(event) => onActiveTargetChange(event.target.value || null)}
+          >
+            <option value="">Select active target</option>
+            {companies
+              .filter((company) => profile.targetCompanies.includes(company.id))
+              .map((company) => (
+                <option key={company.id} value={company.id}>
+                  {company.label}
+                </option>
+              ))}
+          </select>
+
+          <div className="mt-3 grid grid-cols-2 gap-2">
+            <div>
+              <label className="text-xs font-semibold uppercase tracking-[0.1em] text-slate-400" htmlFor="graduation-term">
+                Graduation term
+              </label>
+              <select
+                id="graduation-term"
+                className="mt-1 w-full rounded-lg border border-slate-700 bg-[#11131c] px-2 py-2 text-sm text-slate-100"
+                value={profile.graduationTerm}
+                onChange={(event) => onGraduationTermChange(event.target.value as StudentProfile["graduationTerm"])}
+              >
+                <option value="Spring">Spring</option>
+                <option value="Summer">Summer</option>
+                <option value="Fall">Fall</option>
+              </select>
+            </div>
+            <div>
+              <label className="text-xs font-semibold uppercase tracking-[0.1em] text-slate-400" htmlFor="graduation-year">
+                Graduation year
+              </label>
+              <input
+                id="graduation-year"
+                type="number"
+                min={2026}
+                max={2035}
+                className="mt-1 w-full rounded-lg border border-slate-700 bg-[#11131c] px-2 py-2 text-sm text-slate-100"
+                value={profile.graduationYear}
+                onChange={(event) => onGraduationYearChange(Number(event.target.value))}
+              />
+            </div>
+          </div>
+
+          <label className="mt-3 block text-xs font-semibold uppercase tracking-[0.1em] text-slate-400" htmlFor="semesters-remaining">
+            Semesters remaining: {profile.semestersRemaining}
+          </label>
+          <input
+            id="semesters-remaining"
+            type="range"
+            min={1}
+            max={10}
+            value={profile.semestersRemaining}
+            className="mt-1 w-full"
+            onChange={(event) => onSemestersRemainingChange(Number(event.target.value))}
+          />
+
+          <label className="mt-3 block text-xs font-semibold uppercase tracking-[0.1em] text-slate-400" htmlFor="completed-activities">
+            Completed activities
+          </label>
+          <select
+            id="completed-activities"
+            multiple
+            size={Math.min(activities.length, 6)}
+            className="mt-1 w-full rounded-lg border border-slate-700 bg-[#11131c] px-3 py-2 text-sm text-slate-100"
+            value={profile.completedNodeIds}
+            onChange={(event) => onCompletedNodesChange(readMultiSelectValue(event))}
+          >
+            {activities.map((activity) => (
+              <option key={activity.id} value={activity.id}>
+                {activity.label} ({activity.type})
+              </option>
+            ))}
+          </select>
+
+          <div className="mt-3 grid grid-cols-3 gap-2">
+            <div>
+              <label className="text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-400" htmlFor="course-count">
+                Courses
+              </label>
+              <input
+                id="course-count"
+                type="number"
+                min={0}
+                max={40}
+                className="mt-1 w-full rounded-md border border-slate-700 bg-[#11131c] px-2 py-1.5 text-xs text-slate-100"
+                value={profile.completedCourseCount}
+                onChange={(event) => onCompletedCourseCountChange(Number(event.target.value))}
+              />
+            </div>
+            <div>
+              <label className="text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-400" htmlFor="research-count">
+                Research
+              </label>
+              <input
+                id="research-count"
+                type="number"
+                min={0}
+                max={10}
+                className="mt-1 w-full rounded-md border border-slate-700 bg-[#11131c] px-2 py-1.5 text-xs text-slate-100"
+                value={profile.completedResearchCount}
+                onChange={(event) => onCompletedResearchCountChange(Number(event.target.value))}
+              />
+            </div>
+            <div>
+              <label className="text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-400" htmlFor="extra-count">
+                Extras
+              </label>
+              <input
+                id="extra-count"
+                type="number"
+                min={0}
+                max={20}
+                className="mt-1 w-full rounded-md border border-slate-700 bg-[#11131c] px-2 py-1.5 text-xs text-slate-100"
+                value={profile.completedExtracurricularCount}
+                onChange={(event) => onCompletedExtracurricularCountChange(Number(event.target.value))}
+              />
+            </div>
+          </div>
+
+          <div className="mt-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-slate-400">Risk tolerance</p>
+            <div className="mt-1 flex gap-2">
+              <RiskToggle value="low" active={profile.riskTolerance === "low"} onClick={() => onRiskToleranceChange("low")} />
+              <RiskToggle value="medium" active={profile.riskTolerance === "medium"} onClick={() => onRiskToleranceChange("medium")} />
+              <RiskToggle value="high" active={profile.riskTolerance === "high"} onClick={() => onRiskToleranceChange("high")} />
+            </div>
+          </div>
+        </section>
+
+        <section className="rounded-lg border border-slate-700 bg-[#0f1118] p-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.1em] text-slate-400">Target outlook</p>
+          <div className="mt-2 space-y-2">
+            {companyOutlook.length > 0 ? (
+              companyOutlook.map((item) => (
+                <div key={item.companyId} className="flex items-center justify-between rounded-md bg-[#11131c] px-2 py-1.5">
+                  <p className="text-xs text-slate-200">{item.label}</p>
+                  <p className={`text-xs font-semibold ${item.hasRoute ? "text-cyan-200" : "text-rose-300"}`}>
+                    {item.hasRoute && item.confidence !== null ? `${Math.round(item.confidence * 100)}%` : "No route"}
+                  </p>
+                </div>
+              ))
+            ) : (
+              <p className="text-xs text-slate-500">Add target companies to generate simulated outlook.</p>
+            )}
+          </div>
         </section>
 
         <section>
@@ -303,9 +522,12 @@ function RailContent({
 
 export function ControlRail({
   filters,
+  profile,
   tags,
   clubs,
+  activities,
   companies,
+  companyOutlook,
   primaryPath,
   secondaryPaths,
   pathDescriptions,
@@ -313,7 +535,16 @@ export function ControlRail({
   noRouteReason,
   mobileOpen,
   onMobileOpenChange,
-  onTargetChange,
+  onTargetCompaniesChange,
+  onActiveTargetChange,
+  onGraduationTermChange,
+  onGraduationYearChange,
+  onSemestersRemainingChange,
+  onCompletedNodesChange,
+  onCompletedCourseCountChange,
+  onCompletedResearchCountChange,
+  onCompletedExtracurricularCountChange,
+  onRiskToleranceChange,
   onIncludeTagsChange,
   onExcludeTagsChange,
   onToggleEliminatedClub,
@@ -325,18 +556,30 @@ export function ControlRail({
 }: ControlRailProps) {
   return (
     <>
-      <aside className="hidden h-full w-[340px] shrink-0 border-r border-slate-800 bg-[#0c0f16] md:block">
+      <aside className="hidden h-full w-[360px] shrink-0 border-r border-slate-800 bg-[#0c0f16] md:block">
         <RailContent
           filters={filters}
+          profile={profile}
           tags={tags}
           clubs={clubs}
+          activities={activities}
           companies={companies}
+          companyOutlook={companyOutlook}
           primaryPath={primaryPath}
           secondaryPaths={secondaryPaths}
           pathDescriptions={pathDescriptions}
           activePathId={activePathId}
           noRouteReason={noRouteReason}
-          onTargetChange={onTargetChange}
+          onTargetCompaniesChange={onTargetCompaniesChange}
+          onActiveTargetChange={onActiveTargetChange}
+          onGraduationTermChange={onGraduationTermChange}
+          onGraduationYearChange={onGraduationYearChange}
+          onSemestersRemainingChange={onSemestersRemainingChange}
+          onCompletedNodesChange={onCompletedNodesChange}
+          onCompletedCourseCountChange={onCompletedCourseCountChange}
+          onCompletedResearchCountChange={onCompletedResearchCountChange}
+          onCompletedExtracurricularCountChange={onCompletedExtracurricularCountChange}
+          onRiskToleranceChange={onRiskToleranceChange}
           onIncludeTagsChange={onIncludeTagsChange}
           onExcludeTagsChange={onExcludeTagsChange}
           onToggleEliminatedClub={onToggleEliminatedClub}
@@ -377,15 +620,27 @@ export function ControlRail({
         </div>
         <RailContent
           filters={filters}
+          profile={profile}
           tags={tags}
           clubs={clubs}
+          activities={activities}
           companies={companies}
+          companyOutlook={companyOutlook}
           primaryPath={primaryPath}
           secondaryPaths={secondaryPaths}
           pathDescriptions={pathDescriptions}
           activePathId={activePathId}
           noRouteReason={noRouteReason}
-          onTargetChange={onTargetChange}
+          onTargetCompaniesChange={onTargetCompaniesChange}
+          onActiveTargetChange={onActiveTargetChange}
+          onGraduationTermChange={onGraduationTermChange}
+          onGraduationYearChange={onGraduationYearChange}
+          onSemestersRemainingChange={onSemestersRemainingChange}
+          onCompletedNodesChange={onCompletedNodesChange}
+          onCompletedCourseCountChange={onCompletedCourseCountChange}
+          onCompletedResearchCountChange={onCompletedResearchCountChange}
+          onCompletedExtracurricularCountChange={onCompletedExtracurricularCountChange}
+          onRiskToleranceChange={onRiskToleranceChange}
           onIncludeTagsChange={onIncludeTagsChange}
           onExcludeTagsChange={onExcludeTagsChange}
           onToggleEliminatedClub={onToggleEliminatedClub}

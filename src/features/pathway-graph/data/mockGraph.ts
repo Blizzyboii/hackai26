@@ -1,4 +1,4 @@
-import { FilterState, GraphDataset } from "../types";
+import { FilterState, GraphDataset, StudentProfile } from "../types";
 
 export const defaultFilters: FilterState = {
   targetCompany: "company-jpmorgan",
@@ -8,6 +8,19 @@ export const defaultFilters: FilterState = {
   focusMode: true,
   showFullTree: false,
   includeClubBridges: true,
+};
+
+export const defaultStudentProfile: StudentProfile = {
+  targetCompanies: ["company-jpmorgan", "company-apple"],
+  activeTargetCompany: "company-jpmorgan",
+  graduationTerm: "Spring",
+  graduationYear: 2027,
+  semestersRemaining: 4,
+  completedNodeIds: ["club-acm", "sub-acm-projects"],
+  completedCourseCount: 9,
+  completedResearchCount: 1,
+  completedExtracurricularCount: 3,
+  riskTolerance: "medium",
 };
 
 const people = {
@@ -440,4 +453,13 @@ export const availableCompanies = mockGraph.nodes
 export const availableClubs = mockGraph.nodes
   .filter((node) => node.type === "club")
   .map((node) => ({ id: node.id, label: node.label }))
+  .sort((a, b) => a.label.localeCompare(b.label));
+
+export const availableActivityNodes: Array<{ id: string; label: string; type: "club" | "subprogram" }> = mockGraph.nodes
+  .filter((node) => node.type === "club" || node.type === "subprogram")
+  .map<{ id: string; label: string; type: "club" | "subprogram" }>((node) => ({
+    id: node.id,
+    label: node.label,
+    type: node.type === "club" ? "club" : "subprogram",
+  }))
   .sort((a, b) => a.label.localeCompare(b.label));

@@ -5,10 +5,12 @@ import {
   GraphNodeData,
   PathCandidate,
   PathSet,
+  RiskTolerance,
+  StudentProfile,
 } from "../types";
 
 const MAX_PATH_DEPTH = 8;
-const HOP_PENALTY = 0.65;
+const BASE_HOP_PENALTY = 0.65;
 
 interface TraversableGraph {
   nodeMap: Map<string, GraphNodeData>;
@@ -23,8 +25,92 @@ interface PathBuildResult {
   traversableEdgeIds: Set<string>;
 }
 
+interface ScoringContext {
+  completedNodeIds: Set<string>;
+  semestersRemaining: number;
+  completedCourseCount: number;
+  completedResearchCount: number;
+  completedExtracurricularCount: number;
+  riskTolerance: RiskTolerance;
+}
+
+const defaultScoringContext: ScoringContext = {
+  completedNodeIds: new Set<string>(),
+  semestersRemaining: 4,
+  completedCourseCount: 0,
+  completedResearchCount: 0,
+  completedExtracurricularCount: 0,
+  riskTolerance: "medium",
+};
+
+function clamp(value: number, min: number, max: number) {
+  return Math.max(min, Math.min(max, value));
+}
+
 function hasTagOverlap(node: GraphNodeData, tags: string[]) {
   return tags.some((tag) => node.tags.includes(tag));
+}
+
+function riskMultiplier(riskTolerance: RiskTolerance) {
+  if (riskTolerance === "low") {
+    return 1.2;
+  }
+
+  if (riskTolerance === "high") {
+    return 0.82;
+  }
+
+  return 1;
+}
+
+function buildScoringContext(profile?: StudentProfile): ScoringContext {
+  if (!profile) {
+    return defaultScoringContext;
+  }
+
+  return {
+    completedNodeIds: new Set(profile.completedNodeIds),
+    semestersRemaining: profile.semestersRemaining,
+    completedCourseCount: profile.completedCourseCount,
+    completedResearchCount: profile.completedResearchCount,
+    completedExtracurricularCount: profile.completedExtracurricularCount,
+    riskTolerance: profile.riskTolerance,
+  };
+}
+
+function dynamicHopPenalty(context: ScoringContext) {
+  const timelineFactor = context.semestersRemaining <= 2 ? 1.3 : context.semestersRemaining <= 4 ? 1.1 : 1;
+
+  return BASE_HOP_PENALTY * riskMultiplier(context.riskTolerance) * timelineFactor;
+}
+
+function progressSignal(context: ScoringContext) {
+  const weighted =
+    context.completedCourseCount * 0.55 +
+    context.completedResearchCount * 1.2 +
+    context.completedExtracurricularCount * 0.75;
+
+  return clamp(weighted / 12, 0, 1);
+}
+
+export function getEdgeBaseConfidence(edge: GraphEdgeData) {
+  if (typeof edge.confidence === "number") {
+    return clamp(edge.confidence, 0.35, 0.95);
+  }
+
+  if (edge.edgeKind === "club_to_company") {
+    return clamp(0.52 + edge.weight * 0.09, 0.45, 0.92);
+  }
+
+  if (edge.edgeKind === "cross_club") {
+    return clamp(0.46 + edge.weight * 0.07, 0.4, 0.78);
+  }
+
+  if (edge.edgeKind === "club_to_subprogram") {
+    return clamp(0.6 + edge.weight * 0.06, 0.5, 0.88);
+  }
+
+  return clamp(0.62 + edge.weight * 0.05, 0.5, 0.9);
 }
 
 function isNodeFilteredOut(node: GraphNodeData, filters: FilterState, nodeMap: Map<string, GraphNodeData>) {
@@ -158,12 +244,43 @@ function enumerateSimplePaths({
   return results;
 }
 
-function scorePaths(rawPaths: Array<{ nodeIds: string[]; edgeIds: string[] }>, edgeMap: Map<string, GraphEdgeData>): PathCandidate[] {
+function pathConfidence(
+  path: { nodeIds: string[]; edgeIds: string[] },
+  edgeMap: Map<string, GraphEdgeData>,
+  extraHops: number,
+  context: ScoringContext,
+) {
+  const validEdges = path.edgeIds
+    .map((edgeId) => edgeMap.get(edgeId))
+    .filter((edge): edge is GraphEdgeData => Boolean(edge));
+
+  const avgEdgeConfidence =
+    validEdges.length > 0
+      ? validEdges.reduce((sum, edge) => sum + getEdgeBaseConfidence(edge), 0) / validEdges.length
+      : 0.5;
+
+  const innerNodeCount = Math.max(path.nodeIds.length - 2, 1);
+  const completedInnerNodes = path.nodeIds.filter((nodeId) => context.completedNodeIds.has(nodeId)).length;
+  const completionRatio = completedInnerNodes / innerNodeCount;
+
+  const timelinePenalty = extraHops * (context.semestersRemaining <= 2 ? 0.07 : 0.04);
+  const progressBoost = progressSignal(context) * 0.1 + completionRatio * 0.12;
+  const riskNudge = context.riskTolerance === "high" ? 0.02 : context.riskTolerance === "low" ? -0.02 : 0;
+
+  return clamp(avgEdgeConfidence + progressBoost + riskNudge - timelinePenalty, 0.35, 0.97);
+}
+
+function scorePaths(
+  rawPaths: Array<{ nodeIds: string[]; edgeIds: string[] }>,
+  edgeMap: Map<string, GraphEdgeData>,
+  context: ScoringContext,
+): PathCandidate[] {
   if (rawPaths.length === 0) {
     return [];
   }
 
   const baselineEdgeCount = Math.min(...rawPaths.map((path) => path.edgeIds.length));
+  const hopPenalty = dynamicHopPenalty(context);
 
   return rawPaths
     .map((path, index) => {
@@ -180,7 +297,27 @@ function scorePaths(rawPaths: Array<{ nodeIds: string[]; edgeIds: string[] }>, e
       const alumniWeight = careerEdges.reduce((sum, edge) => sum + edge.weight, 0);
       const effectiveAlumniWeight = alumniWeight > 0 ? alumniWeight : 1;
       const extraHops = Math.max(path.edgeIds.length - baselineEdgeCount, 0);
-      const score = effectiveAlumniWeight / (1 + HOP_PENALTY * extraHops);
+
+      const confidence = pathConfidence(path, edgeMap, extraHops, context);
+      const completionHits = path.nodeIds.filter((nodeId) => context.completedNodeIds.has(nodeId)).length;
+      const completionBoost = 1 + completionHits * 0.08;
+
+      const score =
+        (effectiveAlumniWeight * confidence * completionBoost) /
+        (1 + hopPenalty * extraHops);
+
+      const rationale: string[] = [
+        `Confidence ${Math.round(confidence * 100)}%`,
+        `${effectiveAlumniWeight} alumni-weighted outcomes`,
+      ];
+
+      if (completionHits > 0) {
+        rationale.push(`${completionHits} completed activities align with this route`);
+      }
+
+      if (extraHops > 0) {
+        rationale.push(`${extraHops} additional hops reduce certainty`);
+      }
 
       return {
         id: `path-${index + 1}`,
@@ -189,6 +326,8 @@ function scorePaths(rawPaths: Array<{ nodeIds: string[]; edgeIds: string[] }>, e
         alumniWeight: effectiveAlumniWeight,
         extraHops,
         score,
+        confidence,
+        rationale,
       };
     })
     .sort((a, b) => {
@@ -200,7 +339,11 @@ function scorePaths(rawPaths: Array<{ nodeIds: string[]; edgeIds: string[] }>, e
     });
 }
 
-export function buildPathSet(graph: GraphDataset, filters: FilterState): PathBuildResult {
+export function buildPathSet(
+  graph: GraphDataset,
+  filters: FilterState,
+  profile?: StudentProfile,
+): PathBuildResult {
   if (!filters.targetCompany) {
     return {
       pathSet: {
@@ -215,6 +358,7 @@ export function buildPathSet(graph: GraphDataset, filters: FilterState): PathBui
   }
 
   const traversable = buildTraversableGraph(graph, filters);
+  const context = buildScoringContext(profile);
 
   const traversableNodeIds = new Set<string>(traversable.traversableNodeIds);
   const traversableEdgeIds = new Set<string>();
@@ -251,7 +395,7 @@ export function buildPathSet(graph: GraphDataset, filters: FilterState): PathBui
     adjacency: traversable.adjacency,
   });
 
-  const candidates = scorePaths(rawPaths, traversable.edgeMap);
+  const candidates = scorePaths(rawPaths, traversable.edgeMap, context);
 
   if (candidates.length === 0) {
     return {
